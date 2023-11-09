@@ -6,15 +6,7 @@ namespace CleanAppFilesGenerator
 {
     public class GenerateCQRSQueryClass
     {
-        public static string GenerateGetAllQuery(Type type, string thenamespace)
-        {
-           return "NOT YET";
-        }
 
-        public static string GenerateGetQuey(Type type, string thenamespace)
-        {
-           return "NOT YET";
-        }
 
         public static string GenerateCQRSQuey(Type type, string name_space, Func<string, string, string> produceheader)
         {
@@ -27,19 +19,17 @@ namespace CleanAppFilesGenerator
         public static string ProduceGetQueryHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
-                $"\"using {name_space}.Application.Contracts.ResponsetDTO;\n" +
-                $"using  {name_space}.Domain.Errors;\n" +
+                $"using {name_space}.Application.Contracts.ResponseDTO;\n" +        
                $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-               $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record Get{entityName}Query(ApplicationRequest{entityName}DTO : Request{entityName}DTO) :  IRequest<Either<GeneralFailures, ApplicationRequest{entityName}DTO>>;");
+               $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record Get{entityName}Query(ApplicationRequest{entityName}DTO : Request{entityName}DTO) :  IRequest<Either<GeneralFailures, ApplicationResponse{entityName}DTO>>;");
 
         }
         public static string ProduceGetAllQueryHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
-              $"\"using {name_space}.Application.Contracts.ResponsetDTO;\n" +
-              $"using  {name_space}.Domain.Errors;\n" +
+              $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
              $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-             $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record GetAll{entityName}Query(ApplicationRequest{entityName}DTO : Request{entityName}DTO) :  IRequest<Either<GeneralFailures, IEnumerable<ApplicationRequest{entityName}DTO>>>;");
+             $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record GetAll{entityName}Query(ApplicationRequest{entityName}DTO : Request{entityName}DTO) :  IRequest<Either<GeneralFailures, IEnumerable<ApplicationResponse{entityName}DTO>>>;");
 
 
         }
