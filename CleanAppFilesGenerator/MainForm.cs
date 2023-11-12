@@ -19,7 +19,8 @@ namespace CleanAppFilesGenerator
             InitializeComponent();
         }
 
-        //int nooftimes = 0;
+        int NoOfTimes = 0;
+        int MaxNoOfItems = 0;
         //int nooftimesb = 0;
         //int nooftimesc = 0;
         //int nooftimesbackp = 0;
@@ -27,7 +28,8 @@ namespace CleanAppFilesGenerator
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //nooftimes = 0;
+            NoOfTimes = 0;
+            MaxNoOfItems = listBox1.Items.Count;
             //nooftimesb = 0;
             //nooftimesc = 0;
             //nooftimesbackp = 0;
@@ -35,6 +37,7 @@ namespace CleanAppFilesGenerator
             for (int i = 0; i < listBox1.Items.Count; i++)
             {
                 listBox1.SelectedIndex = i;
+                NoOfTimes = i;
             }
         }
 
@@ -139,7 +142,7 @@ namespace CleanAppFilesGenerator
             {
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Entities");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Interfaces");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "InfrastructureModels");
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "InfrastructureRepository");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationRequestDTO");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationResponseDTO");
@@ -230,12 +233,17 @@ namespace CleanAppFilesGenerator
                 richTextBox1.Text = GenerateEntityClass.GenerateEntity(type , thenamespace);
                 richTextBox1.SaveFile(FolderLocation.Text + "\\Entities\\" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
 
+
+                richTextBox2.Text = GenerateInterfaceClass.GenerateIGenericRepository( thenamespace);
+                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\" + "IGenericRepository.cs", RichTextBoxStreamType.PlainText);
+
+
                 richTextBox2.Text = GenerateInterfaceClass.GenerateInterface(type, thenamespace);
                 richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\" +"I"+ type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
 
 
-                richTextBox3.Text = GenerateInfrastructureClass.GenerateInfrastructureModel(type, thenamespace);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureModels\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
+                richTextBox3.Text = GenerateInfrastructureClass.GenerateRepositories(type, thenamespace);
+                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureRepository\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
 
 
 
@@ -281,8 +289,30 @@ namespace CleanAppFilesGenerator
 
                 richTextBox4.Text = GeneratResponseDTOClass.GenerateResponse(type, thenamespace);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" +  "ApplicationResponse" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
+
+
+                if (listBox1.SelectedIndex == 0)
+                {//IUNITOFWORK
+                    richTextBox7.Text = GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex);
+                    //richTextBox7.AppendText("using Microsoft.AspNetCore.Identity.EntityFrameworkCore;\n" +
+                }
+                else 
+                {
+                    richTextBox7.AppendText ( GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex));
+                }
+                if (listBox1.SelectedIndex == MaxNoOfItems-1)
+                {
+                    //    }
+                    // }-1
+                    richTextBox7.AppendText(GeneralClass.newlinepad(4)+"}");
+                    richTextBox7.AppendText(GeneralClass.newlinepad(0) + "}");
+                    richTextBox7.SaveFile(FolderLocation.Text + "\\Interfaces\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);
+                }
             }
+            
         }
+
+        
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {

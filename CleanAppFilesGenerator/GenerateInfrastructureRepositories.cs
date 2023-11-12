@@ -12,7 +12,7 @@ namespace CleanAppFilesGenerator
     {
 
 
-        public static string GenerateInfrastructureModel(Type type, string name_space)
+        public static string GenerateRepositories(Type type, string name_space)
         {
            
             var entityName = type.Name;
@@ -23,15 +23,15 @@ namespace CleanAppFilesGenerator
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
         }
-
+        
         public static string GenerateInfrastructureHeader(string name_space, string entityName)
         {
-            return ($"using {name_space}.Domain.Interfaces;\nnamespace {name_space}.Infrastructure.Persistence.Repositories" +
+            return ($"using {name_space}.Domain.Interfaces;\nusing ProductionManager.Domain.Entities;\nnamespace {name_space}.Infrastructure.Persistence.Repositories\n" +
                 $"\n{{{GeneralClass.newlinepad(4)}public  class  {entityName}Repository:GenericRepository<{entityName}>, I{entityName}Repository{GeneralClass.newlinepad(4)}{{" +
-                $"{GeneralClass.newlinepad(8)}public  class  {entityName}Repository( {name_space}Context ctx): base(ctx){GeneralClass.newlinepad(8)}{{}}");
+                $"{GeneralClass.newlinepad(8)}public   {entityName}Repository( {name_space}Context ctx): base(ctx){GeneralClass.newlinepad(8)}{{}}");
         }
 
-
+        //
         //public static string ProduceEntityProperties(Type type)
         //{
 

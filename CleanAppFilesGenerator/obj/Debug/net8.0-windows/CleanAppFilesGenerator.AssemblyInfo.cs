@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CleanAppFilesGenerator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+745f1183b219262ee006509d8d85ad369d3d4e25")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78e5798f8d291afd7947e4c8353673762870a8c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("CleanAppFilesGenerator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CleanAppFilesGenerator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

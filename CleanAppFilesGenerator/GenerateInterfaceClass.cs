@@ -26,7 +26,7 @@ namespace CleanAppFilesGenerator
 
         public static string ProduceInterfaceHeader(string name_space, string entityName)
         {
-            return ($"using {name_space}.Domain.BaseModels.Entities;\nnamespace {name_space}.Domain.Interfaces\n{{{GeneralClass.newlinepad(4)}public  interface I{entityName}Repository:IGenericRepository< {entityName}>{GeneralClass.newlinepad(4)}{{");
+            return ($"using {name_space}.Domain.Entities;\nnamespace {name_space}.Domain.Interfaces\n{{{GeneralClass.newlinepad(4)}public  interface I{entityName}Repository:IGenericRepository< {entityName}>{GeneralClass.newlinepad(4)}{{");
         }
 
 
@@ -54,17 +54,24 @@ namespace CleanAppFilesGenerator
         //    return sb.ToString();
         //}
 
-        public static string GenerateIgenericRepository(string name_space)
+        public static string GenerateIGenericRepository(string name_space )
         {
-            //string baseEntity = "";
-            //var entityName = "BaseEntity";
-            //var Output = new StringBuilder();
-            //Output.Append(ProduceInterfaceHeader(name_space, entityName));
-            //Output.Append(GeneralClass.newlinepad(12) + "public Guid GuidId { get; set; } = default;");
-            //Output.Append(GeneralClass.newlinepad(8) + GeneralClass.ProduceClosingBrace());
-            //Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
-            //return Output.ToString();
-            return "NOT YET WRITTEN";
+            return ($"using LanguageExt;\n" +
+                    $"using {name_space}.Domain.DomainBase.Base;\n" +
+                          $"using {name_space}.Domain.Errors;\n" +
+                          $"namespace {name_space}.Domain.Interfaces\n{{\n" +
+                          $"{GeneralClass.newlinepad(4)}public interface IGenericRepository<T> where T : BaseEntity\n" +
+                          $"{GeneralClass.newlinepad(4)}{{" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, int>> AddAsync(T entity, CancellationToken cancellationToken);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, int>> UpdateAsync(T entity, CancellationToken cancellationToken);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, int>> DeleteAsync(T entity, CancellationToken cancellationToken);" +
+                          $"{GeneralClass.newlinepad(8)} Task<Either<GeneralFailures, Task<IReadOnlyList<T>>>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression= null,List<string> includes = null,Func<IQueryable<T>,IOrderedQueryable<T>> orderBy= null,CancellationToken cancellationToken =default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression,List<string> includes= null , CancellationToken cancellationToken= default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken=default);" +
+                          $"{GeneralClass.newlinepad(4)}}}" +
+                          $"\n}}") ;
+
+
         }
 
         //internal static string GenerateInterfaces(Type type, string thenamespace)
