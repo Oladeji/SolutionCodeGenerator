@@ -4,16 +4,16 @@
     "frameworks": [
       {
         "name": "Microsoft.NETCore.App",
-        "version": "8.0.0-rc.2.23479.6"
+        "version": "8.0.0-rc.1.23419.4"
       },
       {
         "name": "Microsoft.WindowsDesktop.App",
-        "version": "8.0.0-rc.2.23479.10"
+        "version": "8.0.0-rc.1.23420.5"
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\Akoms\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Akoms\\.nuget\\packages"
+      "C:\\Users\\sweng\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\sweng\\.nuget\\packages"
     ],
     "configProperties": {
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,

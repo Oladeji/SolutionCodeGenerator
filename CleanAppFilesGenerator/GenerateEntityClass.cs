@@ -24,6 +24,8 @@ namespace CleanAppFilesGenerator
 
         public static string ProduceEntityHeader(string name_space, string entityName, string baseEntity = " : BaseEntity")
         {
+            //return ($"namespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public  class {entityName} {baseEntity}{GeneralClass.newlinepad(8)}{{");
+
             return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public  class {entityName} {baseEntity}{GeneralClass.newlinepad(8)}{{");
             //return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.BaseModels.Entities\n{{{GeneralClass.newlinepad(4)}public  class {entityName} {baseEntity}{GeneralClass.newlinepad(8)}{{");
 
