@@ -14,11 +14,11 @@ namespace CleanAppFilesGenerator
 
         public static string GenerateInterface(Type type, string name_space)
         {
-           
+
             var entityName = type.Name;
             var Output = new StringBuilder();
             Output.Append(ProduceInterfaceHeader(name_space, entityName));
-         
+
             Output.Append(GeneralClass.newlinepad(4) + GeneralClass.ProduceClosingBrace());
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
@@ -54,10 +54,10 @@ namespace CleanAppFilesGenerator
         //    return sb.ToString();
         //}
 
-        public static string GenerateIGenericRepository(string name_space )
+        public static string GenerateIGenericRepository(string name_space)
         {
             return ($"using LanguageExt;\n" +
-                    $"using {name_space}.Domain.DomainBase.Base;\n" +
+                    $"using {name_space}.DomainBase.Base;\n" +
                           $"using {name_space}.Domain.Errors;\n" +
                           $"namespace {name_space}.Domain.Interfaces\n{{\n" +
                           $"{GeneralClass.newlinepad(4)}public interface IGenericRepository<T> where T : BaseEntity\n" +
@@ -69,7 +69,7 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression,List<string> includes= null , CancellationToken cancellationToken= default);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken=default);" +
                           $"{GeneralClass.newlinepad(4)}}}" +
-                          $"\n}}") ;
+                          $"\n}}");
 
 
         }

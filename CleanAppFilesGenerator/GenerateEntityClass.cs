@@ -26,12 +26,12 @@ namespace CleanAppFilesGenerator
         {
 
 
-            if (type.BaseType.Name != "Object")
-            {
-                baseEntity = $" : {type.BaseType.Name}";
-            }
+            //if (type.BaseType.Name != "Object")
+            //{
+            //    baseEntity = $" : {type.BaseType.Name}";
+            //}
 
-            return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public  class {type.Name} {baseEntity}{GeneralClass.newlinepad(8)}{{");
+            return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public partial class {type.Name} {baseEntity}{GeneralClass.newlinepad(8)}{{");
             //return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.BaseModels.Entities\n{{{GeneralClass.newlinepad(4)}public  class {entityName} {baseEntity}{GeneralClass.newlinepad(8)}{{");
 
         }

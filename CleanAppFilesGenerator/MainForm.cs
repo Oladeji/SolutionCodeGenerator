@@ -140,7 +140,7 @@ namespace CleanAppFilesGenerator
             string thenamespace = Library_Name_Space.Text;
             if (listBox1.SelectedItem != null)
             {
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Entities");
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "PartialEntities");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Interfaces");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "InfrastructureRepository");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
@@ -231,7 +231,7 @@ namespace CleanAppFilesGenerator
                 // richTextBox1.Text = GenerateEntityClass.GenerateBaseEntity(type, thenamespace);
                 //richTextBox1.SaveFile(FolderLocation.Text + "\\Entities\\" + "BaseEntity.cs", RichTextBoxStreamType.PlainText);
                 richTextBox1.Text = GenerateEntityClass.GenerateEntity(type, thenamespace);
-                richTextBox1.SaveFile(FolderLocation.Text + "\\Entities\\" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
+                richTextBox1.SaveFile(FolderLocation.Text + "\\PartialEntities\\" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
 
 
                 richTextBox2.Text = GenerateInterfaceClass.GenerateIGenericRepository(thenamespace);
