@@ -47,10 +47,10 @@ namespace CleanAppFilesGenerator
                 var x = Nullable.GetUnderlyingType(prop.PropertyType);
                 var propertytype = x == null ? prop.PropertyType.Name : x.Name;
 
-                if (propertytype.Contains("ICollection`1"))
+                if (propertytype.Contains("ICollection`1") || (propertytype.Contains("IList`1")))
                 {
                     var xx = prop.PropertyType.GenericTypeArguments[0];
-                    sb.Append(GeneralClass.PreparePropertyAsCollection(xx.Name, prop.Name));
+                    sb.Append(GeneralClass.PreparePropertyAsCollectionOrList(xx.Name, prop.Name, propertytype));
 
                 }
                 else

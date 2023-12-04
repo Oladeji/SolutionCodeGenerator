@@ -12,30 +12,32 @@ namespace CleanAppFilesGenerator
 
         public static string newlinepad(int space)
         {
-           return "\n"+"".PadRight(space);
+            return "\n" + "".PadRight(space);
         }
 
-        public static string PreparePropertyAsCollection(string propertytype, string name)
+        public static string PreparePropertyAsCollectionOrList(string propertytype, string name, string propertytypename)
         {
-            //public ICollection<Model> Models { get; set; }
-            //string sb = $"public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)} \n";
-           
-            var  sb = $"{GeneralClass.newlinepad(12)}public ICollection<{propertytype}> {name} {{ get; set;}}";
+
+            //var type = propertytypename.Contains("ICollection`1") ? "ICollection" : "IList";
+            // force everything to be a list so that  i can return it as ASReadOnly but put space as the ist for collection
+            var type = propertytypename.Contains("ICollection`1") ? " IList " : "IList";
+            var sb = $"{GeneralClass.newlinepad(12)}private {type}<{propertytype}> _{name} {{ get;  set;}}  = new List<{propertytype}>();" +
+                $"{GeneralClass.newlinepad(12)}public  IEnumerable<{propertytype}> {name} => _{name}.AsReadOnly();";
             return sb;
         }
 
 
 
-        public static string PrepareProperty(string propType,string propName)
+        public static string PrepareProperty(string propType, string propName)
         {
             //string sb = "public  " + prop.PropertyType.Name + prop.Name + "{ get; init; } " + getDatatypeInitialiser(prop);
-            return  $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";          
+            return $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";
         }
 
 
         private static string getProperDefaultInit(string type)
         {
-           
+
             var result = type switch
             {
                 "VarChar" => "{ get; init; }  = string.Empty;",
@@ -54,21 +56,21 @@ namespace CleanAppFilesGenerator
                 //"DateTime2" => "Datetime",
                 //"DateTimeOffset" => "Datetime",
 
-            //"Decimal" => "decimal",
-            //"Double" => "Double",
-            //"Guid" => "Guid",
-            //"Int" => "int",
-            //"Int16" => "int",
-            //"Int32" => "int",
-            //"Int64" => "int",
-            //"Object" => "Object",
+                //"Decimal" => "decimal",
+                //"Double" => "Double",
+                //"Guid" => "Guid",
+                //"Int" => "int",
+                //"Int16" => "int",
+                //"Int32" => "int",
+                //"Int64" => "int",
+                //"Object" => "Object",
 
-            //"SByte" => "SByte",
-            //"Single" => "Single",
+                //"SByte" => "SByte",
+                //"Single" => "Single",
 
-            //"VarNumeric" => "VarNumeric",
+                //"VarNumeric" => "VarNumeric",
 
-            //"Xml" => "Xml",
+                //"Xml" => "Xml",
                 _ => "{ get; init; } ",
             };
             return result;
@@ -76,7 +78,7 @@ namespace CleanAppFilesGenerator
 
         private static string getProperDefaultDataType(string type)
         {
-            
+
             var result = type switch
             {
                 "VarChar" => "string",
@@ -112,7 +114,7 @@ namespace CleanAppFilesGenerator
                 _ => type
             };
             return result;
-            }
+        }
 
         //private static string getDatatypeInitialiser(PropertyInfo prop)
         //{
