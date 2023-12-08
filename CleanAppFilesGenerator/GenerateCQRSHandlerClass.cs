@@ -67,7 +67,7 @@ namespace CleanAppFilesGenerator
                           $"using LanguageExt;\nusing MediatR;\n" +
                           $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                           $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
-                          $"{GeneralClass.newlinepad(4)}public  class Create{entityName}CommandHandler  :  IRequestHandler<Create{entityName}Command, Either<GeneralFailures, int>>" +
+                          $"{GeneralClass.newlinepad(4)}public  class Create{entityName}CommandHandler  :  IRequestHandler<Create{entityName}Command, Either<GeneralFailure, int>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
 
                           // constructor
@@ -81,7 +81,7 @@ namespace CleanAppFilesGenerator
                           $"\n" +
 
                           //handler
-                          $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailures, int>> Handle(Create{entityName}Command request, CancellationToken cancellationToken)" +
+                          $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> Handle(Create{entityName}Command request, CancellationToken cancellationToken)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
                           $"{GeneralClass.newlinepad(8)}}}" );
@@ -95,7 +95,7 @@ namespace CleanAppFilesGenerator
                               $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
                           $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
-                          $"{GeneralClass.newlinepad(4)}public  class Delete{entityName}CommandHandler  :  IRequestHandler<Delete{entityName}Command, Either<GeneralFailures, int>>" +
+                          $"{GeneralClass.newlinepad(4)}public  class Delete{entityName}CommandHandler  :  IRequestHandler<Delete{entityName}Command, Either<GeneralFailure, int>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
 
                           // constructor
@@ -109,7 +109,7 @@ namespace CleanAppFilesGenerator
                           $"\n" +
 
                           //handler
-                          $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailures, int>> Handle(Delete{entityName}Command request, CancellationToken cancellationToken)" +
+                          $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> Handle(Delete{entityName}Command request, CancellationToken cancellationToken)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
                           $"{GeneralClass.newlinepad(8)}}}");
@@ -127,7 +127,7 @@ namespace CleanAppFilesGenerator
                  $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
-               $"{GeneralClass.newlinepad(4)}public  class GetAll{entityName}QueryHandler  :  IRequestHandler<GetAll{entityName}Query, Either<GeneralFailures, IEnumerable<Application{entityName}ResponseDTO>>>" +
+               $"{GeneralClass.newlinepad(4)}public  class GetAll{entityName}QueryHandler  :  IRequestHandler<GetAll{entityName}Query, Either<GeneralFailure, IEnumerable<Application{entityName}ResponseDTO>>>" +
                $"{GeneralClass.newlinepad(4)}{{" +
 
                // constructor
@@ -141,7 +141,7 @@ namespace CleanAppFilesGenerator
                $"\n" +
 
                //handler
-               $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailures, IEnumerable<Application{entityName}ResponseDTO>>> Handle(GetAll{entityName}Query request, CancellationToken cancellationToken)" +
+               $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, IEnumerable<Application{entityName}ResponseDTO>>> Handle(GetAll{entityName}Query request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
                $"{GeneralClass.newlinepad(8)}}}");
@@ -155,7 +155,7 @@ namespace CleanAppFilesGenerator
                  $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
-               $"{GeneralClass.newlinepad(4)}public  class Get{entityName}QueryHandler  :  IRequestHandler<Get{entityName}Query, Either<GeneralFailures, Application{entityName}ResponseDTO>>" +
+               $"{GeneralClass.newlinepad(4)}public  class Get{entityName}QueryHandler  :  IRequestHandler<Get{entityName}Query, Either<GeneralFailure, Application{entityName}ResponseDTO>>" +
                $"{GeneralClass.newlinepad(4)}{{" +
 
                // constructor
@@ -169,7 +169,7 @@ namespace CleanAppFilesGenerator
                $"\n" +
 
                //handler
-               $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailures, Application{entityName}ResponseDTO>> Handle(Get{entityName}Query request, CancellationToken cancellationToken)" +
+               $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, Application{entityName}ResponseDTO>> Handle(Get{entityName}Query request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
                $"{GeneralClass.newlinepad(8)}}}");
@@ -184,7 +184,7 @@ namespace CleanAppFilesGenerator
                               $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                               $"using LanguageExt;\nusing MediatR;\n" +
                               $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
-                              $"{GeneralClass.newlinepad(4)}public  class Update{entityName}CommandHandler  :  IRequestHandler<Update{entityName}Command, Either<GeneralFailures, int>>" +
+                              $"{GeneralClass.newlinepad(4)}public  class Update{entityName}CommandHandler  :  IRequestHandler<Update{entityName}Command, Either<GeneralFailure, int>>" +
                               $"{GeneralClass.newlinepad(4)}{{" +
 
                               // constructor
@@ -198,7 +198,7 @@ namespace CleanAppFilesGenerator
                               $"\n" +
 
                               //handler
-                              $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailures, int>> Handle(Update{entityName}Command request, CancellationToken cancellationToken)" +
+                              $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> Handle(Update{entityName}Command request, CancellationToken cancellationToken)" +
                               $"{GeneralClass.newlinepad(8)}{{" +
                               $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
                               $"{GeneralClass.newlinepad(8)}}}");

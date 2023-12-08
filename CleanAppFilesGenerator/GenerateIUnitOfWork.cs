@@ -14,7 +14,7 @@ namespace CleanAppFilesGenerator
                 $"namespace {name_space}.Domain.Interfaces\n{{" +
                 $"{GeneralClass.newlinepad(4)}public interface IUnitOfWork : IDisposable" +
                 $"{GeneralClass.newlinepad(4)}{{" +
-                $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailures, int>> CommitAllChanges(CancellationToken cancellationToken);" +
+                $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> CommitAllChanges(CancellationToken cancellationToken);" +
                 $"{GeneralClass.newlinepad(8)}I{type.Name}Repository {type.Name}Repository {{ get; }}");
 
             }

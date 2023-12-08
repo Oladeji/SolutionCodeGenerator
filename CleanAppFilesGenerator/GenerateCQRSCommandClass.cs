@@ -29,7 +29,7 @@ namespace CleanAppFilesGenerator
         //    return Output.ToString();
         //}
 
-        public static string GenerateCQRSCommand(Type type, string name_space,Func<string,string,string> produceheader)
+        public static string GenerateCQRSCommand(Type type, string name_space, Func<string, string, string> produceheader)
         {
             var Output = new StringBuilder();
             Output.Append(produceheader(name_space, type.Name));
@@ -40,7 +40,7 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
                    $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-                   $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Create{entityName}Command(ApplicationCreate{entityName}DTO  Create{entityName}DTO) :  IRequest<Either<GeneralFailures, int>>;");
+                   $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Create{entityName}Command(ApplicationCreate{entityName}DTO  Create{entityName}DTO) :  IRequest<Either<GeneralFailure, int>>;");
 
         }
 
@@ -49,7 +49,7 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
          $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-         $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Delete{entityName}Command(ApplicationDelete{entityName}DTO  Delete{entityName}DTO) :  IRequest<Either<GeneralFailures, int>>;");
+         $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Delete{entityName}Command(ApplicationDelete{entityName}DTO  Delete{entityName}DTO) :  IRequest<Either<GeneralFailure, int>>;");
 
         }
 
@@ -59,7 +59,7 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
              $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-             $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Update{entityName}Command(ApplicationUpdate{entityName}DTO  Update{entityName}DTO) :  IRequest<Either<GeneralFailures, int>>;");
+             $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Update{entityName}Command(ApplicationUpdate{entityName}DTO  Update{entityName}DTO) :  IRequest<Either<GeneralFailure, int>>;");
 
         }
     }

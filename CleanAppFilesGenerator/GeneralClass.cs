@@ -20,9 +20,9 @@ namespace CleanAppFilesGenerator
 
             //var type = propertytypename.Contains("ICollection`1") ? "ICollection" : "IList";
             // force everything to be a list so that  i can return it as ASReadOnly but put space as the ist for collection
-            var type = propertytypename.Contains("ICollection`1") ? " IList " : "IList";
+            var type = propertytypename.Contains("ICollection`1") ? " List " : "List";
             var sb = $"{GeneralClass.newlinepad(12)}private {type}<{propertytype}> _{name} {{ get;  set;}}  = new List<{propertytype}>();" +
-                $"{GeneralClass.newlinepad(12)}public  IEnumerable<{propertytype}> {name} => _{name}.AsReadOnly();";
+                $"{GeneralClass.newlinepad(12)}public  IReadOnlyCollection<{propertytype}> {name} => _{name};";
             return sb;
         }
 
