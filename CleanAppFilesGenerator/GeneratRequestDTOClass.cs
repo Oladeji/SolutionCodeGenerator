@@ -13,13 +13,15 @@ namespace CleanAppFilesGenerator
             return Output.ToString();
         }
 
-        private static string  GenerateRequestHeader(string name_space, string entityName)
+        private static string GenerateRequestHeader(string name_space, string entityName)
         {
             return ($"namespace {name_space}.Application.Contracts.RequestDTO\n{{" +
                 $"{GeneralClass.newlinepad(4)}public  record ApplicationRequest{entityName}DTO();" +
+                 $"{GeneralClass.newlinepad(4)}public  record ApplicationRequest{entityName}ByGuidDTO(Guid {entityName}Guid);" +
+                  $"{GeneralClass.newlinepad(4)}public  record ApplicationRequest{entityName}ByIdDTO(string {entityName}Id);" +
                 $"{GeneralClass.newlinepad(4)}public  record ApplicationCreate{entityName}DTO();" +
-                $"{GeneralClass.newlinepad(4)}public  record ApplicationUpdate{entityName}DTO();" +
-                $"{GeneralClass.newlinepad(4)}public  record ApplicationDelete{entityName}DTO();" +
+                $"{GeneralClass.newlinepad(4)}public  record ApplicationUpdate{entityName}DTO(Guid {entityName}Guid);" +
+                $"{GeneralClass.newlinepad(4)}public  record ApplicationDelete{entityName}DTO(Guid {entityName}Guid);" +
                 $"");
 
         }

@@ -147,6 +147,7 @@ namespace CleanAppFilesGenerator
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationRequestDTO");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationResponseDTO");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Controllers");
                 //HelperClass.EnsureFolderIsCreated(FolderLocation.Text+ "\\ApplicationCQRS", "ApplicationCQRS");
 
 
@@ -291,10 +292,15 @@ namespace CleanAppFilesGenerator
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" + "ApplicationResponse" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
 
 
+                richTextBox8.Text = GenerateControllers.Generate(type, thenamespace, comboBox1.Text);
+                richTextBox8.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
+
+
+
                 if (listBox1.SelectedIndex == 0)
                 {//IUNITOFWORK
                     richTextBox7.Text = GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex);
-                    //richTextBox7.AppendText("using Microsoft.AspNetCore.Identity.EntityFrameworkCore;\n" +
+
                 }
                 else
                 {
@@ -302,8 +308,7 @@ namespace CleanAppFilesGenerator
                 }
                 if (listBox1.SelectedIndex == MaxNoOfItems - 1)
                 {
-                    //    }
-                    // }-1
+
                     richTextBox7.AppendText(GeneralClass.newlinepad(4) + "}");
                     richTextBox7.AppendText(GeneralClass.newlinepad(0) + "}");
                     richTextBox7.SaveFile(FolderLocation.Text + "\\Interfaces\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);

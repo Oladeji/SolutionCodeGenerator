@@ -13,7 +13,7 @@ namespace CleanAppFilesGenerator
         public static string GenerateEntity(Type type, string name_space)
         {
             string baseEntity = " : BaseEntity";
-            var entityName = type.Name;
+            // var entityName = type.Name;
             var Output = new StringBuilder();
             Output.Append(ProduceEntityHeader(name_space, type, baseEntity));
             Output.Append(ProduceEntityProperties(type));

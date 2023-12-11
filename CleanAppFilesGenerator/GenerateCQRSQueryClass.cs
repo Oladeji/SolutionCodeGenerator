@@ -19,11 +19,34 @@ namespace CleanAppFilesGenerator
         public static string ProduceGetQueryHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
-                $"using {name_space}.Application.Contracts.ResponseDTO;\n" +        
+                $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
                $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
                $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record Get{entityName}Query(ApplicationRequest{entityName}DTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, ApplicationResponse{entityName}DTO>>;");
 
         }
+
+
+        public static string ProduceGetQueryByGuidHeader(string name_space, string entityName)
+        {
+            return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
+                $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
+               $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
+               $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record Get{entityName}ByGuidQuery(ApplicationRequest{entityName}ByGuidIdDTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, ApplicationResponse{entityName}DTO>>;");
+
+        }
+
+        public static string ProduceGetQueryByIdHeader(string name_space, string entityName)
+        {
+            return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
+                $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
+               $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
+               $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record Get{entityName}ByIdQuery(ApplicationRequest{entityName}ByIdDTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, ApplicationResponse{entityName}DTO>>;");
+
+        }
+
+
+
+
         public static string ProduceGetAllQueryHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
@@ -34,5 +57,8 @@ namespace CleanAppFilesGenerator
 
 
         }
+
+
+
     }
 }
