@@ -73,25 +73,6 @@ namespace CleanAppFilesGenerator
 
 
         }
-
-        //internal static string GenerateInterfaces(Type type, string thenamespace)
-        //{
-        //   return "NOT YET";
-        //}
     }
-
-
 }
 
-
-
-
-//namespace DocumentVersionManager.BaseModels.Entities
-//{
-//    public abstract class BaseEntity
-//    {
-
-//        public Guid GuidId { get; set; } = default;
-
-//    }
-//}

@@ -24,15 +24,7 @@ namespace CleanAppFilesGenerator
 
         public static string ProduceEntityHeader(string name_space, Type type, string baseEntity = " : BaseEntity")
         {
-
-
-            //if (type.BaseType.Name != "Object")
-            //{
-            //    baseEntity = $" : {type.BaseType.Name}";
-            //}
-
             return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public partial class {type.Name} {baseEntity}{GeneralClass.newlinepad(8)}{{");
-            //return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.BaseModels.Entities\n{{{GeneralClass.newlinepad(4)}public  class {entityName} {baseEntity}{GeneralClass.newlinepad(8)}{{");
 
         }
 
@@ -64,7 +56,7 @@ namespace CleanAppFilesGenerator
         public static string GenerateBaseEntity(Type type, string name_space)
         {
             string baseEntity = "";
-            var entityName = "BaseEntity"; // find the base entity name
+            // var entityName = "BaseEntity"; // find the base entity name
             var Output = new StringBuilder();
             Output.Append(ProduceEntityHeader(name_space, type, baseEntity));
             Output.Append(GeneralClass.newlinepad(12) + "public Guid GuidId { get; set; } = default;");

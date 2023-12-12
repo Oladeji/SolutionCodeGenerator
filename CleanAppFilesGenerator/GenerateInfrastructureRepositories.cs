@@ -10,8 +10,6 @@ namespace CleanAppFilesGenerator
 {
     public class GenerateInfrastructureClass
     {
-
-
         public static string GenerateRepositories(Type type, string name_space)
         {
 
@@ -31,47 +29,6 @@ namespace CleanAppFilesGenerator
                 $"{GeneralClass.newlinepad(8)}public   {entityName}Repository( {name_space}Context ctx): base(ctx){GeneralClass.newlinepad(8)}{{}}");
         }
 
-        //
-        //public static string ProduceEntityProperties(Type type)
-        //{
-
-        //    StringBuilder sb = new StringBuilder();
-        //    PropertyInfo[] properties = type.GetProperties();
-        //    foreach (PropertyInfo prop in properties)
-        //    {
-        //        var x = Nullable.GetUnderlyingType(prop.PropertyType);
-        //        var propertytype = x == null ? prop.PropertyType.Name : x.Name;
-
-        //        if (propertytype.Contains("ICollection`1"))
-        //        {
-        //            var xx = prop.PropertyType.GenericTypeArguments[0];
-        //            sb.Append(GeneralClass.PreparePropertyAsCollection(xx.Name, prop.Name));
-
-        //        }
-        //        else
-
-        //            sb.Append(GeneralClass.PrepareProperty(propertytype, prop.Name));
-        //    }
-
-        //    return sb.ToString();
-        //}
-
-        //public static string GenerateIgenericRepository(string name_space)
-        //{
-        //    string baseEntity = "";
-        //    var entityName = "BaseEntity";
-        //    var Output = new StringBuilder();
-        //    Output.Append(ProduceInterfaceHeader(name_space, entityName));
-        //    Output.Append(GeneralClass.newlinepad(12) + "public Guid GuidId { get; set; } = default;");
-        //    Output.Append(GeneralClass.newlinepad(8) + GeneralClass.ProduceClosingBrace());
-        //    Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
-        //    return Output.ToString();
-        //}
-
-        //internal static string GenerateInterfaces(Type type, string thenamespace)
-        //{
-        //   return "NOT YET";
-        //}
     }
 
 
