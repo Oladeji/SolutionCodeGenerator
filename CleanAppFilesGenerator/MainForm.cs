@@ -141,86 +141,15 @@ namespace CleanAppFilesGenerator
             if (listBox1.SelectedItem != null)
             {
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "PartialEntities");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Interfaces");
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Interfaces\\Auto");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "InfrastructureRepository");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationRequestDTO");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationResponseDTO");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Controllers");
-                //HelperClass.EnsureFolderIsCreated(FolderLocation.Text+ "\\ApplicationCQRS", "ApplicationCQRS");
-
-
-                //if (!Directory.Exists(FolderLocation.Text + "\\Models"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Models");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Modelsless"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Modelsless");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Dev"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Dev");
-                //}
-
-                //if (!Directory.Exists(FolderLocation.Text + "\\AutoController"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\AutoController");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Repository"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Repository");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\IService"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\IService");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Service"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Service");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Others"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Others");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Core"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Core");
-                //}
-
-                //if (!Directory.Exists(FolderLocation.Text + "\\AutoController"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\AutoController");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Repository"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Repository");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\IService"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\IService");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Service"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Service");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Others"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Others");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\Core"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\Core");
-                //}
-                //if (!Directory.Exists(FolderLocation.Text + "\\BackUps"))
-                //{
-                //    Directory.CreateDirectory(FolderLocation.Text + "\\BackUps");
-                //}
-
-
-
-                // string classname, Classlistname, result, resultless;
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ContractRequestDTO");
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ContractResponseDTO");
 
                 Type type = (Type)listBox1.SelectedItem;
 
@@ -236,11 +165,11 @@ namespace CleanAppFilesGenerator
 
 
                 richTextBox2.Text = GenerateInterfaceClass.GenerateIGenericRepository(thenamespace);
-                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\" + "IGenericRepository.cs", RichTextBoxStreamType.PlainText);
+                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\Auto\\" + "IGenericRepository.cs", RichTextBoxStreamType.PlainText);
 
 
                 richTextBox2.Text = GenerateInterfaceClass.GenerateInterface(type, thenamespace);
-                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\" + "I" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
+                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\Auto\\" + "I" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
 
 
                 richTextBox3.Text = GenerateInfrastructureClass.GenerateRepositories(type, thenamespace);
@@ -285,15 +214,23 @@ namespace CleanAppFilesGenerator
                 richTextBox6.Text = GenerateCQRSQueryClass.GenerateCQRSQuey(type, thenamespace, GenerateCQRSQueryClass.ProduceGetAllQueryHeader);
                 richTextBox6.SaveFile(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name + "\\Queries\\" + "GetAll" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
 
-                richTextBox4.Text = GeneratRequestDTOClass.GenerateRequest(type, thenamespace);
+                richTextBox4.Text = GenerateApplicationRequestDTOClass.GenerateRequest(type, thenamespace);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationRequestDTO\\" + "ApplicationRequest" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
 
-                richTextBox4.Text = GeneratResponseDTOClass.GenerateResponse(type, thenamespace);
+                richTextBox4.Text = GenerateApplicationResponseDTOClass.GenerateResponse(type, thenamespace);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" + "ApplicationResponse" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
 
+                richTextBox10.Text = GenerateContractRequestDTOClass.GenerateRequest(type, thenamespace);
+                richTextBox10.SaveFile(FolderLocation.Text + "\\ContractRequestDTO\\" + "ContractRequest" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
 
-                richTextBox8.Text = GenerateControllers.Generate(type, thenamespace, comboBox1.Text);
-                richTextBox8.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
+                richTextBox10.Text = GenerateContractResponseDTOClass.GenerateResponse(type, thenamespace);
+                richTextBox10.SaveFile(FolderLocation.Text + "\\ContractResponseDTO\\" + "ContractResponse" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
+
+
+
+
+                richTextBox9.Text = GenerateControllers.Generate(type, thenamespace, comboBox1.Text);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
 
 

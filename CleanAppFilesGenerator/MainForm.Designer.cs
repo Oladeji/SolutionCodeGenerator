@@ -49,9 +49,11 @@
             tabPage6 = new TabPage();
             richTextBox6 = new RichTextBox();
             tabPage7 = new TabPage();
-            richTextBox8 = new RichTextBox();
             richTextBox7 = new RichTextBox();
             tabPage8 = new TabPage();
+            richTextBox9 = new RichTextBox();
+            tabPage9 = new TabPage();
+            richTextBox10 = new RichTextBox();
             listBox1 = new ListBox();
             openFileDialog1 = new OpenFileDialog();
             Library_Name_Space = new TextBox();
@@ -64,6 +66,8 @@
             tabPage5.SuspendLayout();
             tabPage6.SuspendLayout();
             tabPage7.SuspendLayout();
+            tabPage8.SuspendLayout();
+            tabPage9.SuspendLayout();
             SuspendLayout();
             // 
             // splitter1
@@ -140,6 +144,7 @@
             tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPage7);
             tabControl1.Controls.Add(tabPage8);
+            tabControl1.Controls.Add(tabPage9);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(493, 0);
             tabControl1.Margin = new Padding(3, 2, 3, 2);
@@ -283,7 +288,6 @@
             // 
             // tabPage7
             // 
-            tabPage7.Controls.Add(richTextBox8);
             tabPage7.Controls.Add(richTextBox7);
             tabPage7.Location = new Point(4, 24);
             tabPage7.Margin = new Padding(3, 2, 3, 2);
@@ -294,18 +298,9 @@
             tabPage7.Text = "IUNITOFWORK";
             tabPage7.UseVisualStyleBackColor = true;
             // 
-            // richTextBox8
-            // 
-            richTextBox8.Dock = DockStyle.Fill;
-            richTextBox8.Location = new Point(3, 2);
-            richTextBox8.Margin = new Padding(3, 2, 3, 2);
-            richTextBox8.Name = "richTextBox8";
-            richTextBox8.Size = new Size(1399, 566);
-            richTextBox8.TabIndex = 1;
-            richTextBox8.Text = "";
-            // 
             // richTextBox7
             // 
+            richTextBox7.BackColor = SystemColors.WindowFrame;
             richTextBox7.Dock = DockStyle.Fill;
             richTextBox7.Location = new Point(3, 2);
             richTextBox7.Margin = new Padding(3, 2, 3, 2);
@@ -316,6 +311,7 @@
             // 
             // tabPage8
             // 
+            tabPage8.Controls.Add(richTextBox9);
             tabPage8.Location = new Point(4, 24);
             tabPage8.Name = "tabPage8";
             tabPage8.Padding = new Padding(3);
@@ -323,6 +319,35 @@
             tabPage8.TabIndex = 7;
             tabPage8.Text = "CONTROLLERS";
             tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox9
+            // 
+            richTextBox9.Dock = DockStyle.Fill;
+            richTextBox9.Location = new Point(3, 3);
+            richTextBox9.Name = "richTextBox9";
+            richTextBox9.Size = new Size(1399, 564);
+            richTextBox9.TabIndex = 0;
+            richTextBox9.Text = "";
+            // 
+            // tabPage9
+            // 
+            tabPage9.Controls.Add(richTextBox10);
+            tabPage9.Location = new Point(4, 24);
+            tabPage9.Name = "tabPage9";
+            tabPage9.Padding = new Padding(3);
+            tabPage9.Size = new Size(1405, 570);
+            tabPage9.TabIndex = 8;
+            tabPage9.Text = "CONTRACT LAYER ";
+            tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox10
+            // 
+            richTextBox10.Dock = DockStyle.Fill;
+            richTextBox10.Location = new Point(3, 3);
+            richTextBox10.Name = "richTextBox10";
+            richTextBox10.Size = new Size(1399, 564);
+            richTextBox10.TabIndex = 0;
+            richTextBox10.Text = "";
             // 
             // listBox1
             // 
@@ -385,6 +410,8 @@
             tabPage5.ResumeLayout(false);
             tabPage6.ResumeLayout(false);
             tabPage7.ResumeLayout(false);
+            tabPage8.ResumeLayout(false);
+            tabPage9.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -416,8 +443,10 @@
         private RichTextBox richTextBox6;
         private TabPage tabPage7;
         private RichTextBox richTextBox7;
-        private RichTextBox richTextBox8;
         private TabPage tabPage8;
         private ComboBox comboBox1;
+        private RichTextBox richTextBox9;
+        private TabPage tabPage9;
+        private RichTextBox richTextBox10;
     }
 }

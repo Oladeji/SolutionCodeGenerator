@@ -65,7 +65,7 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> AddAsync(T entity, CancellationToken cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> UpdateAsync(T entity, CancellationToken cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> DeleteAsync(T entity, CancellationToken cancellationToken);" +
-                          $"{GeneralClass.newlinepad(8)} Task<Either<GeneralFailure, Task<IReadOnlyList<T>>>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression= null,List<string> includes = null,Func<IQueryable<T>,IOrderedQueryable<T>> orderBy= null,CancellationToken cancellationToken =default);" +
+                          $"{GeneralClass.newlinepad(8)} Task<Either<GeneralFailure, List<T>>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression= null,List<string> includes = null,Func<IQueryable<T>,IOrderedQueryable<T>> orderBy= null,CancellationToken cancellationToken =default);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression,List<string> includes= null , CancellationToken cancellationToken= default);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken=default);" +
                           $"{GeneralClass.newlinepad(4)}}}" +

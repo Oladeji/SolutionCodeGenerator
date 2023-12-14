@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace CleanAppFilesGenerator
 {
-    public class GeneratResponseDTOClass
+    public class GenerateApplicationResponseDTOClass
     {
         public static string GenerateResponse(Type type, string name_space)
         {
@@ -14,7 +14,7 @@ namespace CleanAppFilesGenerator
             return Output.ToString();
         }
 
-        private static string  GenerateResponseHeader(object name_space, string entityName)
+        private static string GenerateResponseHeader(object name_space, string entityName)
         {
             return ($"namespace {name_space}.Application.Contracts.ResponseDTO\n{{" +
                 $"{GeneralClass.newlinepad(4)}public  record ApplicationResponse{entityName}DTO();" +
