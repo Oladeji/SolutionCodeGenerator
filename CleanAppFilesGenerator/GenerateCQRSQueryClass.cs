@@ -21,7 +21,7 @@ namespace CleanAppFilesGenerator
             return ($"using {name_space}.Application.Contracts.RequestDTO;\n" +
                 $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
                $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-               $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record Get{entityName}Query(ApplicationRequest{entityName}DTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, ApplicationResponse{entityName}DTO>>;");
+               $"namespace {name_space}.Application.CQRS.{entityName}.Queries\n{{{GeneralClass.newlinepad(4)}public  record Get{entityName}Query(Application{entityName}GetRequestDTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, Application{entityName}ResponseDTO>>;");
 
         }
 

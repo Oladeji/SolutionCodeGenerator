@@ -40,16 +40,15 @@ namespace CleanAppFilesGenerator
         private static string ProduceControllerGetByJSONUsingBody(string thenamespace, Type type)
         {
             return
-                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof(ModelTypeResponseDTO), StatusCodes.Status200OK)]" +
-                $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody, Name = {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody)]" +
+               $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof(ModelTypeResponseDTO), StatusCodes.Status200OK)]" +
+               $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody, Name = {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody)]" +
                $"{GeneralClass.newlinepad(8)}public async Task<IActionResult> GetByJSONBody([FromBody] {type.Name}GetRequestDTO request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}var x = request.EnsureInputIsNotNull(\"Input Cannot be null\");" +
                $"{GeneralClass.newlinepad(12)}return (await _sender.Send(new Get{type.Name}Query(new Application{type.Name}GetRequestDTO(request)), cancellationToken))" +
                $"{GeneralClass.newlinepad(12)}.Match<IActionResult>(Left: errors => new NotFoundObjectResult(errors)," +
                $"{GeneralClass.newlinepad(16)}Right: result => new OkObjectResult(MapApplication{type.Name}ResponseDTO_To_{type.Name}ResponseDTO(result)));" +
-
-               $"{GeneralClass.newlinepad(8)} }}";
+               $"{GeneralClass.newlinepad(8)}}}";
 
         }
 

@@ -58,6 +58,8 @@
             openFileDialog1 = new OpenFileDialog();
             Library_Name_Space = new TextBox();
             comboBox1 = new ComboBox();
+            tabPage10 = new TabPage();
+            richTextBox8 = new RichTextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -68,6 +70,7 @@
             tabPage7.SuspendLayout();
             tabPage8.SuspendLayout();
             tabPage9.SuspendLayout();
+            tabPage10.SuspendLayout();
             SuspendLayout();
             // 
             // splitter1
@@ -145,6 +148,7 @@
             tabControl1.Controls.Add(tabPage7);
             tabControl1.Controls.Add(tabPage8);
             tabControl1.Controls.Add(tabPage9);
+            tabControl1.Controls.Add(tabPage10);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(493, 0);
             tabControl1.Margin = new Padding(3, 2, 3, 2);
@@ -382,6 +386,26 @@
             comboBox1.TabIndex = 10;
             comboBox1.Text = "v1";
             // 
+            // tabPage10
+            // 
+            tabPage10.Controls.Add(richTextBox8);
+            tabPage10.Location = new Point(4, 24);
+            tabPage10.Name = "tabPage10";
+            tabPage10.Padding = new Padding(3);
+            tabPage10.Size = new Size(1405, 570);
+            tabPage10.TabIndex = 9;
+            tabPage10.Text = "API ENDPOINTS";
+            tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox8
+            // 
+            richTextBox8.Dock = DockStyle.Fill;
+            richTextBox8.Location = new Point(3, 3);
+            richTextBox8.Name = "richTextBox8";
+            richTextBox8.Size = new Size(1399, 564);
+            richTextBox8.TabIndex = 0;
+            richTextBox8.Text = "";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -412,6 +436,7 @@
             tabPage7.ResumeLayout(false);
             tabPage8.ResumeLayout(false);
             tabPage9.ResumeLayout(false);
+            tabPage10.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -448,5 +473,7 @@
         private RichTextBox richTextBox9;
         private TabPage tabPage9;
         private RichTextBox richTextBox10;
+        private TabPage tabPage10;
+        private RichTextBox richTextBox8;
     }
 }

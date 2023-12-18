@@ -17,14 +17,14 @@ namespace CleanAppFilesGenerator
         {
             return ($"namespace {name_space}.Contracts.RequestDTO\n{{" +
 
-                 $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestByGuidDTO(Object Value);" +
+                 $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestByGuidDTO(Guid guid);" +
                  $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestByIdDTO(Object Value);" +
                  $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestDTO(Object Value);" +
 
-                $"{GeneralClass.newlinepad(4)}public  record {type.Name}CreateRequestDTO(Object Value );" +
+                $"{GeneralClass.newlinepad(4)}public  record {type.Name}CreateRequestDTO(Guid GuidId,Object Value );" +
                 $"{GeneralClass.newlinepad(4)}public  record {type.Name}UpdateRequestDTO(Object Value);" +
 
-                $"{GeneralClass.newlinepad(4)}public  record {type.Name}DeleteRequestDTO(Object Value);" +
+                $"{GeneralClass.newlinepad(4)}public  record {type.Name}DeleteRequestDTO(Guid guid);" +
                 $"");
 
         }
