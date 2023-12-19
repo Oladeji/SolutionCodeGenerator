@@ -153,6 +153,7 @@ namespace CleanAppFilesGenerator
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ContractRequestDTO");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ContractResponseDTO");
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "APIEndPoints");
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "DBContext");
 
                 Type type = (Type)listBox1.SelectedItem;
 
@@ -235,16 +236,17 @@ namespace CleanAppFilesGenerator
 
                 //Use this login to generate a file that runs acros all the types in the dll
                 if (listBox1.SelectedIndex == 0)
-                {//IUNITOFWORK
+                {//IUNITOFWORK//APIENDPOINTS//DBCONTEXT
                     richTextBox7.Text = GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex);
                     richTextBox8.Text = GenerateAPIEndPoints.Generate(type, thenamespace, listBox1.SelectedIndex);
+                    richTextBox11.Text = GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex);
 
                 }
                 else
                 {
                     richTextBox7.AppendText(GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex));
                     richTextBox8.AppendText(GenerateAPIEndPoints.Generate(type, thenamespace, listBox1.SelectedIndex));
-
+                    richTextBox11.AppendText(GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex));
                 }
                 if (listBox1.SelectedIndex == MaxNoOfItems - 1)
                 {
@@ -257,6 +259,9 @@ namespace CleanAppFilesGenerator
                     richTextBox8.AppendText(GeneralClass.newlinepad(0) + "}");
                     richTextBox8.SaveFile(FolderLocation.Text + "\\APIEndPoints\\" + thenamespace + "APIEndPoints.cs", RichTextBoxStreamType.PlainText);
 
+                    richTextBox11.AppendText(GeneralClass.newlinepad(4) + "}");
+                    richTextBox11.AppendText(GeneralClass.newlinepad(0) + "}");
+                    richTextBox11.SaveFile(FolderLocation.Text + "\\DBContext\\" + thenamespace + "Context.cs", RichTextBoxStreamType.PlainText);
 
 
 

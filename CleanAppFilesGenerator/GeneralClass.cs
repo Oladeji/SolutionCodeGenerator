@@ -21,8 +21,8 @@ namespace CleanAppFilesGenerator
             //var type = propertytypename.Contains("ICollection`1") ? "ICollection" : "IList";
             // force everything to be a list so that  i can return it as ASReadOnly but put space as the ist for collection
             var type = propertytypename.Contains("ICollection`1") ? " List " : "List";
-            var sb = $"{GeneralClass.newlinepad(12)}private {type}<{propertytype}> _{name} {{ get;  set;}}  = new List<{propertytype}>();" +
-                $"{GeneralClass.newlinepad(12)}public  IReadOnlyCollection<{propertytype}> {name} => _{name};";
+            var sb = $"{GeneralClass.newlinepad(8)}private {type}<{propertytype}> _{name} {{ get;  set;}}  = new List<{propertytype}>();" +
+                $"{GeneralClass.newlinepad(8)}public  IReadOnlyCollection<{propertytype}> {name} => _{name};";
             return sb;
         }
 
@@ -34,7 +34,25 @@ namespace CleanAppFilesGenerator
             return $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";
         }
 
+        public static string PrepareParameter(string propType, string propName)
+        {
+            return $"{getProperDefaultDataType(propType)}  {FirstCharSubstringToLower(propName)}";
+            // return $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";
+        }
+        public static string PrepareAssignment(string propType, string propName)
+        {
+            return $"{propName} = {FirstCharSubstringToLower(propName)}";
+            // return $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";
+        }
 
+        public static string FirstCharSubstringToLower(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return string.Empty;
+            }
+            return $"{input[0].ToString().ToLower()}{input.Substring(1)}";
+        }
         private static string getProperDefaultInit(string type)
         {
 

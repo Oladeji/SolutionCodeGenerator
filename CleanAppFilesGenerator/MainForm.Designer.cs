@@ -54,12 +54,14 @@
             richTextBox9 = new RichTextBox();
             tabPage9 = new TabPage();
             richTextBox10 = new RichTextBox();
+            tabPage10 = new TabPage();
+            richTextBox8 = new RichTextBox();
+            tabPage11 = new TabPage();
             listBox1 = new ListBox();
             openFileDialog1 = new OpenFileDialog();
             Library_Name_Space = new TextBox();
             comboBox1 = new ComboBox();
-            tabPage10 = new TabPage();
-            richTextBox8 = new RichTextBox();
+            richTextBox11 = new RichTextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -71,6 +73,7 @@
             tabPage8.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage10.SuspendLayout();
+            tabPage11.SuspendLayout();
             SuspendLayout();
             // 
             // splitter1
@@ -149,6 +152,7 @@
             tabControl1.Controls.Add(tabPage8);
             tabControl1.Controls.Add(tabPage9);
             tabControl1.Controls.Add(tabPage10);
+            tabControl1.Controls.Add(tabPage11);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(493, 0);
             tabControl1.Margin = new Padding(3, 2, 3, 2);
@@ -353,6 +357,37 @@
             richTextBox10.TabIndex = 0;
             richTextBox10.Text = "";
             // 
+            // tabPage10
+            // 
+            tabPage10.Controls.Add(richTextBox8);
+            tabPage10.Location = new Point(4, 24);
+            tabPage10.Name = "tabPage10";
+            tabPage10.Padding = new Padding(3);
+            tabPage10.Size = new Size(1405, 570);
+            tabPage10.TabIndex = 9;
+            tabPage10.Text = "API ENDPOINTS";
+            tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox8
+            // 
+            richTextBox8.Dock = DockStyle.Fill;
+            richTextBox8.Location = new Point(3, 3);
+            richTextBox8.Name = "richTextBox8";
+            richTextBox8.Size = new Size(1399, 564);
+            richTextBox8.TabIndex = 0;
+            richTextBox8.Text = "";
+            // 
+            // tabPage11
+            // 
+            tabPage11.Controls.Add(richTextBox11);
+            tabPage11.Location = new Point(4, 24);
+            tabPage11.Name = "tabPage11";
+            tabPage11.Padding = new Padding(3);
+            tabPage11.Size = new Size(1405, 570);
+            tabPage11.TabIndex = 10;
+            tabPage11.Text = "DBContext";
+            tabPage11.UseVisualStyleBackColor = true;
+            // 
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
@@ -386,25 +421,14 @@
             comboBox1.TabIndex = 10;
             comboBox1.Text = "v1";
             // 
-            // tabPage10
+            // richTextBox11
             // 
-            tabPage10.Controls.Add(richTextBox8);
-            tabPage10.Location = new Point(4, 24);
-            tabPage10.Name = "tabPage10";
-            tabPage10.Padding = new Padding(3);
-            tabPage10.Size = new Size(1405, 570);
-            tabPage10.TabIndex = 9;
-            tabPage10.Text = "API ENDPOINTS";
-            tabPage10.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox8
-            // 
-            richTextBox8.Dock = DockStyle.Fill;
-            richTextBox8.Location = new Point(3, 3);
-            richTextBox8.Name = "richTextBox8";
-            richTextBox8.Size = new Size(1399, 564);
-            richTextBox8.TabIndex = 0;
-            richTextBox8.Text = "";
+            richTextBox11.Dock = DockStyle.Fill;
+            richTextBox11.Location = new Point(3, 3);
+            richTextBox11.Name = "richTextBox11";
+            richTextBox11.Size = new Size(1399, 564);
+            richTextBox11.TabIndex = 0;
+            richTextBox11.Text = "";
             // 
             // MainForm
             // 
@@ -437,6 +461,7 @@
             tabPage8.ResumeLayout(false);
             tabPage9.ResumeLayout(false);
             tabPage10.ResumeLayout(false);
+            tabPage11.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -475,5 +500,7 @@
         private RichTextBox richTextBox10;
         private TabPage tabPage10;
         private RichTextBox richTextBox8;
+        private TabPage tabPage11;
+        private RichTextBox richTextBox11;
     }
 }
