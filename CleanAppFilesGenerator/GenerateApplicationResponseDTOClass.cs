@@ -17,7 +17,7 @@ namespace CleanAppFilesGenerator
         private static string GenerateResponseHeader(object name_space, string entityName)
         {
             return ($"namespace {name_space}.Application.Contracts.ResponseDTO\n{{" +
-                $"{GeneralClass.newlinepad(4)}public  record ApplicationResponse{entityName}DTO();" +
+                $"{GeneralClass.newlinepad(4)}public  record Application{entityName}ResponseDTO(Object Value);" +
 
                 $"");
         }

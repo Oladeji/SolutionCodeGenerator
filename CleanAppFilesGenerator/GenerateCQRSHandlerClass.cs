@@ -66,6 +66,8 @@ namespace CleanAppFilesGenerator
                          $"using {name_space}.Application.Contracts.Logging;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
                           $"using {name_space}.Application.CQRS.Model.Commands;\n" +
+                          $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
+                          $"using {name_space}.Domain.Errors;\n" +
                           $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                           $"{GeneralClass.newlinepad(4)}public  class Create{entityName}CommandHandler  :  IRequestHandler<Create{entityName}Command, Either<GeneralFailure, int>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
@@ -93,6 +95,8 @@ namespace CleanAppFilesGenerator
             return ($"using {name_space}.Domain.Interfaces;\n" +
                              $"using {name_space}.Application.Contracts.Logging;\n" +
                               $"using {name_space}.Application.CQRS.Model.Commands;\n" +
+                              $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
+                              $"using {name_space}.Domain.Errors;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
                           $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                           $"{GeneralClass.newlinepad(4)}public  class Delete{entityName}CommandHandler  :  IRequestHandler<Delete{entityName}Command, Either<GeneralFailure, int>>" +
@@ -124,7 +128,9 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using {name_space}.Application.Contracts.Logging;\n" +
-                 $"using {name_space}.Application.CQRS.Model.Commands;\n" +
+                 $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+                 $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
+                 $"using {name_space}.Domain.Errors;\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                $"{GeneralClass.newlinepad(4)}public  class GetAll{entityName}QueryHandler  :  IRequestHandler<GetAll{entityName}Query, Either<GeneralFailure, IEnumerable<Application{entityName}ResponseDTO>>>" +
@@ -152,7 +158,10 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using {name_space}.Application.Contracts.Logging;\n" +
-                 $"using {name_space}.Application.CQRS.Model.Commands;\n" +
+                 $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+                 $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
+                 $"using {name_space}.Domain.Errors;\n" +
+
                $"using LanguageExt;\nusing MediatR;\n" +
                $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                $"{GeneralClass.newlinepad(4)}public  class Get{entityName}QueryHandler  :  IRequestHandler<Get{entityName}Query, Either<GeneralFailure, Application{entityName}ResponseDTO>>" +
@@ -180,7 +189,8 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using {name_space}.Application.Contracts.Logging;\n" +
-                 $"using {name_space}.Application.CQRS.Model.Commands;\n" +
+                 $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+                 $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                $"{GeneralClass.newlinepad(4)}public  class Get{entityName}ByIdQueryHandler  :  IRequestHandler<Get{entityName}ByIdQuery, Either<GeneralFailure, Application{entityName}ResponseDTO>>" +
@@ -207,7 +217,9 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using {name_space}.Application.Contracts.Logging;\n" +
-                 $"using {name_space}.Application.CQRS.Model.Commands;\n" +
+                 $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+                 $"using {name_space}.Domain.Errors;\n" +
+                 $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                $"{GeneralClass.newlinepad(4)}public  class Get{entityName}ByGuidQueryHandler  :  IRequestHandler<Get{entityName}ByGuidQuery, Either<GeneralFailure, Application{entityName}ResponseDTO>>" +
@@ -238,6 +250,8 @@ namespace CleanAppFilesGenerator
                          $"using {name_space}.Application.Contracts.Logging;\n" +
                           $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
+                          $"using {name_space}.Domain.Errors;\n" +
+                          $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
                           $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                           $"{GeneralClass.newlinepad(4)}public  class Update{entityName}CommandHandler  :  IRequestHandler<Update{entityName}Command, Either<GeneralFailure, int>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
