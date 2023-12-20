@@ -89,7 +89,7 @@ namespace CleanAppFilesGenerator
                     {
                         foreach (var type in exportedTypes)
                         {
-                            if ((type.IsClass) && (!type.Name.Contains("BaseEntity")))
+                            if ((type.IsClass) && (!type.Name.Contains("BaseEntity")) && (!type.Name.Equals("BaseEvent")))
                             {
 
                                 listBox1.Items.Add(type);

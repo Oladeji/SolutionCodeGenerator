@@ -31,7 +31,7 @@ namespace CleanAppFilesGenerator
 
         public static string ProduceEntityHeader(string name_space, Type type, string baseEntity = " : BaseEntity")
         {
-            return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public partial class {type.Name} {baseEntity}");
+            return ($"using {name_space}.DomainBase.Base;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}using System.ComponentModel.DataAnnotations;\n{GeneralClass.newlinepad(4)}public partial class {type.Name} {baseEntity}");
         }
         public static string ProducePrivateContructor(Type type)
         {
@@ -54,22 +54,21 @@ namespace CleanAppFilesGenerator
                 if (propertytype.Contains("ICollection`1") || (propertytype.Contains("IList`1")))
                 {
                     var xx = prop.PropertyType.GenericTypeArguments[0];
-                    //    sb.Append(GeneralClass.PreparePropertyAsCollectionOrList(xx.Name, prop.Name, propertytype));
-
                 }
                 else
 
                 if (!prop.PropertyType.BaseType.Name.Contains("BaseEntity"))
                 {
 
-                    sb.Append(GeneralClass.PrepareParameter(prop.PropertyType.Name, prop.Name));
-                    sb2.Append($"{GeneralClass.newlinepad(12)}{GeneralClass.PrepareAssignment(prop.PropertyType.Name, prop.Name)} ,");
+
+
+                    sb.Append(GeneralClass.PrepareParameter(propertytype, prop.Name));
+                    sb2.Append($"{GeneralClass.newlinepad(12)}{GeneralClass.PrepareAssignment(propertytype, prop.Name)} ,");
                     sb.Append(", ");
 
                 }
                 else
-                {
-                    // These are member that are inherited from the base entity
+                {          // These are member that are inherited from the base entity
                 }
 
             }
@@ -85,11 +84,8 @@ namespace CleanAppFilesGenerator
 
             StringBuilder sb = new StringBuilder();
             PropertyInfo[] properties = type.GetProperties();
-
-
             foreach (PropertyInfo prop in properties)
             {
-
 
                 var x = Nullable.GetUnderlyingType(prop.PropertyType);
                 var propertytype = x == null ? prop.PropertyType.Name : x.Name;
@@ -102,6 +98,7 @@ namespace CleanAppFilesGenerator
                 }
                 else
                 {
+
 
                     // var name = prop.GetAttributeFrom<DisplayAttribute>(nameof(prop.PlayerDescription)).Name;
 
