@@ -1,4 +1,6 @@
 ﻿
+using System.Configuration;
+
 namespace CleanAppFilesGenerator
 {
     internal class GenerateDBContext
@@ -20,6 +22,7 @@ namespace CleanAppFilesGenerator
                 $"{GeneralClass.newlinepad(4)}{{" +
                 $"{GeneralClass.newlinepad(8)}private readonly IConfiguration _configuration;" +
                 $"{GenerateOnConfiguring()}" +
+                $"{GenerateOnConstructor(name_space)}" +
                 $"{GenerateOnModelCreating(name_space)}" +
                 $"{GeneralClass.newlinepad(8)}" +
                 $"{GenerateSpecific(type)}");
@@ -29,12 +32,18 @@ namespace CleanAppFilesGenerator
             {
 
                 return $"{GenerateSpecific(type)}";
-
             }
         }
 
 
-
+        public static string GenerateOnConstructor(string name_space)
+        {
+            return (
+            $"{GeneralClass.newlinepad(8)}public {name_space}Context(DbContextOptions<{name_space}Context> options, IConfiguration configuration) : base(options)" +
+            $"{GeneralClass.newlinepad(8)}{{" +
+            $"{GeneralClass.newlinepad(12)}_configuration = configuration;" +
+            $"{GeneralClass.newlinepad(8)}}}");
+        }
 
         public static string GenerateOnConfiguring()
         {

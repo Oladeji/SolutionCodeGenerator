@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -28,10 +29,22 @@ namespace CleanAppFilesGenerator
 
 
 
-        public static string PrepareProperty(string propType, string propName)
+        public static string PrepareProperty(string propType, PropertyInfo prop)
         {
             //string sb = "public  " + prop.PropertyType.Name + prop.Name + "{ get; init; } " + getDatatypeInitialiser(prop);
-            return $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";
+
+            var attr = "";
+            MaxLengthAttribute hasmaxLengthAttr = null;
+
+            if (getProperDefaultDataType(propType).Equals("string"))
+            {
+                hasmaxLengthAttr = prop.TryGetMaxAttributeFromPropertyInfo<MaxLengthAttribute>();
+                if (hasmaxLengthAttr != null)
+                {
+                    attr = $"{GeneralClass.newlinepad(12)}[MaxLength({hasmaxLengthAttr.Length})]";
+                }
+            }
+            return $"{attr}{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {prop.Name}    {getProperDefaultInit(propType)}";
         }
 
         public static string PrepareParameter(string propType, string propName)

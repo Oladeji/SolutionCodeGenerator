@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,8 +85,12 @@ namespace CleanAppFilesGenerator
 
             StringBuilder sb = new StringBuilder();
             PropertyInfo[] properties = type.GetProperties();
+
+
             foreach (PropertyInfo prop in properties)
             {
+
+
                 var x = Nullable.GetUnderlyingType(prop.PropertyType);
                 var propertytype = x == null ? prop.PropertyType.Name : x.Name;
 
@@ -94,8 +101,13 @@ namespace CleanAppFilesGenerator
 
                 }
                 else
+                {
 
-                    sb.Append(GeneralClass.PrepareProperty(propertytype, prop.Name));
+                    // var name = prop.GetAttributeFrom<DisplayAttribute>(nameof(prop.PlayerDescription)).Name;
+
+
+                    sb.Append(GeneralClass.PrepareProperty(propertytype, prop));
+                }
             }
 
             return sb.ToString();
