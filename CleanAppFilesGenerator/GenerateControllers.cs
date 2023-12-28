@@ -158,14 +158,14 @@ namespace CleanAppFilesGenerator
                  $"{GeneralClass.newlinepad(12)}var dto = new Application{type.Name}CreateRequestDTO(request);" +
                  $"\n" +
                  $"{GeneralClass.newlinepad(12)}return dto.EnsureInputIsNotEmpty(\"Input Cannot be Empty\")" +
-                 $"{GeneralClass.newlinepad(16)}.Bind<Either<GeneralFailure, int>>(_ => (  Create{type.Name}(dto, cancellationToken).Result   ) )" +
+                 $"{GeneralClass.newlinepad(16)}.Bind<Either<GeneralFailure, Guid>>(_ => (  Create{type.Name}(dto, cancellationToken).Result   ) )" +
                  $"{GeneralClass.newlinepad(16)}.Match<IActionResult>(Left: errors => new BadRequestObjectResult(errors)," +
                  $"{GeneralClass.newlinepad(20)}Right: result => result.Match<IActionResult>(" +
                  $"{GeneralClass.newlinepad(20)}Left: errors2 => new BadRequestObjectResult(errors2)," +
-                 $"{GeneralClass.newlinepad(20)}Right: result2 => Created($\"/{{{thenamespace}APIEndPoints.{type.Name}.Create}}/{{dto}}\", dto)));" +
+                 $"{GeneralClass.newlinepad(20)}Right: result2 => Created($\"/{{{thenamespace}APIEndPoints.{type.Name}.Create}}/{{result2}}\", dto)));" +
                  $"{GeneralClass.newlinepad(8)}}}" +
                  $"\n" +
-                 $"{GeneralClass.newlinepad(8)}private async Task<Either<GeneralFailure, int>> Create{type.Name}(Application{type.Name}CreateRequestDTO createType, CancellationToken cancellationToken)" +
+                 $"{GeneralClass.newlinepad(8)}private async Task<Either<GeneralFailure, Guid>> Create{type.Name}(Application{type.Name}CreateRequestDTO createType, CancellationToken cancellationToken)" +
                  $"{GeneralClass.newlinepad(8)}=> await _sender.Send(new Create{type.Name}Command(createType), cancellationToken);";
         }
 

@@ -41,10 +41,10 @@ namespace CleanAppFilesGenerator
                 hasmaxLengthAttr = prop.TryGetMaxAttributeFromPropertyInfo<MaxLengthAttribute>();
                 if (hasmaxLengthAttr != null)
                 {
-                    attr = $"{GeneralClass.newlinepad(12)}[MaxLength({hasmaxLengthAttr.Length})]";
+                    attr = $"{GeneralClass.newlinepad(8)}[MaxLength({hasmaxLengthAttr.Length})]";
                 }
             }
-            return $"{attr}{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {prop.Name}    {getProperDefaultInit(propType)}";
+            return $"{attr}{GeneralClass.newlinepad(8)}public {getProperDefaultDataType(propType)} {prop.Name}    {getProperDefaultInit(propType)}";
         }
 
         public static string PrepareParameter(string propType, string propName)
