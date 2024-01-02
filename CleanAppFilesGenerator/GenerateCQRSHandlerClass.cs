@@ -86,7 +86,7 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, Guid>> Handle(Create{entityName}Command request, CancellationToken cancellationToken)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}//Follow the format below , initial the entity variable by calling the entity Create method;" +
-                          $"{GeneralClass.newlinepad(8)}}}var entity =null;// Domain.Entities.{entityName}.Create(request.modelTypeCreateDTO.Value.ModelTypeName, request.modelTypeCreateDTO.Value.GuidId);" +
+                          $"{GeneralClass.newlinepad(8)}}}var entity =null;// Domain.Entities.{entityName}.Create(request.modelTypeCreateDTO.ModelTypeName, request.modelTypeCreateDTO.Value.GuidId);" +
                           $"return ( await _unitOfWork.{entityName}Repository.AddAsync(entity, cancellationToken)). Map((x) =>  entity.GuidId);");
 
         }
