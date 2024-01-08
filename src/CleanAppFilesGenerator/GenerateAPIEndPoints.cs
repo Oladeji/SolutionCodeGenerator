@@ -39,7 +39,7 @@ namespace CleanAppFilesGenerator
             return (
             $"{GeneralClass.newlinepad(8)}public static class {type.Name}" +
             $"{GeneralClass.newlinepad(8)}{{" +
-            $"{GeneralClass.newlinepad(12)}public const string Controller = \"{type.Name}\";" +
+            $"{GeneralClass.newlinepad(12)}public const string Controller = \"{type.Name}s\";" +
             $"{GeneralClass.newlinepad(12)}public const string Create = $\"{{APIBase}}/{{Controller}}\";" +
             $"{GeneralClass.newlinepad(12)}public const string Delete = $\"{{APIBase}}/{{Controller}}/{{{{request}}}}\";" +
             $"{GeneralClass.newlinepad(12)}public const string GetById = $\"{{APIBase}}/{{Controller}}/{{{{NameOrGuid}}}}\";" +

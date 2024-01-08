@@ -53,7 +53,7 @@ namespace CleanAppFilesGenerator
 
                 if (propertytype.Contains("ICollection`1") || (propertytype.Contains("IList`1")))
                 {
-                    var xx = prop.PropertyType.GenericTypeArguments[0];
+                    var _ = prop.PropertyType.GenericTypeArguments[0];
                 }
                 else
 
@@ -74,9 +74,17 @@ namespace CleanAppFilesGenerator
             }
             sb.Remove(sb.Length - 2, 2);
             sb.Append(")");
-            sb.Append($"{GeneralClass.newlinepad(8)}=>new(){GeneralClass.newlinepad(8)}{{");
+            sb.Append($"{GeneralClass.newlinepad(4)}{{");
+
+            sb.Append($"{GeneralClass.newlinepad(4)}if (guidId == Guid.Empty)");
+            sb.Append($"{GeneralClass.newlinepad(4)}{{");
+            sb.Append($"{GeneralClass.newlinepad(8)}throw new ArgumentException($\"{type.Name} Guid value cannot be empty {{nameof(guidId)}}\");");
+            sb.Append($"{GeneralClass.newlinepad(4)}}}");
+
+            sb.Append($"{GeneralClass.newlinepad(8)}return  new(){GeneralClass.newlinepad(8)}{{");
             sb.Append(sb2.ToString());
             sb.Append($"{GeneralClass.newlinepad(8)}}};");
+            sb.Append($"{GeneralClass.newlinepad(4)}}}");
             return sb.ToString();
         }
         public static string ProduceEntityProperties(Type type)

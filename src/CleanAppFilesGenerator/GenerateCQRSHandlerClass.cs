@@ -69,7 +69,7 @@ namespace CleanAppFilesGenerator
                           $"using {name_space}.Application.Contracts.ResponseDTO;\n" +
                           $"using {name_space}.Domain.Errors;\n" +
                           $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
-                          $"{GeneralClass.newlinepad(4)}public  class Create{entityName}CommandHandler  :  IRequestHandler<Create{entityName}Command, Either<GeneralFailure, int>>" +
+                          $"{GeneralClass.newlinepad(4)}public  class Create{entityName}CommandHandler  :  IRequestHandler<Create{entityName}Command, Either<GeneralFailure, Guid>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
 
                           // constructor
@@ -83,10 +83,11 @@ namespace CleanAppFilesGenerator
                           $"\n" +
 
                           //handler
-                          $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> Handle(Create{entityName}Command request, CancellationToken cancellationToken)" +
+                          $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, Guid>> Handle(Create{entityName}Command request, CancellationToken cancellationToken)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
-                          $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
-                          $"{GeneralClass.newlinepad(8)}}}");
+                          $"{GeneralClass.newlinepad(12)}//Follow the format below , initial the entity variable by calling the entity Create method;" +
+                          $"{GeneralClass.newlinepad(8)}}}var entity =null;// Domain.Entities.{entityName}.Create(request.modelTypeCreateDTO.ModelTypeName, request.modelTypeCreateDTO.Value.GuidId);" +
+                          $"return ( await _unitOfWork.{entityName}Repository.AddAsync(entity, cancellationToken)). Map((x) =>  entity.GuidId);");
 
         }
 
