@@ -235,9 +235,8 @@ namespace CleanAppFilesGenerator
                 richTextBox6.SaveFile(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name + "\\Queries\\" + "Get" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
                 //richTextBox6.Text = GenerateCQRSQueryClass.GenerateCQRSQuey(type, thenamespace, GenerateCQRSQueryClass.ProduceGetAllQueryHeader);
                 //richTextBox6.SaveFile(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name + "\\Queries\\" + "GetAll" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
-                
 
-<<<<<<< HEAD:src/CleanAppFilesGenerator/MainForm.cs
+
                 richTextBox4.Text = GenerateApplicationRequestDTOClass.GenerateRequest(type, thenamespace);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationRequestDTO\\" + "Application" + type.Name + "RequestDTO.cs", RichTextBoxStreamType.PlainText);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationRequestDTO\\" + "Application" + type.Name + "RequestDTO.cs", RichTextBoxStreamType.PlainText);
@@ -245,15 +244,7 @@ namespace CleanAppFilesGenerator
                 richTextBox4.Text = GenerateApplicationResponseDTOClass.GenerateResponse(type, thenamespace);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" + "Application" + type.Name + "ResponseDTO.cs", RichTextBoxStreamType.PlainText);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" + "Application" + type.Name + "ResponseDTO.cs", RichTextBoxStreamType.PlainText);
-=======
-                //StepDownApplicationRequest and Response
-                //richTextBox4.Text = GenerateApplicationRequestDTOClass.GenerateRequest(type, thenamespace);
-                //richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationRequestDTO\\" + "Application" + type.Name + "RequestDTO.cs", RichTextBoxStreamType.PlainText);
 
-                //richTextBox4.Text = GenerateApplicationResponseDTOClass.GenerateResponse(type, thenamespace);
-               // richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" + "Application" + type.Name + "ResponseDTO.cs", RichTextBoxStreamType.PlainText);
-
->>>>>>> fbe377bdf66507c98ecf21b857560e7f9a1e0150:CleanAppFilesGenerator/MainForm.cs
 
                 //Contracts
                 richTextBox10.Text = GenerateContractRequestDTOClass.GenerateRequest(type, thenamespace);

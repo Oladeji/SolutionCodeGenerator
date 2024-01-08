@@ -2,26 +2,28 @@
 {
     public class ProjectBaseModelsAttribute : System.Attribute
     {
-        public ProjectBaseModelsAttribute(int maxSize, bool isKey, bool isUnique, bool isForeignKey)
-        {
-            MaxSize = maxSize;
-            IsKey = isKey;
-            IsUnique = isUnique;
-            IsForeignKey = isForeignKey;
-        }
-        public ProjectBaseModelsAttribute(int maxSize, int minSize, bool isKey)
+        //public ProjectBaseModelsAttribute(int maxSize, bool isKey, bool isUnique, bool isRequired , bool isForeignKey)
+        //{
+        //    MaxSize = maxSize;
+        //    IsKey = isKey;
+        //    IsUnique = isUnique;
+        //    IsForeignKey = isForeignKey;
+        //    IsRequired = isRequired;
+        //}
+        //public ProjectBaseModelsAttribute(int maxSize, int minSize, bool isKey, bool isRequired)
+        //{
+        //    MaxSize = maxSize;
+        //    MinSize = minSize;
+        //    IsKey = isKey;
+        //    IsRequired = isRequired;
+        //}
+        public ProjectBaseModelsAttribute(int maxSize, int minSize, bool isKey, bool isUnique, bool isRequired, bool isForeignKey, bool hasDefaultStringValue, string defaultStringValue)
         {
             MaxSize = maxSize;
             MinSize = minSize;
             IsKey = isKey;
-
-        }
-        public ProjectBaseModelsAttribute(int maxSize, int minSize, bool isKey, bool isUnique, bool isForeignKey, string defaultStringValue, bool hasDefaultStringValue)
-        {
-            MaxSize = maxSize;
-            MinSize = minSize;
-            IsKey = isKey;
             IsUnique = isUnique;
+            IsRequired = isRequired;
             IsForeignKey = isForeignKey;
             DefaultStringValue = defaultStringValue;
             HasDefaultStringValue = hasDefaultStringValue;
@@ -42,7 +44,7 @@
         //private bool IsAutoIncrement { get; set; }
         //private bool IsIndexed { get; set; }
 
-        //private bool IsRequired { get; set; }
+        public bool IsRequired { get; set; }
         //private bool IsIgnored { get; set; }
         //private bool IsDefault { get; set; }
         //private bool IsDefaultSet { get; set; }

@@ -10,74 +10,159 @@ namespace CleanAppFilesGenerator
     {
         internal static string GenerateEntityConfig(Type type, string thenamespace)
         {
-
             var Output = new StringBuilder();
             Output.Append(GenerateHeader(thenamespace, type));
+            Output.Append("{");
+            Output.Append(GeneralClass.newlinepad(4) + $"public class {type.Name}Config : IEntityTypeConfiguration<{type.Name}>");
             Output.Append(GeneralClass.newlinepad(4) + "{");
-            //  Output.Append(GeneralClass.newlinepad(4) + GeneralClass.ProduceClosingBrace());
-            // Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
+            Output.Append(GenerateEntityClass(type));
+            Output.Append(GeneralClass.newlinepad(4) + "}");
+            Output.Append("\n}");
             return Output.ToString();
         }
-
-
-
-
         public static string GenerateHeader(string name_space, Type type)
         {
             return ($"using Microsoft.EntityFrameworkCore;\nusing Microsoft.EntityFrameworkCore.Metadata.Builders;\nusing {name_space}.Domain.Entities;\nnamespace {name_space}.Infrastructure.Persistence.EntitiesConfig\n");
-
-
-
         }
-        //public class DocumentBasePathConfig : IEntityTypeConfiguration<DocumentBasePath>
-        //{
-        //    public void Configure(EntityTypeBuilder<DocumentBasePath> entity)
-        //    {
-        //        entity.HasKey(e => new { e.DocumentBasePathId });
-        //        entity.Property(e => e.DocumentBasePathId).HasMaxLength(10);
-
-
-        //    }
-        //}
-
-        public static string GenerateEntityConfiguration(string name_space, Type type)
+        public static string GenerateEntityClass(Type type)
         {
 
-
-            string keys = "";
-            //Output.Insert(0, GeneralClass.newlinepad(8));
-            PropertyInfo property = type.GetProperty(name_space);
-            if (property != null)
+            var Output = new StringBuilder();
+            Output.Append($"{GeneralClass.newlinepad(8)}public void Configure(EntityTypeBuilder<{type.Name}> entity)" +
+                 $"{GeneralClass.newlinepad(8)}{{");
+            var haskey = GenerateEntityConfigurationHasKey(type);
+            if (haskey != "")
             {
-                var attributes = property.GetCustomAttributes();
-                foreach (var attribute in attributes)
+                Output.Append(GeneralClass.newlinepad(12) + haskey);
+            }
+            var maxlenght = GenerateEntityConfigurationMaxLenghtForString(type);
+            if (maxlenght != "")
+            {
+                Output.Append(GeneralClass.newlinepad(12) + maxlenght);
+            }
+            var isrequired = GenerateEntityConfigurationIsRequired(type);
+            if (isrequired != "")
+            {
+                Output.Append(GeneralClass.newlinepad(12) + isrequired);
+            }
+            var isunique = GenerateEntityConfigurationIsUnique(type);
+            if (isunique != "")
+            {
+                Output.Append(GeneralClass.newlinepad(12) + isunique);
+            }
+
+            //var hasdata = GenerateEntityConfigurationHasDataSample(type);
+            //if (hasdata != "")
+            //{
+            //    Output.Append(GeneralClass.newlinepad(12) + hasdata);
+            //}
+
+            return Output.Append(GeneralClass.newlinepad(8) + "}").ToString();
+        }
+        public static string GenerateEntityConfigurationHasKey(Type type)
+        {
+            string keys = "";
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                if (property != null)
                 {
-                    if (attribute is ProjectBaseModelsAttribute)
+                    var attributes = property.GetCustomAttributes();
+                    foreach (var attribute in attributes)
                     {
-                        var attr = attribute as ProjectBaseModelsAttribute;
-                        if (attr.IsKey)
+                        if (attribute is ProjectBaseModelsAttribute)
                         {
-                            keys = keys + $"e.{property.Name},";
+                            var attr = attribute as ProjectBaseModelsAttribute;
+                            if (attr.IsKey)
+                            {
+                                keys = keys + $"e.{property.Name},";
+                            }
                         }
                     }
                 }
             }
             if (keys.Length > 0)
-
-                //keys = keys.Substring(0, keys.Length - 1);
                 keys = $"entity.HasKey(e => new {{ {keys.Substring(0, keys.Length - 1)} }});";
             return keys;
+        }
+        public static string GenerateEntityConfigurationIsUnique(Type type)
+        {
+            string keys = "";
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                if (property != null)
+                {
+                    var attributes = property.GetCustomAttributes();
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is ProjectBaseModelsAttribute)
+                        {
+                            var attr = attribute as ProjectBaseModelsAttribute;
+                            if (attr.IsUnique)
+                            {
+                                keys = keys + $"e.{property.Name},";
+                            }
+                        }
+                    }
+                }
+            }
+            if (keys.Length > 0)
+                keys = $"entity.HasIndex(e => new {{ {keys.Substring(0, keys.Length - 1)} }}).IsUnique();";
+            return keys;
+        }
+        public static string GenerateEntityConfigurationMaxLenghtForString(Type type)
+        {
+            string keys = "";
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                if (property != null)
+                {
+                    var attributes = property.GetCustomAttributes();
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is ProjectBaseModelsAttribute)
+                        {
+                            var attr = attribute as ProjectBaseModelsAttribute;
+                            if (attr.MaxSize > 0)
+                            {
+                                keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({attr.MaxSize}); ";
+                            }
+                            if (attr.MinSize > 0)
+                            {
+                                keys = $"{keys}entity.Property(e => e.{property.Name}).HasMinLength({attr.MinSize});";
+                            }
+                        }
+                    }
+                }
+            }
+            return keys;
+        }
+        public static string GenerateEntityConfigurationIsRequired(Type type)
+        {
+            string keys = "";
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                if (property != null)
+                {
+                    var attributes = property.GetCustomAttributes();
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is ProjectBaseModelsAttribute)
+                        {
+                            var attr = attribute as ProjectBaseModelsAttribute;
+                            if (attr.IsRequired)
+                            {
+                                keys = $"entity.Property(e => e.{property.Name}).IsRequired()); ";
+                            }
 
-            //return (
-            //    $"{GeneralClass.newlinepad(8)}public void Configure(EntityTypeBuilder<{type.Name}> entity)" +
-            //    $"{GeneralClass.newlinepad(8)}{{" +
-            //    $"{GeneralClass.newlinepad(8)}{GenerateHasKey(type.Name)}" +
-            //    $"{GeneralClass.newlinepad(8)}{GenerateMaxLenghtForString(type.Name)}" +
-            //    $"{GeneralClass.newlinepad(8)}{GenerateHasDataSample(type.Name)}" +
-            //    $"{GeneralClass.newlinepad(8)}}}" +
-            //    $"");
-
-
+                        }
+                    }
+                }
+            }
+            return keys;
         }
     }
 }
