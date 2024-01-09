@@ -236,7 +236,8 @@ namespace CleanAppFilesGenerator
                 //richTextBox6.Text = GenerateCQRSQueryClass.GenerateCQRSQuey(type, thenamespace, GenerateCQRSQueryClass.ProduceGetAllQueryHeader);
                 //richTextBox6.SaveFile(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name + "\\Queries\\" + "GetAll" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
 
-
+                /*
+                 * APPLICATION REQUEST AND RESPOSE DTO HAS BEEN REMOVED - I ONLY USE CONTRACTS NOW
                 richTextBox4.Text = GenerateApplicationRequestDTOClass.GenerateRequest(type, thenamespace);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationRequestDTO\\" + "Application" + type.Name + "RequestDTO.cs", RichTextBoxStreamType.PlainText);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationRequestDTO\\" + "Application" + type.Name + "RequestDTO.cs", RichTextBoxStreamType.PlainText);
@@ -245,7 +246,7 @@ namespace CleanAppFilesGenerator
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" + "Application" + type.Name + "ResponseDTO.cs", RichTextBoxStreamType.PlainText);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationResponseDTO\\" + "Application" + type.Name + "ResponseDTO.cs", RichTextBoxStreamType.PlainText);
 
-
+                */
                 //Contracts
                 richTextBox10.Text = GenerateContractRequestDTOClass.GenerateRequest(type, thenamespace);
                 richTextBox10.SaveFile(FolderLocation.Text + "\\ContractRequestDTO\\" + "Contract" + type.Name + "RequestDTO.cs", RichTextBoxStreamType.PlainText);

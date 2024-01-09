@@ -57,7 +57,7 @@ namespace CleanAppFilesGenerator
         public static string GenerateIGenericRepository(string name_space)
         {
             return ($"using LanguageExt;\n" +
-                    $"using {name_space}.DomainBase.Base;\n" +
+                    $"using {name_space}.DomainBase;\n" +
                           $"using {name_space}.Domain.Errors;\n" +
                           $"namespace {name_space}.Domain.Interfaces\n{{\n" +
                           $"{GeneralClass.newlinepad(4)}public interface IGenericRepository<T> where T : BaseEntity\n" +
