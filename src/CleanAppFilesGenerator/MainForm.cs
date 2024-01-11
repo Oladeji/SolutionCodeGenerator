@@ -178,8 +178,8 @@ namespace CleanAppFilesGenerator
 
 
                 richTextBox3.Text = GenerateEntityConfigClass.GenerateEntityConfig(type, thenamespace);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "EntityConfig.cs", RichTextBoxStreamType.PlainText);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "EntityConfig.cs", RichTextBoxStreamType.PlainText);
+                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
+                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
 
                 //Commands folder
                 richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, GenerateCQRSCommandClass.ProduceCreateCommandHeader);
