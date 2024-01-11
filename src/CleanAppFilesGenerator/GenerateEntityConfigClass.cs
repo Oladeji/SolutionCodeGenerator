@@ -155,7 +155,7 @@ namespace CleanAppFilesGenerator
                             var attr = attribute as ProjectBaseModelsAttribute;
                             if (attr.IsRequired)
                             {
-                                keys = $"entity.Property(e => e.{property.Name}).IsRequired()); ";
+                                keys = $"entity.Property(e => e.{property.Name}).IsRequired(); ";
                             }
 
                         }

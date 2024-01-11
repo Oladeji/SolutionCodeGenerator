@@ -137,9 +137,9 @@ namespace CleanAppFilesGenerator
             if (listBox1.SelectedItem != null)
             {
                 Type type = (Type)listBox1.SelectedItem;
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "PartialEntities");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Interfaces\\Auto");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "InfrastructureRepository\\Auto\\" + type.Name);
+                // HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "PartialEntities");
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "DomainAuto" + "\\" + type.Name);
+                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "InfrastructureAuto" + "\\" + type.Name);
                 HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
                 //HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationRequestDTO");
                 //HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationResponseDTO");
@@ -160,30 +160,26 @@ namespace CleanAppFilesGenerator
                 // richTextBox1.Text = GenerateEntityClass.GenerateBaseEntity(type, thenamespace);
                 //richTextBox1.SaveFile(FolderLocation.Text + "\\Entities\\" + "BaseEntity.cs", RichTextBoxStreamType.PlainText);
                 richTextBox1.Text = GenerateEntityClass.GenerateEntity(type, thenamespace);
-                richTextBox1.SaveFile(FolderLocation.Text + "\\PartialEntities\\" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
-                richTextBox1.SaveFile(FolderLocation.Text + "\\PartialEntities\\" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
+                richTextBox1.SaveFile(FolderLocation.Text + "\\DomainAuto" + "\\" + type.Name + "\\" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
+                richTextBox1.SaveFile(FolderLocation.Text + "\\DomainAuto" + "\\" + type.Name + "\\" + type.Name + ".cs", RichTextBoxStreamType.PlainText);
 
-
-                richTextBox2.Text = GenerateInterfaceClass.GenerateIGenericRepository(thenamespace);
-                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\Auto\\" + "IGenericRepository.cs", RichTextBoxStreamType.PlainText);
-                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\Auto\\" + "IGenericRepository.cs", RichTextBoxStreamType.PlainText);
 
 
                 richTextBox2.Text = GenerateInterfaceClass.GenerateInterface(type, thenamespace);
-                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\Auto\\" + "I" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
-                richTextBox2.SaveFile(FolderLocation.Text + "\\Interfaces\\Auto\\" + "I" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
+                richTextBox2.SaveFile(FolderLocation.Text + "\\DomainAuto" + "\\" + type.Name + "\\" + "I" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
+                richTextBox2.SaveFile(FolderLocation.Text + "\\DomainAuto" + "\\" + type.Name + "\\" + "I" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
 
                 /// INFRASTRUCTURE LAYER
                 /// GENERATE REPOSITORY IMPLEMENTATION AND ENTITYCONFIG FOR EACH ENTITY
                 richTextBox3.Text = GenerateInfrastructureClass.GenerateRepositories(type, thenamespace);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureRepository\\Auto\\" + type.Name + "\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureRepository\\Auto\\" + type.Name + "\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
+                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
+                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
 
 
 
                 richTextBox3.Text = GenerateEntityConfigClass.GenerateEntityConfig(type, thenamespace);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureRepository\\Auto\\" + type.Name + "\\" + type.Name + "EntityConfig.cs", RichTextBoxStreamType.PlainText);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureRepository\\Auto\\" + type.Name + "\\" + type.Name + "EntityConfig.cs", RichTextBoxStreamType.PlainText);
+                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "EntityConfig.cs", RichTextBoxStreamType.PlainText);
+                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "EntityConfig.cs", RichTextBoxStreamType.PlainText);
 
                 //Commands folder
                 richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, GenerateCQRSCommandClass.ProduceCreateCommandHeader);
@@ -263,11 +259,22 @@ namespace CleanAppFilesGenerator
                 richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
                 //Use this login to generate a file that runs acros all the types in the dll
+
+
                 if (listBox1.SelectedIndex == 0)
-                {//IUNITOFWORK//APIENDPOINTS//DBCONTEXT
+                {//IUNITOFWORK
+
                     richTextBox7.Text = GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex);
+                    //APIENDPOINTS
                     richTextBox8.Text = GenerateAPIEndPoints.Generate(type, thenamespace, listBox1.SelectedIndex);
+                    //DBCONTEXT
                     richTextBox11.Text = GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex);
+
+                    // this runs only once
+                    richTextBox2.Text = GenerateInterfaceClass.GenerateIGenericRepository(thenamespace);
+                    richTextBox2.SaveFile(FolderLocation.Text + "\\DomainAuto" + "\\" + "IGenericRepository.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox2.SaveFile(FolderLocation.Text + "\\DomainAuto" + "\\" + "IGenericRepository.cs", RichTextBoxStreamType.PlainText);
+
 
                 }
                 else
@@ -281,8 +288,8 @@ namespace CleanAppFilesGenerator
 
                     richTextBox7.AppendText(GeneralClass.newlinepad(4) + "}");
                     richTextBox7.AppendText(GeneralClass.newlinepad(0) + "}");
-                    richTextBox7.SaveFile(FolderLocation.Text + "\\Interfaces\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);
-                    richTextBox7.SaveFile(FolderLocation.Text + "\\Interfaces\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox7.SaveFile(FolderLocation.Text + "\\DomainAuto\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox7.SaveFile(FolderLocation.Text + "\\DomainAuto\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);
 
 
                     richTextBox8.AppendText(GeneralClass.newlinepad(4) + "}");
