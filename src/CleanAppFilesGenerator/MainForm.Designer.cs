@@ -57,11 +57,11 @@
             tabPage10 = new TabPage();
             richTextBox8 = new RichTextBox();
             tabPage11 = new TabPage();
+            richTextBox11 = new RichTextBox();
             listBox1 = new ListBox();
             openFileDialog1 = new OpenFileDialog();
             Library_Name_Space = new TextBox();
             comboBox1 = new ComboBox();
-            richTextBox11 = new RichTextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -90,7 +90,7 @@
             splitter2.Location = new Point(4, 0);
             splitter2.Margin = new Padding(3, 2, 3, 2);
             splitter2.Name = "splitter2";
-            splitter2.Size = new Size(489, 598);
+            splitter2.Size = new Size(689, 598);
             splitter2.TabIndex = 1;
             splitter2.TabStop = false;
             // 
@@ -154,11 +154,11 @@
             tabControl1.Controls.Add(tabPage10);
             tabControl1.Controls.Add(tabPage11);
             tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Location = new Point(493, 0);
+            tabControl1.Location = new Point(693, 0);
             tabControl1.Margin = new Padding(3, 2, 3, 2);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1413, 598);
+            tabControl1.Size = new Size(1213, 598);
             tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -168,7 +168,7 @@
             tabPage1.Margin = new Padding(3, 2, 3, 2);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3, 2, 3, 2);
-            tabPage1.Size = new Size(1405, 570);
+            tabPage1.Size = new Size(1205, 570);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Entities";
             tabPage1.UseVisualStyleBackColor = true;
@@ -179,7 +179,7 @@
             richTextBox1.Location = new Point(3, 2);
             richTextBox1.Margin = new Padding(3, 2, 3, 2);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(1399, 566);
+            richTextBox1.Size = new Size(1199, 566);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
@@ -388,6 +388,15 @@
             tabPage11.Text = "DBContext";
             tabPage11.UseVisualStyleBackColor = true;
             // 
+            // richTextBox11
+            // 
+            richTextBox11.Dock = DockStyle.Fill;
+            richTextBox11.Location = new Point(3, 3);
+            richTextBox11.Name = "richTextBox11";
+            richTextBox11.Size = new Size(1399, 564);
+            richTextBox11.TabIndex = 0;
+            richTextBox11.Text = "";
+            // 
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
@@ -420,15 +429,6 @@
             comboBox1.Size = new Size(220, 23);
             comboBox1.TabIndex = 10;
             comboBox1.Text = "v1";
-            // 
-            // richTextBox11
-            // 
-            richTextBox11.Dock = DockStyle.Fill;
-            richTextBox11.Location = new Point(3, 3);
-            richTextBox11.Name = "richTextBox11";
-            richTextBox11.Size = new Size(1399, 564);
-            richTextBox11.TabIndex = 0;
-            richTextBox11.Text = "";
             // 
             // MainForm
             // 

@@ -1,5 +1,6 @@
 ﻿
 using CodeGeneratorAttributesLibrary;
+using System;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
@@ -51,6 +52,11 @@ namespace CleanAppFilesGenerator
                 Output.Append(GeneralClass.newlinepad(12) + isunique);
             }
 
+            var foreignkey = GenerateEntityConfigurationForeignKey(type);
+            if (foreignkey != "")
+            {
+                Output.Append(GeneralClass.newlinepad(12) + foreignkey);
+            }
             //var hasdata = GenerateEntityConfigurationHasDataSample(type);
             //if (hasdata != "")
             //{
@@ -70,9 +76,9 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is ProjectBaseModelsAttribute)
+                        if (attribute is BaseModelsBasicAttribute)
                         {
-                            var attr = attribute as ProjectBaseModelsAttribute;
+                            var attr = attribute as BaseModelsBasicAttribute;
                             if (attr.IsKey)
                             {
                                 keys = keys + $"e.{property.Name},";
@@ -83,6 +89,56 @@ namespace CleanAppFilesGenerator
             }
             if (keys.Length > 0)
                 keys = $"entity.HasKey(e => new {{ {keys.Substring(0, keys.Length - 1)} }});";
+            return keys;
+        }
+
+        public static string GenerateEntityConfigurationForeignKey(Type type)
+        {
+            string keys = "";
+            string foreignKey = "";
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                if (property != null)
+                {
+                    var attributes = property.GetCustomAttributes();
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is BaseModelsBasicAttribute)
+                        {
+                            var attr = attribute as BaseModelsBasicAttribute;
+                            if (attr.IsForeignKey)
+                            {
+                                keys = keys + $"e.{property.Name},";
+                            }
+                        }
+                    }
+                }
+            }
+            if (keys.Length > 0)
+            {
+                var dnAttribute = type.GetCustomAttributes();
+                if (dnAttribute != null)
+                {
+
+                    foreach (var attribute in dnAttribute)
+                    {
+                        if (attribute is BaseModelsForeignKeyAttribute)
+                        {
+                            var attr = attribute as BaseModelsForeignKeyAttribute;
+                            if ((attr.HasOne != "") && (attr.WithMany != ""))
+                            {
+                                foreignKey = $"entity.HasOne<{attr.HasOne}>(e => e.{attr.HasOne}).WithMany(ad => ad.{attr.WithMany}).HasForeignKey(e => new {{{keys.Substring(0, keys.Length - 1)}}});";
+                            }
+                        }
+                    }
+
+
+                }
+                if (foreignKey == "") keys = ""; else keys = foreignKey;
+
+            }
+
             return keys;
         }
         public static string GenerateEntityConfigurationIsUnique(Type type)
@@ -96,9 +152,9 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is ProjectBaseModelsAttribute)
+                        if (attribute is BaseModelsBasicAttribute)
                         {
-                            var attr = attribute as ProjectBaseModelsAttribute;
+                            var attr = attribute as BaseModelsBasicAttribute;
                             if (attr.IsUnique)
                             {
                                 keys = keys + $"e.{property.Name},";
@@ -122,17 +178,17 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is ProjectBaseModelsAttribute)
+                        if (attribute is BaseModelsBasicAttribute)
                         {
-                            var attr = attribute as ProjectBaseModelsAttribute;
+                            var attr = attribute as BaseModelsBasicAttribute;
                             if (attr.MaxSize > 0)
                             {
                                 keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({attr.MaxSize}); ";
                             }
-                            if (attr.MinSize > 0)
-                            {
-                                keys = $"{keys}entity.Property(e => e.{property.Name}).HasMinLength({attr.MinSize});";
-                            }
+                            //if (attr.MinSize > 0)
+                            //{
+                            //    keys = $"{keys}entity.Property(e => e.{property.Name}).HasMinLength({attr.MinSize});";
+                            //}
                         }
                     }
                 }
@@ -150,9 +206,9 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is ProjectBaseModelsAttribute)
+                        if (attribute is BaseModelsBasicAttribute)
                         {
-                            var attr = attribute as ProjectBaseModelsAttribute;
+                            var attr = attribute as BaseModelsBasicAttribute;
                             if (attr.IsRequired)
                             {
                                 keys = $"entity.Property(e => e.{property.Name}).IsRequired(); ";

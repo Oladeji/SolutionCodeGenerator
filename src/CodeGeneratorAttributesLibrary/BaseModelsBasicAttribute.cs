@@ -1,23 +1,45 @@
 ﻿namespace CodeGeneratorAttributesLibrary
 {
-    public class ProjectBaseModelsAttribute : System.Attribute
+    //public class BaseModelsBasicAttribute : System.Attribute
+    //{
+
+    //    public BaseModelsBasicAttribute(int maxSize, int minSize, bool isKey, bool isUnique, bool isRequired, bool hasDefaultStringValue, string defaultStringValue)
+    //    {
+    //        MaxSize = maxSize;
+    //        MinSize = minSize;
+    //        IsKey = isKey;
+    //        IsUnique = isUnique;
+    //        IsRequired = isRequired;
+    //        DefaultStringValue = defaultStringValue;
+    //        HasDefaultStringValue = hasDefaultStringValue;
+    //    }
+
+    //    public BaseModelsBasicAttribute(bool isKey)
+    //    {
+    //        IsKey = isKey;
+    //    }
+
+    //    public int MaxSize { get; set; }
+    //    public int MinSize { get; set; }
+    //    //private bool IsPrimaryKey { get; set; }
+    //    public bool IsKey { get; set; }
+    //    //private bool IsNullable { get; set; }
+    //    public bool IsUnique { get; set; }
+
+    //    public string DefaultStringValue { get; set; }
+    //    public bool HasDefaultStringValue { get; set; }
+
+    //    public bool IsRequired { get; set; }
+
+
+
+    //}
+
+
+    public class BaseModelsBasicAttribute : System.Attribute
     {
-        //public ProjectBaseModelsAttribute(int maxSize, bool isKey, bool isUnique, bool isRequired , bool isForeignKey)
-        //{
-        //    MaxSize = maxSize;
-        //    IsKey = isKey;
-        //    IsUnique = isUnique;
-        //    IsForeignKey = isForeignKey;
-        //    IsRequired = isRequired;
-        //}
-        //public ProjectBaseModelsAttribute(int maxSize, int minSize, bool isKey, bool isRequired)
-        //{
-        //    MaxSize = maxSize;
-        //    MinSize = minSize;
-        //    IsKey = isKey;
-        //    IsRequired = isRequired;
-        //}
-        public ProjectBaseModelsAttribute(int maxSize, int minSize, bool isKey, bool isUnique, bool isRequired, bool isForeignKey, bool hasDefaultStringValue, string defaultStringValue)
+
+        public BaseModelsBasicAttribute(int maxSize, int minSize, bool isKey, bool isUnique, bool isRequired, bool isForeignKey, bool hasDefaultStringValue, string defaultStringValue)
         {
             MaxSize = maxSize;
             MinSize = minSize;
@@ -28,6 +50,13 @@
             DefaultStringValue = defaultStringValue;
             HasDefaultStringValue = hasDefaultStringValue;
         }
+
+        public BaseModelsBasicAttribute(bool isKey, bool isForeignKey)
+        {
+            IsKey = isKey;
+            IsForeignKey = isForeignKey;
+        }
+
 
         public int MaxSize { get; set; }
         public int MinSize { get; set; }
@@ -68,4 +97,5 @@
 
 
     }
+
 }
