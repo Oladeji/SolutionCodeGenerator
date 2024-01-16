@@ -20,21 +20,33 @@ namespace CleanAppFilesGenerator
             InitializeComponent();
         }
 
-        int NoOfTimes = 0;
+        //  int NoOfTimes = 0;
         int MaxNoOfItems = 0;
+        int defaultStringlength = 32;
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            NoOfTimes = 0;
+            try
+            {
+                EmptyFolders(FolderLocation.Text);
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show($"Problem Empting Directory:  {FolderLocation.Text} Please check if all files are closed");
+            }
+
+
+            //   NoOfTimes = 0;
             MaxNoOfItems = listBox1.Items.Count;
 
             for (int i = 0; i < listBox1.Items.Count; i++)
             {
                 listBox1.SelectedIndex = i;
-                NoOfTimes = i;
+                //       NoOfTimes = i;
             }
-            Close();
+            // Close();
         }
 
 
@@ -137,25 +149,8 @@ namespace CleanAppFilesGenerator
             if (listBox1.SelectedItem != null)
             {
                 Type type = (Type)listBox1.SelectedItem;
-                // HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "PartialEntities");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "DomainAuto" + "\\" + type.Name);
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "InfrastructureAuto" + "\\" + type.Name);
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
-                //HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationRequestDTO");
-                //HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationResponseDTO");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ApplicationCQRS");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "Controllers");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ContractRequestDTO");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "ContractResponseDTO");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "APIEndPoints");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text, "DBContext");
 
-
-
-                //  HelperClass.EnsureFolderIsCreated(FolderLocation.Text + "\\ApplicationCQRS", type.Name);
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name, "Commands");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name, "Handlers");
-                HelperClass.EnsureFolderIsCreated(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name, "Queries");
+                CreateRequiredFolders(FolderLocation.Text, type);
 
                 // richTextBox1.Text = GenerateEntityClass.GenerateBaseEntity(type, thenamespace);
                 //richTextBox1.SaveFile(FolderLocation.Text + "\\Entities\\" + "BaseEntity.cs", RichTextBoxStreamType.PlainText);
@@ -175,12 +170,12 @@ namespace CleanAppFilesGenerator
                 richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
                 richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Repository.cs", RichTextBoxStreamType.PlainText);
 
-
-
-                richTextBox3.Text = GenerateEntityConfigClass.GenerateEntityConfig(type, thenamespace);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
-                richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
-
+                if (checkBox1.Checked)
+                {
+                    richTextBox3.Text = GenerateEntityConfigClass.GenerateEntityConfig(type, thenamespace, defaultStringlength);
+                    richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
+                }
                 //Commands folder
                 richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, GenerateCQRSCommandClass.ProduceCreateCommandHeader);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name + "\\Commands\\" + "Create" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
@@ -308,7 +303,38 @@ namespace CleanAppFilesGenerator
 
         }
 
+        private static void EmptyFolders(string basePath)
+        {
+            System.IO.DirectoryInfo di = new DirectoryInfo(basePath);
 
+            foreach (FileInfo file in di.EnumerateFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.EnumerateDirectories())
+            {
+                dir.Delete(true);
+            }
+        }
+        private static void CreateRequiredFolders(string basePath, Type type)
+        {
+            // HelperClass.EnsureFolderIsCreated(basePath, "PartialEntities");
+            HelperClass.EnsureFolderIsCreated(basePath, "DomainAuto" + "\\" + type.Name);
+            HelperClass.EnsureFolderIsCreated(basePath, "InfrastructureAuto" + "\\" + type.Name);
+            HelperClass.EnsureFolderIsCreated(basePath, "ApplicationCQRS");
+            //HelperClass.EnsureFolderIsCreated(basePath, "ApplicationRequestDTO");
+            //HelperClass.EnsureFolderIsCreated(basePath, "ApplicationResponseDTO");
+            HelperClass.EnsureFolderIsCreated(basePath, "ApplicationCQRS");
+            HelperClass.EnsureFolderIsCreated(basePath, "Controllers");
+            HelperClass.EnsureFolderIsCreated(basePath, "ContractRequestDTO");
+            HelperClass.EnsureFolderIsCreated(basePath, "ContractResponseDTO");
+            HelperClass.EnsureFolderIsCreated(basePath, "APIEndPoints");
+            HelperClass.EnsureFolderIsCreated(basePath, "DBContext");
+            //  HelperClass.EnsureFolderIsCreated(basePath + "\\ApplicationCQRS", type.Name);
+            HelperClass.EnsureFolderIsCreated(basePath + "\\ApplicationCQRS\\" + type.Name, "Commands");
+            HelperClass.EnsureFolderIsCreated(basePath + "\\ApplicationCQRS\\" + type.Name, "Handlers");
+            HelperClass.EnsureFolderIsCreated(basePath + "\\ApplicationCQRS\\" + type.Name, "Queries");
+        }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {

@@ -9,23 +9,23 @@ namespace CleanAppFilesGenerator
 {
     internal class GenerateEntityConfigClass
     {
-        internal static string GenerateEntityConfig(Type type, string thenamespace)
+        internal static string GenerateEntityConfig(Type type, string thenamespace, int defaultStringlength)
         {
             var Output = new StringBuilder();
-            Output.Append(GenerateHeader(thenamespace, type));
-            Output.Append("{");
+            Output.Append(GenerateHeader(thenamespace));
+            Output.Append('{');
             Output.Append(GeneralClass.newlinepad(4) + $"public class {type.Name}Config : IEntityTypeConfiguration<{type.Name}>");
             Output.Append(GeneralClass.newlinepad(4) + "{");
-            Output.Append(GenerateEntityClass(type));
+            Output.Append(GenerateEntityClass(type, defaultStringlength));
             Output.Append(GeneralClass.newlinepad(4) + "}");
             Output.Append("\n}");
             return Output.ToString();
         }
-        public static string GenerateHeader(string name_space, Type type)
+        public static string GenerateHeader(string name_space)
         {
             return ($"using Microsoft.EntityFrameworkCore;\nusing Microsoft.EntityFrameworkCore.Metadata.Builders;\nusing {name_space}.Domain.Entities;\nnamespace {name_space}.Infrastructure.Persistence.EntitiesConfig\n");
         }
-        public static string GenerateEntityClass(Type type)
+        public static string GenerateEntityClass(Type type, int defaultStringlength)
         {
 
             var Output = new StringBuilder();
@@ -36,7 +36,7 @@ namespace CleanAppFilesGenerator
             {
                 Output.Append(GeneralClass.newlinepad(12) + haskey);
             }
-            var maxlenght = GenerateEntityConfigurationMaxLenghtForString(type);
+            var maxlenght = GenerateEntityConfigurationMaxLenghtForString(type, defaultStringlength, 12);
             if (maxlenght != "")
             {
                 Output.Append(GeneralClass.newlinepad(12) + maxlenght);
@@ -76,9 +76,9 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is BaseModelsBasicAttribute)
+                        if (attribute is BaseModelBasicAttribute)
                         {
-                            var attr = attribute as BaseModelsBasicAttribute;
+                            var attr = attribute as BaseModelBasicAttribute;
                             if (attr.IsKey)
                             {
                                 keys = keys + $"e.{property.Name},";
@@ -104,9 +104,9 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is BaseModelsBasicAttribute)
+                        if (attribute is BaseModelBasicAttribute)
                         {
-                            var attr = attribute as BaseModelsBasicAttribute;
+                            var attr = attribute as BaseModelBasicAttribute;
                             if (attr.IsForeignKey)
                             {
                                 keys = keys + $"e.{property.Name},";
@@ -152,9 +152,9 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is BaseModelsBasicAttribute)
+                        if (attribute is BaseModelBasicAttribute)
                         {
-                            var attr = attribute as BaseModelsBasicAttribute;
+                            var attr = attribute as BaseModelBasicAttribute;
                             if (attr.IsUnique)
                             {
                                 keys = keys + $"e.{property.Name},";
@@ -167,30 +167,57 @@ namespace CleanAppFilesGenerator
                 keys = $"entity.HasIndex(e => new {{ {keys.Substring(0, keys.Length - 1)} }}).IsUnique();";
             return keys;
         }
-        public static string GenerateEntityConfigurationMaxLenghtForString(Type type)
+        public static string GenerateEntityConfigurationMaxLenghtForString(Type type, int defaultStringlength, int tabspace)
         {
             string keys = "";
             PropertyInfo[] properties = type.GetProperties();
             foreach (var property in properties)
             {
+                if (property.Name.Contains("VersionDescription"))
+                {
+                    int x = 0;
+
+                }
+
                 if (property != null)
                 {
                     var attributes = property.GetCustomAttributes();
-                    foreach (var attribute in attributes)
+                    if (attributes != null)
                     {
-                        if (attribute is BaseModelsBasicAttribute)
+                        if (attributes.ToList().Count() > 0)
                         {
-                            var attr = attribute as BaseModelsBasicAttribute;
-                            if (attr.MaxSize > 0)
+                            foreach (var attribute in attributes)
                             {
-                                keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({attr.MaxSize}); ";
+                                if (attribute is BaseModelBasicAttribute)
+                                {
+                                    var attr = attribute as BaseModelBasicAttribute;
+                                    if (attr.MaxSize > 0)
+                                    {
+                                        if (keys.Length > 0)
+
+                                            keys = keys + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({attr.MaxSize}); ";
+                                        else
+                                            keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({attr.MaxSize}); ";
+                                    }
+
+                                }
                             }
-                            //if (attr.MinSize > 0)
-                            //{
-                            //    keys = $"{keys}entity.Property(e => e.{property.Name}).HasMinLength({attr.MinSize});";
-                            //}
+
+                        }
+                        else
+                        {
+                            if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("string"))
+                            {
+                                if (keys.Length > 0)
+                                    keys = keys + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
+                                else
+                                    keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
+                            }
+
+
                         }
                     }
+
                 }
             }
             return keys;
@@ -206,9 +233,9 @@ namespace CleanAppFilesGenerator
                     var attributes = property.GetCustomAttributes();
                     foreach (var attribute in attributes)
                     {
-                        if (attribute is BaseModelsBasicAttribute)
+                        if (attribute is BaseModelBasicAttribute)
                         {
-                            var attr = attribute as BaseModelsBasicAttribute;
+                            var attr = attribute as BaseModelBasicAttribute;
                             if (attr.IsRequired)
                             {
                                 keys = $"entity.Property(e => e.{property.Name}).IsRequired(); ";

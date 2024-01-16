@@ -62,6 +62,7 @@
             openFileDialog1 = new OpenFileDialog();
             Library_Name_Space = new TextBox();
             comboBox1 = new ComboBox();
+            checkBox1 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -90,7 +91,7 @@
             splitter2.Location = new Point(4, 0);
             splitter2.Margin = new Padding(3, 2, 3, 2);
             splitter2.Name = "splitter2";
-            splitter2.Size = new Size(689, 598);
+            splitter2.Size = new Size(666, 598);
             splitter2.TabIndex = 1;
             splitter2.TabStop = false;
             // 
@@ -154,11 +155,11 @@
             tabControl1.Controls.Add(tabPage10);
             tabControl1.Controls.Add(tabPage11);
             tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Location = new Point(693, 0);
+            tabControl1.Location = new Point(670, 0);
             tabControl1.Margin = new Padding(3, 2, 3, 2);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1213, 598);
+            tabControl1.Size = new Size(1236, 598);
             tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -168,7 +169,7 @@
             tabPage1.Margin = new Padding(3, 2, 3, 2);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3, 2, 3, 2);
-            tabPage1.Size = new Size(1205, 570);
+            tabPage1.Size = new Size(1228, 570);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Entities";
             tabPage1.UseVisualStyleBackColor = true;
@@ -179,7 +180,7 @@
             richTextBox1.Location = new Point(3, 2);
             richTextBox1.Margin = new Padding(3, 2, 3, 2);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(1199, 566);
+            richTextBox1.Size = new Size(1222, 566);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
@@ -191,7 +192,7 @@
             tabPage2.Margin = new Padding(3, 2, 3, 2);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3, 2, 3, 2);
-            tabPage2.Size = new Size(1405, 570);
+            tabPage2.Size = new Size(1228, 570);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Interfaces";
             tabPage2.UseVisualStyleBackColor = true;
@@ -202,7 +203,7 @@
             richTextBox2.Location = new Point(3, 2);
             richTextBox2.Margin = new Padding(3, 2, 3, 2);
             richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(1399, 566);
+            richTextBox2.Size = new Size(1222, 566);
             richTextBox2.TabIndex = 0;
             richTextBox2.Text = "";
             // 
@@ -213,7 +214,7 @@
             tabPage3.Margin = new Padding(3, 2, 3, 2);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3, 2, 3, 2);
-            tabPage3.Size = new Size(1405, 570);
+            tabPage3.Size = new Size(1228, 570);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Infrastructure Models";
             tabPage3.UseVisualStyleBackColor = true;
@@ -224,7 +225,7 @@
             richTextBox3.Location = new Point(3, 2);
             richTextBox3.Margin = new Padding(3, 2, 3, 2);
             richTextBox3.Name = "richTextBox3";
-            richTextBox3.Size = new Size(1399, 566);
+            richTextBox3.Size = new Size(1222, 566);
             richTextBox3.TabIndex = 0;
             richTextBox3.Text = "";
             // 
@@ -235,7 +236,7 @@
             tabPage4.Margin = new Padding(3, 2, 3, 2);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3, 2, 3, 2);
-            tabPage4.Size = new Size(1405, 570);
+            tabPage4.Size = new Size(1228, 570);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "CQRS Command";
             tabPage4.UseVisualStyleBackColor = true;
@@ -246,7 +247,7 @@
             richTextBox4.Location = new Point(3, 2);
             richTextBox4.Margin = new Padding(3, 2, 3, 2);
             richTextBox4.Name = "richTextBox4";
-            richTextBox4.Size = new Size(1399, 566);
+            richTextBox4.Size = new Size(1222, 566);
             richTextBox4.TabIndex = 0;
             richTextBox4.Text = "";
             // 
@@ -257,7 +258,7 @@
             tabPage5.Margin = new Padding(3, 2, 3, 2);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3, 2, 3, 2);
-            tabPage5.Size = new Size(1405, 570);
+            tabPage5.Size = new Size(1228, 570);
             tabPage5.TabIndex = 4;
             tabPage5.Text = "CQRS Handler";
             tabPage5.UseVisualStyleBackColor = true;
@@ -268,7 +269,7 @@
             richTextBox5.Location = new Point(3, 2);
             richTextBox5.Margin = new Padding(3, 2, 3, 2);
             richTextBox5.Name = "richTextBox5";
-            richTextBox5.Size = new Size(1399, 566);
+            richTextBox5.Size = new Size(1222, 566);
             richTextBox5.TabIndex = 0;
             richTextBox5.Text = "";
             // 
@@ -279,7 +280,7 @@
             tabPage6.Margin = new Padding(1);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(1);
-            tabPage6.Size = new Size(1405, 570);
+            tabPage6.Size = new Size(1228, 570);
             tabPage6.TabIndex = 5;
             tabPage6.Text = "CQRS Query";
             tabPage6.UseVisualStyleBackColor = true;
@@ -290,7 +291,7 @@
             richTextBox6.Location = new Point(1, 1);
             richTextBox6.Margin = new Padding(1);
             richTextBox6.Name = "richTextBox6";
-            richTextBox6.Size = new Size(1403, 568);
+            richTextBox6.Size = new Size(1226, 568);
             richTextBox6.TabIndex = 0;
             richTextBox6.Text = "";
             // 
@@ -301,7 +302,7 @@
             tabPage7.Margin = new Padding(3, 2, 3, 2);
             tabPage7.Name = "tabPage7";
             tabPage7.Padding = new Padding(3, 2, 3, 2);
-            tabPage7.Size = new Size(1405, 570);
+            tabPage7.Size = new Size(1228, 570);
             tabPage7.TabIndex = 6;
             tabPage7.Text = "IUNITOFWORK";
             tabPage7.UseVisualStyleBackColor = true;
@@ -313,7 +314,7 @@
             richTextBox7.Location = new Point(3, 2);
             richTextBox7.Margin = new Padding(3, 2, 3, 2);
             richTextBox7.Name = "richTextBox7";
-            richTextBox7.Size = new Size(1399, 566);
+            richTextBox7.Size = new Size(1222, 566);
             richTextBox7.TabIndex = 0;
             richTextBox7.Text = "";
             // 
@@ -323,7 +324,7 @@
             tabPage8.Location = new Point(4, 24);
             tabPage8.Name = "tabPage8";
             tabPage8.Padding = new Padding(3);
-            tabPage8.Size = new Size(1405, 570);
+            tabPage8.Size = new Size(1228, 570);
             tabPage8.TabIndex = 7;
             tabPage8.Text = "CONTROLLERS";
             tabPage8.UseVisualStyleBackColor = true;
@@ -333,7 +334,7 @@
             richTextBox9.Dock = DockStyle.Fill;
             richTextBox9.Location = new Point(3, 3);
             richTextBox9.Name = "richTextBox9";
-            richTextBox9.Size = new Size(1399, 564);
+            richTextBox9.Size = new Size(1222, 564);
             richTextBox9.TabIndex = 0;
             richTextBox9.Text = "";
             // 
@@ -343,7 +344,7 @@
             tabPage9.Location = new Point(4, 24);
             tabPage9.Name = "tabPage9";
             tabPage9.Padding = new Padding(3);
-            tabPage9.Size = new Size(1405, 570);
+            tabPage9.Size = new Size(1228, 570);
             tabPage9.TabIndex = 8;
             tabPage9.Text = "CONTRACT LAYER ";
             tabPage9.UseVisualStyleBackColor = true;
@@ -353,7 +354,7 @@
             richTextBox10.Dock = DockStyle.Fill;
             richTextBox10.Location = new Point(3, 3);
             richTextBox10.Name = "richTextBox10";
-            richTextBox10.Size = new Size(1399, 564);
+            richTextBox10.Size = new Size(1222, 564);
             richTextBox10.TabIndex = 0;
             richTextBox10.Text = "";
             // 
@@ -363,7 +364,7 @@
             tabPage10.Location = new Point(4, 24);
             tabPage10.Name = "tabPage10";
             tabPage10.Padding = new Padding(3);
-            tabPage10.Size = new Size(1405, 570);
+            tabPage10.Size = new Size(1228, 570);
             tabPage10.TabIndex = 9;
             tabPage10.Text = "API ENDPOINTS";
             tabPage10.UseVisualStyleBackColor = true;
@@ -373,7 +374,7 @@
             richTextBox8.Dock = DockStyle.Fill;
             richTextBox8.Location = new Point(3, 3);
             richTextBox8.Name = "richTextBox8";
-            richTextBox8.Size = new Size(1399, 564);
+            richTextBox8.Size = new Size(1222, 564);
             richTextBox8.TabIndex = 0;
             richTextBox8.Text = "";
             // 
@@ -383,7 +384,7 @@
             tabPage11.Location = new Point(4, 24);
             tabPage11.Name = "tabPage11";
             tabPage11.Padding = new Padding(3);
-            tabPage11.Size = new Size(1405, 570);
+            tabPage11.Size = new Size(1228, 570);
             tabPage11.TabIndex = 10;
             tabPage11.Text = "DBContext";
             tabPage11.UseVisualStyleBackColor = true;
@@ -393,7 +394,7 @@
             richTextBox11.Dock = DockStyle.Fill;
             richTextBox11.Location = new Point(3, 3);
             richTextBox11.Name = "richTextBox11";
-            richTextBox11.Size = new Size(1399, 564);
+            richTextBox11.Size = new Size(1222, 564);
             richTextBox11.TabIndex = 0;
             richTextBox11.Text = "";
             // 
@@ -430,11 +431,24 @@
             comboBox1.TabIndex = 10;
             comboBox1.Text = "v1";
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Location = new Point(291, 208);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(166, 19);
+            checkBox1.TabIndex = 11;
+            checkBox1.Text = "Include Entity Config Auto";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1906, 598);
+            Controls.Add(checkBox1);
             Controls.Add(comboBox1);
             Controls.Add(Library_Name_Space);
             Controls.Add(listBox1);
@@ -502,5 +516,6 @@
         private RichTextBox richTextBox8;
         private TabPage tabPage11;
         private RichTextBox richTextBox11;
+        private CheckBox checkBox1;
     }
 }

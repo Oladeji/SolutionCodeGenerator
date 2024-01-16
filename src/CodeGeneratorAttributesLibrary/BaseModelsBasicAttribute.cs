@@ -36,10 +36,10 @@
     //}
 
 
-    public class BaseModelsBasicAttribute : System.Attribute
+    public class BaseModelBasicAttribute : System.Attribute
     {
 
-        public BaseModelsBasicAttribute(int maxSize, int minSize, bool isKey, bool isUnique, bool isRequired, bool isForeignKey, bool hasDefaultStringValue, string defaultStringValue)
+        public BaseModelBasicAttribute(int maxSize, int minSize, bool isKey, bool isForeignKey = false, bool isRequired = false, bool isUnique = false, bool hasDefaultStringValue = false, string defaultStringValue = "")
         {
             MaxSize = maxSize;
             MinSize = minSize;
@@ -51,7 +51,7 @@
             HasDefaultStringValue = hasDefaultStringValue;
         }
 
-        public BaseModelsBasicAttribute(bool isKey, bool isForeignKey)
+        public BaseModelBasicAttribute(bool isKey, bool isForeignKey = false)
         {
             IsKey = isKey;
             IsForeignKey = isForeignKey;

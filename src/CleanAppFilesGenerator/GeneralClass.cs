@@ -50,7 +50,7 @@ namespace CleanAppFilesGenerator
         public static string PrepareParameter(string propType, string propName)
         {
             return $"{getProperDefaultDataType(propType)}  {FirstCharSubstringToLower(propName)}";
-            // return $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";
+
         }
         public static string PrepareAssignment(string propType, string propName)
         {
@@ -107,7 +107,7 @@ namespace CleanAppFilesGenerator
             return result;
         }
 
-        private static string getProperDefaultDataType(string type)
+        public static string getProperDefaultDataType(string type)
         {
 
             var result = type switch
