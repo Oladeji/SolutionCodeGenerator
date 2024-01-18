@@ -57,6 +57,13 @@ namespace CleanAppFilesGenerator
             {
                 Output.Append(GeneralClass.newlinepad(12) + foreignkey);
             }
+
+            var principalkey = GenerateEntityConfigurationPricipalKey(type);
+            if (principalkey != "")
+            {
+                Output.Append(GeneralClass.newlinepad(12) + principalkey);
+            }
+
             //var hasdata = GenerateEntityConfigurationHasDataSample(type);
             //if (hasdata != "")
             //{
@@ -141,6 +148,58 @@ namespace CleanAppFilesGenerator
 
             return keys;
         }
+
+        public static string GenerateEntityConfigurationPricipalKey(Type type)
+        {
+            string keys = "";
+            string foreignKey = "";
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                if (property != null)
+                {
+                    var attributes = property.GetCustomAttributes();
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is BaseModelBasicAttribute)
+                        {
+                            var attr = attribute as BaseModelBasicAttribute;
+                            if (attr.IsPrincipalKey)
+                            {
+                                keys = keys + $"e.{property.Name},";
+                            }
+                        }
+                    }
+                }
+            }
+            if (keys.Length > 0)
+            {
+                var dnAttribute = type.GetCustomAttributes();
+                if (dnAttribute != null)
+                {
+
+                    foreach (var attribute in dnAttribute)
+                    {
+                        if (attribute is BaseModelsPrincipalKeyAttribute)
+                        {
+                            var attr = attribute as BaseModelsPrincipalKeyAttribute;
+                            if ((attr.HasOne != "") && (attr.WithMany != ""))
+                            {
+                                foreignKey = $"entity.HasOne<{attr.HasOne}>(e => e.{attr.HasOne}).WithMany(ad => ad.{attr.WithMany}).HasPrincipalKey(e => new {{{keys.Substring(0, keys.Length - 1)}}});";
+                            }
+                        }
+                    }
+
+
+                }
+                if (foreignKey == "") keys = ""; else keys = foreignKey;
+
+            }
+
+            return keys;
+        }
+
+
         public static string GenerateEntityConfigurationIsUnique(Type type)
         {
             string keys = "";
@@ -209,7 +268,12 @@ namespace CleanAppFilesGenerator
                             if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("string"))
                             {
                                 if (keys.Length > 0)
-                                    keys = keys + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
+                                {
+                                    int x = 1;
+                                    if (property.Name.Contains("Description")) x = 5;
+
+                                    keys = keys + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength * 5}); ";
+                                }
                                 else
                                     keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
                             }
