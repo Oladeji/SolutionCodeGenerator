@@ -257,9 +257,12 @@ namespace CleanAppFilesGenerator
 
 
                 if (listBox1.SelectedIndex == 0)
-                {//IUNITOFWORK
+                {//IUNITOFWORK -INTERFACE
 
                     richTextBox7.Text = GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex);
+                    //UNITOFWORK
+                    richTextBox12.Text = GenerateUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex);
+
                     //APIENDPOINTS
                     richTextBox8.Text = GenerateAPIEndPoints.Generate(type, thenamespace, listBox1.SelectedIndex);
                     //DBCONTEXT
@@ -275,27 +278,35 @@ namespace CleanAppFilesGenerator
                 else
                 {
                     richTextBox7.AppendText(GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex));
+                    richTextBox12.AppendText( GenerateUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex));
                     richTextBox8.AppendText(GenerateAPIEndPoints.Generate(type, thenamespace, listBox1.SelectedIndex));
                     richTextBox11.AppendText(GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex));
                 }
                 if (listBox1.SelectedIndex == MaxNoOfItems - 1)
                 {
-
+                    //IUNITOFWORK
                     richTextBox7.AppendText(GeneralClass.newlinepad(4) + "}");
                     richTextBox7.AppendText(GeneralClass.newlinepad(0) + "}");
                     richTextBox7.SaveFile(FolderLocation.Text + "\\DomainAuto\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);
                     richTextBox7.SaveFile(FolderLocation.Text + "\\DomainAuto\\" + "IUnitOfWork.cs", RichTextBoxStreamType.PlainText);
 
+                    //UNITOFWORK
+                    richTextBox12.AppendText(GeneralClass.newlinepad(4) + "}");
+                    richTextBox12.AppendText(GeneralClass.newlinepad(0) + "}");
+                    richTextBox12.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + "UnitOfWork.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox12.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + "UnitOfWork.cs", RichTextBoxStreamType.PlainText);
 
+                    //APIENDPOINTS
                     richTextBox8.AppendText(GeneralClass.newlinepad(4) + "}");
                     richTextBox8.AppendText(GeneralClass.newlinepad(0) + "}");
                     richTextBox8.SaveFile(FolderLocation.Text + "\\APIEndPoints\\" + thenamespace + "APIEndPoints.cs", RichTextBoxStreamType.PlainText);
                     richTextBox8.SaveFile(FolderLocation.Text + "\\APIEndPoints\\" + thenamespace + "APIEndPoints.cs", RichTextBoxStreamType.PlainText);
 
+                    //DBCONTEXT
                     richTextBox11.AppendText(GeneralClass.newlinepad(4) + "}");
                     richTextBox11.AppendText(GeneralClass.newlinepad(0) + "}");
-                    richTextBox11.SaveFile(FolderLocation.Text + "\\DBContext\\" + thenamespace + "Context.cs", RichTextBoxStreamType.PlainText);
-                    richTextBox11.SaveFile(FolderLocation.Text + "\\DBContext\\" + thenamespace + "Context.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox11.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + thenamespace + "Context.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox11.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + thenamespace + "Context.cs", RichTextBoxStreamType.PlainText);
 
 
                 }

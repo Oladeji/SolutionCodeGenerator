@@ -63,6 +63,8 @@
             Library_Name_Space = new TextBox();
             comboBox1 = new ComboBox();
             checkBox1 = new CheckBox();
+            tabPage12 = new TabPage();
+            richTextBox12 = new RichTextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -75,6 +77,7 @@
             tabPage9.SuspendLayout();
             tabPage10.SuspendLayout();
             tabPage11.SuspendLayout();
+            tabPage12.SuspendLayout();
             SuspendLayout();
             // 
             // splitter1
@@ -154,6 +157,7 @@
             tabControl1.Controls.Add(tabPage9);
             tabControl1.Controls.Add(tabPage10);
             tabControl1.Controls.Add(tabPage11);
+            tabControl1.Controls.Add(tabPage12);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(670, 0);
             tabControl1.Margin = new Padding(3, 2, 3, 2);
@@ -443,6 +447,26 @@
             checkBox1.Text = "Include Entity Config Auto";
             checkBox1.UseVisualStyleBackColor = true;
             // 
+            // tabPage12
+            // 
+            tabPage12.Controls.Add(richTextBox12);
+            tabPage12.Location = new Point(4, 24);
+            tabPage12.Name = "tabPage12";
+            tabPage12.Padding = new Padding(3);
+            tabPage12.Size = new Size(1228, 570);
+            tabPage12.TabIndex = 11;
+            tabPage12.Text = "UnitOfWorkImplementation";
+            tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox12
+            // 
+            richTextBox12.Dock = DockStyle.Fill;
+            richTextBox12.Location = new Point(3, 3);
+            richTextBox12.Name = "richTextBox12";
+            richTextBox12.Size = new Size(1222, 564);
+            richTextBox12.TabIndex = 0;
+            richTextBox12.Text = "";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -476,6 +500,7 @@
             tabPage9.ResumeLayout(false);
             tabPage10.ResumeLayout(false);
             tabPage11.ResumeLayout(false);
+            tabPage12.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -517,5 +542,7 @@
         private TabPage tabPage11;
         private RichTextBox richTextBox11;
         private CheckBox checkBox1;
+        private TabPage tabPage12;
+        private RichTextBox richTextBox12;
     }
 }
