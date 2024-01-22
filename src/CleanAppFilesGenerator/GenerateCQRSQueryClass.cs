@@ -25,7 +25,8 @@ namespace CleanAppFilesGenerator
             return ($"using {name_space}.Contracts.RequestDTO;\n" +
                 $"using {name_space}.Contracts.ResponseDTO;\n" +
                $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-               $"namespace {name_space}.Application.CQRS.{entityName}.Queries" +
+               //$"namespace {name_space}.Application.CQRS.{entityName}.Queries" +
+               $"namespace {name_space}.Application.CQRS" +
                $"{{");
 
         }

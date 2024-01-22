@@ -76,7 +76,7 @@ namespace CleanAppFilesGenerator
             return $"\n{GeneralClass.newlinepad(8)}[HttpDelete(template: {thenamespace}APIEndPoints.{type.Name}.Delete, Name = {thenamespace}APIEndPoints.{type.Name}.Delete)]" +
                    $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Delete([FromRoute] Guid request, CancellationToken cancellationToken)" +
                    $"{GeneralClass.newlinepad(12)}=>_sender.Send(new Delete{type.Name}Command(new {type.Name}DeleteRequestDTO(request)), cancellationToken).ToActionResult();";
-                 
+
         }
 
         private static string ProduceControllerCreate(string thenamespace, Type type)
@@ -95,10 +95,14 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Api.Extentions;\n" +
 
-                $"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
-                $"using {name_space}.Application.CQRS.{type.Name}.Queries;\n" +
+                $"using {name_space}.Application.CQRS;\n" +
+                // $"using {name_space}.Application.CQRS;\n" +
+                //$"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
+                // $"using {name_space}.Application.CQRS.{type.Name}.Queries;\n" +
+
                 $"using {name_space}.Contracts.RequestDTO;\n" +
-                $"using {name_space}.Contracts.ResponseDTO;\n" +
+                  $"using {name_space}.Contracts.ResponseDTO;\n" +
+                $"using {name_space}.Api.Extensions;\n" +
                 $"using {name_space}.Domain.Errors;\n" +
                 $"using LanguageExt;\n" +
                 $"using MediatR;\n" +
