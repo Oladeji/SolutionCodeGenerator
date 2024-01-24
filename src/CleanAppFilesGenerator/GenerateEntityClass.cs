@@ -38,6 +38,10 @@ namespace CleanAppFilesGenerator
             return ($"private {type.Name}(){{}}");
 
         }
+
+
+
+
         public static string ProduceEntityCreateFunction(Type type)
         {
 

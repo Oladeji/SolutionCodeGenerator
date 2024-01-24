@@ -26,7 +26,34 @@ namespace CleanAppFilesGenerator
                 $"{GeneralClass.newlinepad(8)}public  IReadOnlyCollection<{propertytype}> {name} => _{name};";
             return sb;
         }
+        public static string ProduceEntitySignatureFunction(Type type)
+        {
+            StringBuilder sb = new StringBuilder();
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (PropertyInfo prop in properties)
+            {
+                var x = Nullable.GetUnderlyingType(prop.PropertyType);
+                var propertytype = x == null ? prop.PropertyType.Name : x.Name;
 
+                if (propertytype.Contains("ICollection`1") || (propertytype.Contains("IList`1")))
+                {
+                    var _ = prop.PropertyType.GenericTypeArguments[0];
+                }
+                else
+
+                if (!prop.PropertyType.BaseType.Name.Contains("BaseEntity"))
+                {
+                    sb.Append(GeneralClass.PrepareParameter(propertytype, prop.Name));
+                    sb.Append(", ");
+                }
+                else
+                {          // These are member that are inherited from the base entity
+                }
+
+            }
+            sb.Remove(sb.Length - 2, 2);
+            return sb.ToString();
+        }
 
 
         public static string PrepareProperty(string propType, PropertyInfo prop)
