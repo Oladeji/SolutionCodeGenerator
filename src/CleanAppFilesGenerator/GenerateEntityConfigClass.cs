@@ -62,6 +62,11 @@ namespace CleanAppFilesGenerator
             {
                 Output.Append(GeneralClass.newlinepad(12) + foreignkey);
             }
+            var hardforeignkey = GenerateEntityConfigurationHardForeignKey(type, GeneralClass.newlinepad(12));
+            if (hardforeignkey != "")
+            {
+                Output.Append(GeneralClass.newlinepad(12) + hardforeignkey);
+            }
 
             var principalkey = GenerateEntityConfigurationPricipalKey(type);
             if (principalkey != "")
@@ -103,7 +108,48 @@ namespace CleanAppFilesGenerator
                 keys = $"entity.HasKey(e => new {{ {keys.Substring(0, keys.Length - 1)} }});";
             return keys;
         }
+        public static string GenerateEntityConfigurationHardForeignKey(Type type, string tabspace)
+        {
+            string keys = "";
+            string foreignKey = "";
 
+
+            var dnAttribute = type.GetCustomAttributes();
+            if (dnAttribute != null)
+            {
+
+                foreach (var attribute in dnAttribute)
+                {
+                    keys = "";
+                    if (attribute is BaseModelsHardForeignKeyAttribute)
+                    {
+                        var attr = attribute as BaseModelsHardForeignKeyAttribute;
+                        if ((attr.HasOne != "") && (attr.WithMany != "") && (attr.Keys.Length > 0))
+                        {
+                            PropertyInfo[] properties = type.GetProperties();
+                            var propertynames = properties.Select(x => x.Name).ToList();
+                            foreach (var key in attr.Keys)
+                            {
+                                if (propertynames.Contains(key))
+                                    keys += $"e.{key},";
+                                else
+                                {// throw new Exception($"The key {key} is not a property of the class {type.Name}");
+                                    MessageBox.Show($"The key {key} is not a property of the class {type.Name}");
+                                }
+                            }
+                            foreignKey = foreignKey + $"entity.HasOne<{attr.HasOne}>(e => e.{attr.HasOne}).WithMany(ad => ad.{attr.WithMany}).HasForeignKey(e => new {{{keys.Substring(0, keys.Length - 1)}}});" + tabspace;
+                        }
+                    }
+                }
+
+
+
+                // if (keys != "") keys = foreignKey;
+
+            }
+
+            return foreignKey;
+        }
         public static string GenerateEntityConfigurationForeignKey(Type type)
         {
             string keys = "";
@@ -270,6 +316,11 @@ namespace CleanAppFilesGenerator
                                 {
                                     int x = 1;
                                     if (property.Name.Contains("Description")) x = 5;
+                                    if (property.Name.Contains("VersionDescription"))
+                                    {
+                                        x = 5;
+                                    }
+
 
                                     keys = keys + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength * 5}); ";
                                 }
@@ -325,15 +376,26 @@ namespace CleanAppFilesGenerator
                         {
                             if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("string"))
                             {
-                                if (constraints.Length > 0)
-                                {
-                                    int multiplier = 1;
-                                    if (property.Name.Contains("Description")) multiplier = 5;
+                                //if (constraints.Length > 0)
+                                //{
+                                //    int multiplier = 1;
+                                //    if (property.Name.Contains("Description")) multiplier = 5;
+                                //    if (property.Name.Contains("Description"))
+                                //    {
+                                //        multiplier = 5;
+                                //    }
 
-                                    constraints = GenerateStringContraint(tabspace, constraints, property.Name, defaultStringlength * multiplier);     //constraints + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength * 5}); ";
-                                }
-                                else
-                                    constraints = GenerateStringContraint(tabspace, constraints, property.Name, defaultStringlength);// $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
+                                //    constraints = GenerateStringContraint(tabspace, constraints, property.Name, defaultStringlength * multiplier);     //constraints + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength * 5}); ";
+                                //}
+                                //else
+                                //    constraints = GenerateStringContraint(tabspace, constraints, property.Name, defaultStringlength);// $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
+
+
+                                int multiplier = 1;
+                                if (property.Name.Contains("Description")) multiplier = 5;
+
+                                constraints = GenerateStringContraint(tabspace, constraints, property.Name, defaultStringlength * multiplier);     //constraints + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength * 5}); ";
+
                             }
 
                             else if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("decimal"))

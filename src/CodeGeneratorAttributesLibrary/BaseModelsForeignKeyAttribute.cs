@@ -17,16 +17,24 @@ namespace CodeGeneratorAttributesLibrary
 
         public string HasOne { get; set; }
         public string WithMany { get; set; }
-        //public bool HasForeignKey { get; set; }
-        //public string ForeignKey { get; set; }
 
-        //public string PrincipalEntity { get; set; }
-        //public string DependentEntity { get; set; }
-        //public string DependentKey { get; set; }
-        //public string HasConstraintName { get; set; }
-        //public string OnDelete { get; set; }
-        //public string OnUpdate { get; set; }
-        //public string OnDeleteSql { get; set; }
+
+    }
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class BaseModelsHardForeignKeyAttribute : System.Attribute
+    {
+        public BaseModelsHardForeignKeyAttribute(string hasOne, string withMany, string[] keys)
+        {
+            HasOne = hasOne;
+            WithMany = withMany;
+            Keys = keys;
+        }
+
+        public string HasOne { get; set; }
+        public string WithMany { get; set; }
+
+        public string[] Keys { get; set; } = [];
+
 
     }
 }
