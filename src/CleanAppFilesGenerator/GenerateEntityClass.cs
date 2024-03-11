@@ -96,6 +96,12 @@ namespace CleanAppFilesGenerator
 
             StringBuilder sb = new StringBuilder();
             PropertyInfo[] properties = type.GetProperties();
+            var classInheritsFromBaseEntityClass = false;
+            if (type.BaseType.Name.Contains("BaseEntity"))
+            {
+                classInheritsFromBaseEntityClass = true;
+            }
+
             foreach (PropertyInfo prop in properties)
             {
 
@@ -116,7 +122,7 @@ namespace CleanAppFilesGenerator
                     // var name = prop.GetAttributeFrom<DisplayAttribute>(nameof(prop.PlayerDescription)).Name;
 
 
-                    sb.Append(GeneralClass.PrepareProperty(prop));
+                    sb.Append(GeneralClass.PrepareProperty(prop, classInheritsFromBaseEntityClass));
                 }
             }
 

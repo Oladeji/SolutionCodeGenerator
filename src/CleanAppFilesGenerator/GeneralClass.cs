@@ -66,7 +66,7 @@ namespace CleanAppFilesGenerator
 
             return false;
         }
-        public static string PrepareProperty(PropertyInfo prop)
+        public static string PrepareProperty_ToBeDeleteBc_MaxLenghtAttribute_IsNoLongerUsed(PropertyInfo prop)
         {
             //string sb = "public  " + prop.PropertyType.Name + prop.Name + "{ get; init; } " + getDatatypeInitialiser(prop);
 
@@ -85,7 +85,22 @@ namespace CleanAppFilesGenerator
 
             return $"{attr}{GeneralClass.newlinepad(8)}public {propTypeName}{isnullAblResultSymbol} {prop.Name}    {getProperDefaultInit(propTypeName)}";
         }
+        public static string PrepareProperty(PropertyInfo prop, bool classInheritsFromBaseEntityClass)
+        {
 
+
+            string propTypeName = getProperDefaultDataType(prop);
+
+            var isnullAblResultSymbol = GeneralClass.IsNullable(prop) ? "?" : "";
+            string result = $"public {propTypeName}{isnullAblResultSymbol} {prop.Name}    {getProperDefaultInit(propTypeName)}";
+            if (result.Contains("public Guid GuidId    { get; init; }"))
+            {
+                // This has been added to the base entity so that it can be used to identify the entity
+                if (classInheritsFromBaseEntityClass)
+                    result = "// " + result;
+            }
+            return $"{GeneralClass.newlinepad(8)}{result}";
+        }
         public static string PrepareParameter(PropertyInfo prop)
         {
 
