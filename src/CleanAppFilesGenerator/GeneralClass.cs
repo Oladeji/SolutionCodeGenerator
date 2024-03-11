@@ -43,7 +43,7 @@ namespace CleanAppFilesGenerator
 
                 if (!prop.PropertyType.BaseType.Name.Contains("BaseEntity"))
                 {
-                    sb.Append(GeneralClass.PrepareParameter(propertytype, prop.Name));
+                    sb.Append(GeneralClass.PrepareParameter(prop));
                     sb.Append(", ");
                 }
                 else
@@ -55,15 +55,25 @@ namespace CleanAppFilesGenerator
             return sb.ToString();
         }
 
+        public static bool IsNullable(PropertyInfo property)
+        {
+            NullabilityInfoContext nullabilityInfoContext = new NullabilityInfoContext();
+            var info = nullabilityInfoContext.Create(property);
+            if (info.WriteState == NullabilityState.Nullable || info.ReadState == NullabilityState.Nullable)
+            {
+                return true;
+            }
 
-        public static string PrepareProperty(string propType, PropertyInfo prop)
+            return false;
+        }
+        public static string PrepareProperty(PropertyInfo prop)
         {
             //string sb = "public  " + prop.PropertyType.Name + prop.Name + "{ get; init; } " + getDatatypeInitialiser(prop);
 
             var attr = "";
-            MaxLengthAttribute hasmaxLengthAttr = null;
-
-            if (getProperDefaultDataType(propType).Equals("string"))
+            MaxLengthAttribute hasmaxLengthAttr;
+            string propTypeName = getProperDefaultDataType(prop);
+            if (propTypeName.Equals("string"))
             {
                 hasmaxLengthAttr = prop.TryGetMaxAttributeFromPropertyInfo<MaxLengthAttribute>();
                 if (hasmaxLengthAttr != null)
@@ -71,15 +81,18 @@ namespace CleanAppFilesGenerator
                     attr = $"{GeneralClass.newlinepad(8)}[MaxLength({hasmaxLengthAttr.Length})]";
                 }
             }
-            return $"{attr}{GeneralClass.newlinepad(8)}public {getProperDefaultDataType(propType)} {prop.Name}    {getProperDefaultInit(propType)}";
+            var isnullAblResultSymbol = GeneralClass.IsNullable(prop) ? "?" : "";
+
+            return $"{attr}{GeneralClass.newlinepad(8)}public {propTypeName}{isnullAblResultSymbol} {prop.Name}    {getProperDefaultInit(propTypeName)}";
         }
 
-        public static string PrepareParameter(string propType, string propName)
+        public static string PrepareParameter(PropertyInfo prop)
         {
-            return $"{getProperDefaultDataType(propType)}  {FirstCharSubstringToLower(propName)}";
+
+            return $"{getProperDefaultDataType(prop)}  {FirstCharSubstringToLower(prop.Name)}";
 
         }
-        public static string PrepareAssignment(string propType, string propName)
+        public static string PrepareAssignment(string propName)
         {
             return $"{propName} = {FirstCharSubstringToLower(propName)}";
             // return $"{GeneralClass.newlinepad(12)}public {getProperDefaultDataType(propType)} {propName}    {getProperDefaultInit(propType)}";
@@ -134,12 +147,44 @@ namespace CleanAppFilesGenerator
             return result;
         }
 
-        public static string getProperDefaultDataType(string type)
+        public static string getProperDefaultDataTypeOld(string type)
         {
 
-            var result = type switch
+            var result = type.ToUpper() switch
             {
-                "VarChar" => "string",
+                "VARCHAR" => "string",
+                "ANSISTRING" => "string",
+                "ANSISTRINGFIXLENGTH" => "string",
+                "STRING" => "string",
+                //"String" => "string",
+                "BINARY2" => "VarBinary",
+                "BOOLEAN" => "bit",
+                "BYTE" => "Byte",
+                "DATETIME" => "DateTime",
+                "DATE" => "DateTime",
+                // "DateTime" => "DateTime",
+                "DATETIME2" => "DateTime",
+                "DATETIMEOFFSET" => "DateTime",
+
+                "DECIMAL" => "decimal",
+                //"decimal" => "decimal",
+                "DOUBLE" => "Double",
+                "GUID" => "Guid",
+                "INT" => "int",
+                "INT16" => "int",
+                "Int32" => "int",
+                "INT64" => "int",
+                //"Object" => "Object",
+
+                //"SByte" => "SByte",
+                //"Single" => "Single",
+
+                //"VarNumeric" => "VarNumeric",
+
+                //"Xml" => "Xml",
+                /*
+
+                               "VarChar" => "string",
                 "AnsiString" => "string",
                 "AnsiStringFixedLength" => "string",
                 "string" => "string",
@@ -169,7 +214,81 @@ namespace CleanAppFilesGenerator
                 //"VarNumeric" => "VarNumeric",
 
                 //"Xml" => "Xml",
+                _ => type*/
                 _ => type
+            };
+            return result;
+        }
+        public static string getProperDefaultDataType(PropertyInfo prop)
+        {
+            var isnullAbleResult = Nullable.GetUnderlyingType(prop.PropertyType);
+            var propertytypeName = isnullAbleResult == null ? prop.PropertyType.Name : isnullAbleResult.Name;
+            var result = propertytypeName.ToUpper() switch
+            {
+                "VARCHAR" => "string",
+                "ANSISTRING" => "string",
+                "ANSISTRINGFIXLENGTH" => "string",
+                "STRING" => "string",
+                //"String" => "string",
+                "BINARY2" => "VarBinary",
+                "BOOLEAN" => "bool",
+                "BYTE" => "Byte",
+                "DATETIME" => "DateTime",
+                "DATE" => "DateTime",
+                // "DateTime" => "DateTime",
+                "DATETIME2" => "DateTime",
+                "DATETIMEOFFSET" => "DateTime",
+
+                "DECIMAL" => "decimal",
+                //"decimal" => "decimal",
+                "DOUBLE" => "double",
+                "GUID" => "Guid",
+                "INT" => "int",
+                "INT16" => "int",
+                "Int32" => "int",
+                "INT64" => "int",
+                //"Object" => "Object",
+
+                //"SByte" => "SByte",
+                //"Single" => "Single",
+
+                //"VarNumeric" => "VarNumeric",
+
+                //"Xml" => "Xml",
+                /*
+
+                               "VarChar" => "string",
+                "AnsiString" => "string",
+                "AnsiStringFixedLength" => "string",
+                "string" => "string",
+                "String" => "string",
+                "binary2" => "VarBinary",
+                "boolean" => "bit",
+                "byte" => "Byte",
+                "Datetime" => "DateTime",
+                "Date" => "DateTime",
+                "DateTime" => "DateTime",
+                "DateTime2" => "DateTime",
+                "DateTimeOffset" => "DateTime",
+
+                "Decimal" => "decimal",
+                "decimal" => "decimal",
+                "Double" => "Double",
+                "Guid" => "Guid",
+                "Int" => "int",
+                "Int16" => "int",
+                "Int32" => "int",
+                "Int64" => "int",
+                //"Object" => "Object",
+
+                //"SByte" => "SByte",
+                //"Single" => "Single",
+
+                //"VarNumeric" => "VarNumeric",
+
+                //"Xml" => "Xml",
+                _ => type*/
+                _ => propertytypeName
             };
             return result;
         }

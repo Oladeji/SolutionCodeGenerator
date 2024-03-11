@@ -310,7 +310,7 @@ namespace CleanAppFilesGenerator
                         }
                         else
                         {
-                            if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("string"))
+                            if (GeneralClass.getProperDefaultDataType(property).Equals("string"))
                             {
                                 if (keys.Length > 0)
                                 {
@@ -344,6 +344,7 @@ namespace CleanAppFilesGenerator
             {
                 if (property != null)
                 {
+                    var defaultDataType = GeneralClass.getProperDefaultDataType(property);
                     var attributes = property.GetCustomAttributes();
                     if (attributes != null)
                     {
@@ -354,18 +355,22 @@ namespace CleanAppFilesGenerator
                                 if (attribute is BaseModelBasicAttribute)
                                 {
                                     var attr = attribute as BaseModelBasicAttribute;
+                                   
                                     if (attr.MaxSize > 0)
                                     {
 
-
-
-                                        // var x = Nullable.GetUnderlyingType(property.PropertyType);
-                                        //var propertytype = x == null ? property.PropertyType.Name : x.Name;
-                                        if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("string"))
-
+                                        if (defaultDataType.Equals("string"))
+                                        {
                                             constraints = GenerateStringContraint(tabspace, constraints, property.Name, attr.MaxSize);
-                                        else if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("decimal"))
+                                        }
+
+
+                                        else if (
+                                             defaultDataType.Equals("decimal") || defaultDataType.Equals("double"))
+                                           
+                                        {
                                             constraints = GenerateDecimalContraint(tabspace, constraints, property.Name, attr.MaxSize, attr.MinSize);
+                                        }
                                     }
 
                                 }
@@ -374,22 +379,8 @@ namespace CleanAppFilesGenerator
                         }
                         else
                         {
-                            if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("string"))
+                            if (defaultDataType.Equals("string"))
                             {
-                                //if (constraints.Length > 0)
-                                //{
-                                //    int multiplier = 1;
-                                //    if (property.Name.Contains("Description")) multiplier = 5;
-                                //    if (property.Name.Contains("Description"))
-                                //    {
-                                //        multiplier = 5;
-                                //    }
-
-                                //    constraints = GenerateStringContraint(tabspace, constraints, property.Name, defaultStringlength * multiplier);     //constraints + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength * 5}); ";
-                                //}
-                                //else
-                                //    constraints = GenerateStringContraint(tabspace, constraints, property.Name, defaultStringlength);// $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
-
 
                                 int multiplier = 1;
                                 if (property.Name.Contains("Description")) multiplier = 5;
@@ -398,7 +389,8 @@ namespace CleanAppFilesGenerator
 
                             }
 
-                            else if (GeneralClass.getProperDefaultDataType(property.PropertyType.Name).Equals("decimal"))
+                            else if ( defaultDataType.Equals("decimal") || defaultDataType.Equals("double"))
+
                                 constraints = GenerateDecimalContraint(tabspace, constraints, property.Name, defaultDecimalMax, defaultDecimalMin);
 
 

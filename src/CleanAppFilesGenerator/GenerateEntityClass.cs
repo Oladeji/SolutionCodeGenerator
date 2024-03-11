@@ -66,8 +66,8 @@ namespace CleanAppFilesGenerator
 
 
 
-                    sb.Append(GeneralClass.PrepareParameter(propertytype, prop.Name));
-                    sb2.Append($"{GeneralClass.newlinepad(12)}{GeneralClass.PrepareAssignment(propertytype, prop.Name)} ,");
+                    sb.Append(GeneralClass.PrepareParameter(prop));
+                    sb2.Append($"{GeneralClass.newlinepad(12)}{GeneralClass.PrepareAssignment(prop.Name)} ,");
                     sb.Append(", ");
 
                 }
@@ -99,8 +99,9 @@ namespace CleanAppFilesGenerator
             foreach (PropertyInfo prop in properties)
             {
 
-                var x = Nullable.GetUnderlyingType(prop.PropertyType);
-                var propertytype = x == null ? prop.PropertyType.Name : x.Name;
+                var isnullAbleResult = Nullable.GetUnderlyingType(prop.PropertyType);
+
+                var propertytype = isnullAbleResult == null ? prop.PropertyType.Name : isnullAbleResult.Name;
 
                 if (propertytype.Contains("ICollection`1") || (propertytype.Contains("IList`1")))
                 {
@@ -115,7 +116,7 @@ namespace CleanAppFilesGenerator
                     // var name = prop.GetAttributeFrom<DisplayAttribute>(nameof(prop.PlayerDescription)).Name;
 
 
-                    sb.Append(GeneralClass.PrepareProperty(propertytype, prop));
+                    sb.Append(GeneralClass.PrepareProperty(prop));
                 }
             }
 
