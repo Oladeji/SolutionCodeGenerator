@@ -23,10 +23,15 @@ namespace CleanAppFilesGenerator
         //  int NoOfTimes = 0;
         int MaxNoOfItems = 0;
         int defaultStringlength = 32;
+        public string identityDbContextName = "";
+        public string generalInfo = "";
+        public string checkBox1Info = "";
 
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var generalInfoD = checkBox1.Checked;
+
             try
             {
                 EmptyFolders(FolderLocation.Text);
@@ -53,6 +58,7 @@ namespace CleanAppFilesGenerator
         private void button1_Click(object sender, EventArgs e)
         {
             Type[] tp;
+            //label2.Text = "";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -64,6 +70,19 @@ namespace CleanAppFilesGenerator
 
                     Library_Name_Space.Text = HelperClass.GetNodeNameFromXml(Path.GetDirectoryName(openFileDialog1.FileName) + ("\\GenInfo.xml"), "LibraryName");
                     FolderLocation.Text = HelperClass.GetNodeNameFromXml(Path.GetDirectoryName(openFileDialog1.FileName) + ("\\GenInfo.xml"), "OutPutDir");
+                    identityDbContextName = HelperClass.GetNodeNameFromXml(Path.GetDirectoryName(openFileDialog1.FileName) + ("\\GenInfo.xml"), "IdentityDbContextName");
+                    generalInfo = HelperClass.GetNodeNameFromXml(Path.GetDirectoryName(openFileDialog1.FileName) + ("\\GenInfo.xml"), "GeneralInfo");
+                    checkBox1Info = HelperClass.GetNodeNameFromXml(Path.GetDirectoryName(openFileDialog1.FileName) + ("\\GenInfo.xml"), "UnCheckcheckBox1");
+                    if (checkBox1Info.Trim() != "")
+                    {
+                        checkBox1.Checked = false;
+                    }
+                    if (generalInfo.Trim() != "")
+                    {
+                        label2.Text = generalInfo;
+                        MessageBox.Show(generalInfo);
+
+                    }
                 }
                 catch (Exception)
                 {
@@ -266,7 +285,7 @@ namespace CleanAppFilesGenerator
                     //APIENDPOINTS
                     richTextBox8.Text = GenerateAPIEndPoints.Generate(type, thenamespace, listBox1.SelectedIndex);
                     //DBCONTEXT
-                    richTextBox11.Text = GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex);
+                    richTextBox11.Text = GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex, identityDbContextName);
 
                     // this runs only once
                     richTextBox2.Text = GenerateInterfaceClass.GenerateIGenericRepository(thenamespace);
@@ -278,9 +297,9 @@ namespace CleanAppFilesGenerator
                 else
                 {
                     richTextBox7.AppendText(GenerateIUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex));
-                    richTextBox12.AppendText( GenerateUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex));
+                    richTextBox12.AppendText(GenerateUnitOfWork.Generate(type, thenamespace, listBox1.SelectedIndex));
                     richTextBox8.AppendText(GenerateAPIEndPoints.Generate(type, thenamespace, listBox1.SelectedIndex));
-                    richTextBox11.AppendText(GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex));
+                    richTextBox11.AppendText(GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex, identityDbContextName));
                 }
                 if (listBox1.SelectedIndex == MaxNoOfItems - 1)
                 {

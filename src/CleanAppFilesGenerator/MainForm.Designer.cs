@@ -58,13 +58,15 @@
             richTextBox8 = new RichTextBox();
             tabPage11 = new TabPage();
             richTextBox11 = new RichTextBox();
+            tabPage12 = new TabPage();
+            richTextBox12 = new RichTextBox();
             listBox1 = new ListBox();
             openFileDialog1 = new OpenFileDialog();
             Library_Name_Space = new TextBox();
             comboBox1 = new ComboBox();
             checkBox1 = new CheckBox();
-            tabPage12 = new TabPage();
-            richTextBox12 = new RichTextBox();
+            label1 = new Label();
+            label2 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -402,6 +404,26 @@
             richTextBox11.TabIndex = 0;
             richTextBox11.Text = "";
             // 
+            // tabPage12
+            // 
+            tabPage12.Controls.Add(richTextBox12);
+            tabPage12.Location = new Point(4, 24);
+            tabPage12.Name = "tabPage12";
+            tabPage12.Padding = new Padding(3);
+            tabPage12.Size = new Size(1228, 570);
+            tabPage12.TabIndex = 11;
+            tabPage12.Text = "UnitOfWorkImplementation";
+            tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox12
+            // 
+            richTextBox12.Dock = DockStyle.Fill;
+            richTextBox12.Location = new Point(3, 3);
+            richTextBox12.Name = "richTextBox12";
+            richTextBox12.Size = new Size(1222, 564);
+            richTextBox12.TabIndex = 0;
+            richTextBox12.Text = "";
+            // 
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
@@ -447,31 +469,32 @@
             checkBox1.Text = "Include Entity Config Auto";
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // tabPage12
+            // label1
             // 
-            tabPage12.Controls.Add(richTextBox12);
-            tabPage12.Location = new Point(4, 24);
-            tabPage12.Name = "tabPage12";
-            tabPage12.Padding = new Padding(3);
-            tabPage12.Size = new Size(1228, 570);
-            tabPage12.TabIndex = 11;
-            tabPage12.Text = "UnitOfWorkImplementation";
-            tabPage12.UseVisualStyleBackColor = true;
+            label1.AutoSize = true;
+            label1.Location = new Point(29, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 15);
+            label1.TabIndex = 12;
+            label1.Text = "label1";
             // 
-            // richTextBox12
+            // label2
             // 
-            richTextBox12.Dock = DockStyle.Fill;
-            richTextBox12.Location = new Point(3, 3);
-            richTextBox12.Name = "richTextBox12";
-            richTextBox12.Size = new Size(1222, 564);
-            richTextBox12.TabIndex = 0;
-            richTextBox12.Text = "";
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.IndianRed;
+            label2.Location = new Point(44, 563);
+            label2.Name = "label2";
+            label2.Size = new Size(0, 21);
+            label2.TabIndex = 13;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1906, 598);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(checkBox1);
             Controls.Add(comboBox1);
             Controls.Add(Library_Name_Space);
@@ -544,5 +567,7 @@
         private CheckBox checkBox1;
         private TabPage tabPage12;
         private RichTextBox richTextBox12;
+        private Label label1;
+        private Label label2;
     }
 }

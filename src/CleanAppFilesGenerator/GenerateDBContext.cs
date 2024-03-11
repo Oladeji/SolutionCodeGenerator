@@ -5,8 +5,18 @@ namespace CleanAppFilesGenerator
 {
     internal class GenerateDBContext
     {
-        public static string Generate(Type type, string name_space, int selectedIndex)
+        public static string Generate(Type type, string name_space, int selectedIndex, string identityDbContextName)
         {
+            var dbContext = "  DbContext";
+            if (identityDbContextName.Equals("NONE") || identityDbContextName.Trim() == "")
+            {
+
+            }
+            else
+            {
+                dbContext = $"  IdentityDbContext<{identityDbContextName}>";
+            }
+
             if (selectedIndex == 0)
             {
                 return (
@@ -18,7 +28,7 @@ namespace CleanAppFilesGenerator
 
                 $"namespace {name_space}.Infrastructure.Persistence\n" +
                 $"{{" +
-                $"{GeneralClass.newlinepad(4)}public class {name_space}Context : DbContext" +
+                $"{GeneralClass.newlinepad(4)}public class {name_space}Context : {dbContext}" +
                 $"{GeneralClass.newlinepad(4)}{{" +
                 $"{GeneralClass.newlinepad(8)}private readonly IConfiguration _configuration;" +
                 $"{GenerateOnConfiguring()}" +
