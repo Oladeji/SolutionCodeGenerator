@@ -42,7 +42,7 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof(ModelTypeResponseDTO), StatusCodes.Status200OK)]" +
                $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody, Name = {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody)]" +
                $"{GeneralClass.newlinepad(8)}public Task<IActionResult> GetByJSONBody([FromBody] {type.Name}GetRequestDTO request, CancellationToken cancellationToken)" +
-               $"{GeneralClass.newlinepad(16)}=> ( _sender.Send(new Get{type.Name}Query(request), cancellationToken)) .ToActionResult404();";
+               $"{GeneralClass.newlinepad(16)}=> ( _sender.Send(new Get{type.Name}Query(request), cancellationToken)) .EitherToActionResult();";
         }
         private static string ProduceControllerGetById(string thenamespace, Type type)
         {
@@ -51,9 +51,9 @@ namespace CleanAppFilesGenerator
             $"{GeneralClass.newlinepad(8)}public Task<IActionResult> GetById([FromRoute] string NameOrGuid, CancellationToken cancellationToken)" +
             $"{GeneralClass.newlinepad(8)}{{" +
             $"{GeneralClass.newlinepad(12)}return Guid.TryParse(NameOrGuid, out Guid guid)  ?" +
-            $"{GeneralClass.newlinepad(16)}(_sender.Send(new Get{type.Name}ByGuidQuery(new {type.Name}GetRequestByGuidDTO(guid)), cancellationToken)).ToActionResult404()" +
+            $"{GeneralClass.newlinepad(16)}(_sender.Send(new Get{type.Name}ByGuidQuery(new {type.Name}GetRequestByGuidDTO(guid)), cancellationToken)).EitherToActionResult()" +
             $"{GeneralClass.newlinepad(16)}:" +
-            $"{GeneralClass.newlinepad(16)}(_sender.Send(new Get{type.Name}ByIdQuery(new {type.Name}GetRequestByIdDTO(NameOrGuid)), cancellationToken)).ToActionResult404();" +
+            $"{GeneralClass.newlinepad(16)}(_sender.Send(new Get{type.Name}ByIdQuery(new {type.Name}GetRequestByIdDTO(NameOrGuid)), cancellationToken)).EitherToActionResult();" +
             $"{GeneralClass.newlinepad(8)}}}";
         }
 
