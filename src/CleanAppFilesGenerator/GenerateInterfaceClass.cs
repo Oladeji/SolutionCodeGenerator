@@ -56,20 +56,21 @@ namespace CleanAppFilesGenerator
 
         public static string GenerateIGenericRepository(string name_space)
         {
-            return ($"using LanguageExt;\n" +
-                    $"using {name_space}.DomainBase;\n" +
-                          $"using {name_space}.Domain.Errors;\n" +
-                          $"namespace {name_space}.Domain.Interfaces\n{{\n" +
-                          $"{GeneralClass.newlinepad(4)}public interface IGenericRepository<T> where T : BaseEntity\n" +
-                          $"{GeneralClass.newlinepad(4)}{{" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> AddAsync(T entity, CancellationToken cancellationToken);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> UpdateAsync(T entity, CancellationToken cancellationToken);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> DeleteAsync(T entity, CancellationToken cancellationToken);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, List<T>>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression= null,List<string> includes = null,Func<IQueryable<T>,IOrderedQueryable<T>> orderBy= null,CancellationToken cancellationToken =default);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression,List<string> includes= null , CancellationToken cancellationToken= default);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken=default);" +
-                          $"{GeneralClass.newlinepad(4)}}}" +
-                          $"\n}}");
+            //  return ($"// using {name_space}.DomainBase.Result;\n" +
+            return ($"using {name_space}.DomainBase;\n" +
+                  $"using {name_space}.Domain.Errors;\n" +
+                  $"using {name_space}.DomainBase.Result;\n" +
+                  $"namespace {name_space}.Domain.Interfaces\n{{\n" +
+                  $"{GeneralClass.newlinepad(4)}public interface IGenericRepository<T> where T : BaseEntity\n" +
+                  $"{GeneralClass.newlinepad(4)}{{" +
+                  $"{GeneralClass.newlinepad(8)}Task<Result<GeneralFailure, int>> AddAsync(T entity, CancellationToken cancellationToken);" +
+                  $"{GeneralClass.newlinepad(8)}Task<Result<GeneralFailure, int>> UpdateAsync(T entity, CancellationToken cancellationToken);" +
+                  $"{GeneralClass.newlinepad(8)}Task<Result<GeneralFailure, int>> DeleteAsync(T entity, CancellationToken cancellationToken);" +
+                  $"{GeneralClass.newlinepad(8)}Task<Result<GeneralFailure, List<T>>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression= null,List<string> includes = null,Func<IQueryable<T>,IOrderedQueryable<T>> orderBy= null,CancellationToken cancellationToken =default);" +
+                  $"{GeneralClass.newlinepad(8)}Task<Result<GeneralFailure, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression,List<string> includes= null , CancellationToken cancellationToken= default);" +
+                  $"{GeneralClass.newlinepad(8)}Task<Result<GeneralFailure, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken=default);" +
+                  $"{GeneralClass.newlinepad(4)}}}" +
+                  $"\n}}");
 
 
         }

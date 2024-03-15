@@ -104,7 +104,7 @@ namespace CleanAppFilesGenerator
                   $"using {name_space}.Contracts.ResponseDTO;\n" +
                 $"using {name_space}.Api.Extensions;\n" +
                 $"using {name_space}.Domain.Errors;\n" +
-                $"using LanguageExt;\n" +
+                $"using {name_space}.DomainBase.Result;\n" +
                 $"using MediatR;\n" +
                 $"using Microsoft.AspNetCore.Mvc;\n" +
                 $"using System.Linq;\n" +
