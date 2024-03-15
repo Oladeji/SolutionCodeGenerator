@@ -39,10 +39,10 @@ namespace CleanAppFilesGenerator
         public static string ProduceCreateCommandHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Contracts.RequestDTO;\n" +
-                   $"using {name_space}.Domain.Errors;\nusing {name_space}.DomainBase.Result;\nusing MediatR;\n" +
-            // $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) :  IRequest<Result<GeneralFailure, Guid>>;");
+                   $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
+            // $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) :  IRequest<Either<GeneralFailure, Guid>>;");
             $"namespace {name_space}.Application.CQRS\n{{{GeneralClass.newlinepad(4)}" +
-            $"public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) :  IRequest<Result<GeneralFailure, Guid>>;");
+            $"public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) :  IRequest<Either<GeneralFailure, Guid>>;");
 
         }
 
@@ -50,10 +50,10 @@ namespace CleanAppFilesGenerator
         public static string ProduceDeleteCommandHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Contracts.RequestDTO;\n" +
-         $"using {name_space}.Domain.Errors;\nusing {name_space}.DomainBase.Result;\nusing MediatR;\n" +
+         $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
          //$"namespace {name_space}.Application.CQRS.{entityName}.Commands\n" +
          $"namespace {name_space}.Application.CQRS\n" +
-         $"{{{GeneralClass.newlinepad(4)}public  record Delete{entityName}Command({entityName}DeleteRequestDTO  Delete{entityName}DTO) :  IRequest<Result<GeneralFailure, int>>;");
+         $"{{{GeneralClass.newlinepad(4)}public  record Delete{entityName}Command({entityName}DeleteRequestDTO  Delete{entityName}DTO) :  IRequest<Either<GeneralFailure, int>>;");
 
         }
 
@@ -62,10 +62,10 @@ namespace CleanAppFilesGenerator
         public static string ProduceUpdateCommandHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Contracts.RequestDTO;\n" +
-             $"using {name_space}.Domain.Errors;\nusing {name_space}.DomainBase.Result;\nusing MediatR;\n" +
+             $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
              //$"namespace {name_space}.Application.CQRS.{entityName}.Commands\n" +
              $"namespace {name_space}.Application.CQRS\n" +
-             $"{{{GeneralClass.newlinepad(4)}public  record Update{entityName}Command({entityName}UpdateRequestDTO  Update{entityName}DTO) :  IRequest<Result<GeneralFailure, int>>;");
+             $"{{{GeneralClass.newlinepad(4)}public  record Update{entityName}Command({entityName}UpdateRequestDTO  Update{entityName}DTO) :  IRequest<Either<GeneralFailure, int>>;");
 
         }
     }

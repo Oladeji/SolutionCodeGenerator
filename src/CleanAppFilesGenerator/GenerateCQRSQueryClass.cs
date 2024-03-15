@@ -24,7 +24,7 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Contracts.RequestDTO;\n" +
                 $"using {name_space}.Contracts.ResponseDTO;\n" +
-               $"using {name_space}.Domain.Errors;\nusing {name_space}.DomainBase.Result;\nusing MediatR;\n" +
+               $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
                //$"namespace {name_space}.Application.CQRS.{entityName}.Queries" +
                $"namespace {name_space}.Application.CQRS" +
                $"{{");
@@ -32,21 +32,21 @@ namespace CleanAppFilesGenerator
         }
         public static string ProduceGetQuery(string name_space, string entityName)
         {
-            return ($"{GeneralClass.newlinepad(4)}public  record Get{entityName}Query({entityName}GetRequestDTO  Request{entityName}DTO) :  IRequest<Result<GeneralFailure, {entityName}ResponseDTO>>;");
+            return ($"{GeneralClass.newlinepad(4)}public  record Get{entityName}Query({entityName}GetRequestDTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, {entityName}ResponseDTO>>;");
 
         }
 
 
         public static string ProduceGetQueryByGuid(string name_space, string entityName)
         {
-            return ($"{GeneralClass.newlinepad(4)}public  record Get{entityName}ByGuidQuery({entityName}GetRequestByGuidDTO  Request{entityName}DTO) :  IRequest<Result<GeneralFailure, {entityName}ResponseDTO>>;");
+            return ($"{GeneralClass.newlinepad(4)}public  record Get{entityName}ByGuidQuery({entityName}GetRequestByGuidDTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, {entityName}ResponseDTO>>;");
 
         }
 
         public static string ProduceGetQueryById(string name_space, string entityName)
         {
             return (
-               $"{GeneralClass.newlinepad(4)}public  record Get{entityName}ByIdQuery({entityName}GetRequestByIdDTO  Request{entityName}DTO) :  IRequest<Result<GeneralFailure, {entityName}ResponseDTO>>;");
+               $"{GeneralClass.newlinepad(4)}public  record Get{entityName}ByIdQuery({entityName}GetRequestByIdDTO  Request{entityName}DTO) :  IRequest<Either<GeneralFailure, {entityName}ResponseDTO>>;");
 
         }
 
@@ -55,7 +55,7 @@ namespace CleanAppFilesGenerator
 
         public static string ProduceGetAllQuery(string name_space, string entityName)
         {
-            return ($"{GeneralClass.newlinepad(4)}public  record GetAll{entityName}Query :  IRequest<Result<GeneralFailure, IEnumerable<{entityName}ResponseDTO>>>;");
+            return ($"{GeneralClass.newlinepad(4)}public  record GetAll{entityName}Query :  IRequest<Either<GeneralFailure, IEnumerable<{entityName}ResponseDTO>>>;");
 
         }
 
