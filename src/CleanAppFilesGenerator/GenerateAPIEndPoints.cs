@@ -19,7 +19,7 @@ namespace CleanAppFilesGenerator
                 $"namespace {name_space}.Api\n{{" +
                 $"{GeneralClass.newlinepad(4)}public static class {name_space}APIEndPoints" +
                 $"{GeneralClass.newlinepad(4)}{{" +
-                $"{GeneralClass.newlinepad(8)}public const string APIBase = \"api\";" +
+                $"{GeneralClass.newlinepad(8)}public const string APIBase = \"api/v{{version:apiVersion}}\";" +
                 $"{GenerateSpecific(type)}");
 
             }

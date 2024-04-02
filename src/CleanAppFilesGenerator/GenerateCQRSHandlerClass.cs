@@ -63,7 +63,7 @@ namespace CleanAppFilesGenerator
         public static string ProduceCreateCommandHandlerHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
-                         $"using {name_space}.Application.Contracts.Logging;\n" +
+                         $"using Microsoft.Extensions.Logging;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
                           // $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                           //$"using {name_space}.Contracts.ResponseDTO;\n" +
@@ -75,8 +75,8 @@ namespace CleanAppFilesGenerator
 
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
-                          $"{GeneralClass.newlinepad(8)}private readonly IAppLogger<Create{entityName}CommandHandler> _logger;" +
-                          $"{GeneralClass.newlinepad(8)}public Create{entityName}CommandHandler(IUnitOfWork unitOfWork, IAppLogger<Create{entityName}CommandHandler> logger)" +
+                          $"{GeneralClass.newlinepad(8)}private readonly ILogger<Create{entityName}CommandHandler> _logger;" +
+                          $"{GeneralClass.newlinepad(8)}public Create{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Create{entityName}CommandHandler> logger)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                           $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
@@ -96,7 +96,7 @@ namespace CleanAppFilesGenerator
         public static string ProduceDeleteCommandHandlerHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
-                             $"using {name_space}.Application.Contracts.Logging;\n" +
+                             $"using Microsoft.Extensions.Logging;\n" +
                               $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                               $"using {name_space}.Contracts.ResponseDTO;\n" +
                               $"using {name_space}.Domain.Errors;\n" +
@@ -108,8 +108,8 @@ namespace CleanAppFilesGenerator
 
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
-                          $"{GeneralClass.newlinepad(8)}private readonly IAppLogger<Delete{entityName}CommandHandler> _logger;" +
-                          $"{GeneralClass.newlinepad(8)}public Delete{entityName}CommandHandler(IUnitOfWork unitOfWork, IAppLogger<Delete{entityName}CommandHandler> logger)" +
+                          $"{GeneralClass.newlinepad(8)}private readonly ILogger<Delete{entityName}CommandHandler> _logger;" +
+                          $"{GeneralClass.newlinepad(8)}public Delete{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Delete{entityName}CommandHandler> logger)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                           $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
@@ -131,7 +131,7 @@ namespace CleanAppFilesGenerator
         public static string ProduceGetAllQueryHandlerHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
-                $"using {name_space}.Application.Contracts.Logging;\n" +
+                $"using Microsoft.Extensions.Logging;\n" +
                  $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                  $"using {name_space}.Contracts.ResponseDTO;\n" +
                  $"using {name_space}.Domain.Errors;\n" +
@@ -143,8 +143,8 @@ namespace CleanAppFilesGenerator
 
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
-               $"{GeneralClass.newlinepad(8)}private readonly IAppLogger<GetAll{entityName}QueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public GetAll{entityName}QueryHandler(IUnitOfWork unitOfWork, IAppLogger<GetAll{entityName}QueryHandler> logger)" +
+               $"{GeneralClass.newlinepad(8)}private readonly ILogger<GetAll{entityName}QueryHandler> _logger;" +
+               $"{GeneralClass.newlinepad(8)}public GetAll{entityName}QueryHandler(IUnitOfWork unitOfWork, ILogger<GetAll{entityName}QueryHandler> logger)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
@@ -162,7 +162,7 @@ namespace CleanAppFilesGenerator
         public static string ProduceGetQueryHandlerHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
-                $"using {name_space}.Application.Contracts.Logging;\n" +
+                $"using Microsoft.Extensions.Logging;\n" +
                  // $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                  $"using {name_space}.Contracts.ResponseDTO;\n" +
                  $"using {name_space}.Domain.Errors;\n" +
@@ -175,8 +175,8 @@ namespace CleanAppFilesGenerator
 
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
-               $"{GeneralClass.newlinepad(8)}private readonly IAppLogger<Get{entityName}QueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public Get{entityName}QueryHandler(IUnitOfWork unitOfWork, IAppLogger<Get{entityName}QueryHandler> logger)" +
+               $"{GeneralClass.newlinepad(8)}private readonly ILogger<Get{entityName}QueryHandler> _logger;" +
+               $"{GeneralClass.newlinepad(8)}public Get{entityName}QueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}QueryHandler> logger)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
@@ -194,7 +194,7 @@ namespace CleanAppFilesGenerator
         public static string ProduceGetByIdQueryHandlerHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
-                $"using {name_space}.Application.Contracts.Logging;\n" +
+                $"using Microsoft.Extensions.Logging;\n" +
                  $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                    $"using {name_space}.Domain.Errors;\n" +
                 $"using {name_space}.Contracts.ResponseDTO;\n" +
@@ -206,8 +206,8 @@ namespace CleanAppFilesGenerator
 
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
-               $"{GeneralClass.newlinepad(8)}private readonly IAppLogger<Get{entityName}ByIdQueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByIdQueryHandler(IUnitOfWork unitOfWork, IAppLogger<Get{entityName}ByIdQueryHandler> logger)" +
+               $"{GeneralClass.newlinepad(8)}private readonly ILogger<Get{entityName}ByIdQueryHandler> _logger;" +
+               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByIdQueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}ByIdQueryHandler> logger)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
@@ -224,7 +224,7 @@ namespace CleanAppFilesGenerator
         public static string ProduceGetByGuidQueryHandlerHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
-                $"using {name_space}.Application.Contracts.Logging;\n" +
+                $"using Microsoft.Extensions.Logging;\n" +
                  $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                  $"using {name_space}.Domain.Errors;\n" +
                  $"using {name_space}.Contracts.ResponseDTO;\n" +
@@ -236,8 +236,8 @@ namespace CleanAppFilesGenerator
 
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
-               $"{GeneralClass.newlinepad(8)}private readonly IAppLogger<Get{entityName}ByGuidQueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByGuidQueryHandler(IUnitOfWork unitOfWork, IAppLogger<Get{entityName}ByGuidQueryHandler> logger)" +
+               $"{GeneralClass.newlinepad(8)}private readonly ILogger<Get{entityName}ByGuidQueryHandler> _logger;" +
+               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByGuidQueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}ByGuidQueryHandler> logger)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
@@ -256,7 +256,7 @@ namespace CleanAppFilesGenerator
         {
 
             return ($"using {name_space}.Domain.Interfaces;\n" +
-                         $"using {name_space}.Application.Contracts.Logging;\n" +
+                         $"using Microsoft.Extensions.Logging;\n" +
                           $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
                           $"using {name_space}.Domain.Errors;\n" +
@@ -268,8 +268,8 @@ namespace CleanAppFilesGenerator
 
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
-                          $"{GeneralClass.newlinepad(8)}private readonly IAppLogger<Update{entityName}CommandHandler> _logger;" +
-                          $"{GeneralClass.newlinepad(8)}public Update{entityName}CommandHandler(IUnitOfWork unitOfWork, IAppLogger<Update{entityName}CommandHandler> logger)" +
+                          $"{GeneralClass.newlinepad(8)}private readonly ILogger<Update{entityName}CommandHandler> _logger;" +
+                          $"{GeneralClass.newlinepad(8)}public Update{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Update{entityName}CommandHandler> logger)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                           $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
