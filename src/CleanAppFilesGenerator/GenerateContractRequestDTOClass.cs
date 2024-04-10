@@ -34,7 +34,7 @@ namespace CleanAppFilesGenerator
 
                  $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestByGuidDTO(Guid guid);" +
                  $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestByIdDTO(String ObjectNameId);" +
-                 $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestDTO(Object Value);" +
+                 $"{GeneralClass.newlinepad(4)}public  record {type.Name}GetRequestDTO(Object JSONValue);" +
 
                 $"{GeneralClass.newlinepad(4)}public  record {type.Name}CreateRequestDTO({GeneralClass.ProduceEntitySignatureFunction(type)} );" +
                 $"{GeneralClass.newlinepad(4)}public  record {type.Name}UpdateRequestDTO({GeneralClass.ProduceEntitySignatureFunction(type)});" +

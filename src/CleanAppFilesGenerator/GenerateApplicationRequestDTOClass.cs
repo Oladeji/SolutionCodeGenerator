@@ -5,10 +5,10 @@ namespace CleanAppFilesGenerator
 {
     public class GenerateApplicationRequestDTOClass
     {
-        public static string GenerateRequest(Type type, string name_space)
+        public static string GenerateRequest(Type type, string name_space , string controllerversion)
         {
             var Output = new StringBuilder();
-            Output.Append(GenerateRequestHeader(name_space, type));
+            Output.Append(GenerateRequestHeader(name_space, type, controllerversion));
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
         }
@@ -28,9 +28,9 @@ namespace CleanAppFilesGenerator
         //        $"");
 
         //}
-        private static string GenerateRequestHeader(string name_space, Type type)
-        {
-            return ($"namespace {name_space}.Application.Contracts.RequestDTO\n{{" +
+        private static string GenerateRequestHeader(string name_space, Type type, string controllerversion)
+        { 
+            return ($"namespace {name_space}.Application.Contracts.RequestDTO.V{controllerversion}\n{{" +
 
                  $"{GeneralClass.newlinepad(4)}public  record Application{type.Name}GetRequestByGuidDTO({type.Name}GetRequestByGuidDTO Value);" +
                  $"{GeneralClass.newlinepad(4)}public  record Application{type.Name}GetRequestByIdDTO({type.Name}GetRequestByIdDTO Value);" +

@@ -67,6 +67,7 @@
             checkBox1 = new CheckBox();
             label1 = new Label();
             label2 = new Label();
+            richTextBox13 = new RichTextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -406,6 +407,7 @@
             // 
             // tabPage12
             // 
+            tabPage12.Controls.Add(richTextBox13);
             tabPage12.Controls.Add(richTextBox12);
             tabPage12.Location = new Point(4, 24);
             tabPage12.Name = "tabPage12";
@@ -417,10 +419,9 @@
             // 
             // richTextBox12
             // 
-            richTextBox12.Dock = DockStyle.Fill;
             richTextBox12.Location = new Point(3, 3);
             richTextBox12.Name = "richTextBox12";
-            richTextBox12.Size = new Size(1222, 564);
+            richTextBox12.Size = new Size(1222, 282);
             richTextBox12.TabIndex = 0;
             richTextBox12.Text = "";
             // 
@@ -487,6 +488,14 @@
             label2.Name = "label2";
             label2.Size = new Size(0, 21);
             label2.TabIndex = 13;
+            // 
+            // richTextBox13
+            // 
+            richTextBox13.Location = new Point(6, 291);
+            richTextBox13.Name = "richTextBox13";
+            richTextBox13.Size = new Size(441, 189);
+            richTextBox13.TabIndex = 1;
+            richTextBox13.Text = "";
             // 
             // MainForm
             // 
@@ -569,5 +578,6 @@
         private RichTextBox richTextBox12;
         private Label label1;
         private Label label2;
+        private RichTextBox richTextBox13;
     }
 }

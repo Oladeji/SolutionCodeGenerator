@@ -119,7 +119,8 @@ namespace CleanAppFilesGenerator
                           //handler
                           $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> Handle(Delete{entityName}Command request, CancellationToken cancellationToken)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
-                          $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
+                          $"{GeneralClass.newlinepad(12)}throw new NotImplementedException(\"Operation Not Allowed \");" +
+                          $"{GeneralClass.newlinepad(12)}//return  await _unitOfWork.{entityName}Repository.DeleteByGuidAsync(request.Delete{entityName}DTO.guid, cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}}}");
 
 
@@ -258,7 +259,7 @@ namespace CleanAppFilesGenerator
             return ($"using {name_space}.Domain.Interfaces;\n" +
                          $"using Microsoft.Extensions.Logging;\n" +
                           $"using {name_space}.Application.CQRS.Model.Commands;\n" +
-                          $"using LanguageExt;\nusing MediatR;\n" +
+                          $"using LanguageExt;\nusing MediatR;\nusing MediatR;\nusing AutoMapper;" +
                           $"using {name_space}.Domain.Errors;\n" +
                           $"using {name_space}.Contracts.ResponseDTO;\n" +
                           //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
@@ -269,20 +270,21 @@ namespace CleanAppFilesGenerator
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                           $"{GeneralClass.newlinepad(8)}private readonly ILogger<Update{entityName}CommandHandler> _logger;" +
-                          $"{GeneralClass.newlinepad(8)}public Update{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Update{entityName}CommandHandler> logger)" +
+                          $"{GeneralClass.newlinepad(8)}public Update{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Update{entityName}CommandHandler> logger, IMapper mapper)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                           $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
+                          $"{GeneralClass.newlinepad(12)}_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));" +
                           $"{GeneralClass.newlinepad(8)}}}" +
                           $"\n" +
 
                           //handler
                           $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> Handle(Update{entityName}Command request, CancellationToken cancellationToken)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
-                          $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
+                          $"{GeneralClass.newlinepad(12)}throw new NotImplementedException(\"OPERATION NOT ALLOWED\");" +
+                          $"{GeneralClass.newlinepad(12)}var entity = _mapper.Map<Domain.Entities.{entityName}>(request.Update{entityName}DTO);" +
+                          $"{GeneralClass.newlinepad(12)}return await _unitOfWork.{entityName}Repository.UpdateAsync(entity, cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}}}");
-
-
 
         }
     }

@@ -96,21 +96,22 @@ namespace CleanAppFilesGenerator
             return ($"using {name_space}.Api.Extentions;\n" +
 
                 $"using {name_space}.Application.CQRS;\n" +
-                // $"using {name_space}.Application.CQRS;\n" +
-                //$"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
-                // $"using {name_space}.Application.CQRS.{type.Name}.Queries;\n" +
+                $"using Asp.Versioning;;\n" +
+                $"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
+                $"using {name_space}.Application.CQRS.{type.Name}.Queries;\n" +
 
-                $"using {name_space}.Contracts.RequestDTO;\n" +
-                  $"using {name_space}.Contracts.ResponseDTO;\n" +
+                $"using {name_space}.Contracts.RequestDTO.V{controllerversion};\n" +
+                  $"using {name_space}.Contracts.ResponseDTO.V{controllerversion};\n" +
                 $"using {name_space}.Api.Extensions;\n" +
-                $"using {name_space}.Domain.Errors;\n" +
-                $"using LanguageExt;\n" +
+                //$"using {name_space}.Domain.Errors;\n" +
+                //$"using LanguageExt;\n" +
                 $"using MediatR;\n" +
                 $"using Microsoft.AspNetCore.Mvc;\n" +
-                $"using System.Linq;\n" +
-                $"using System.Threading;\n" +
-                $"namespace {name_space}.Api.Controllers.{controllerversion}\n" +
-                $"{{{GeneralClass.newlinepad(4)}public  class {controllername}  : TheBaseController<{controllername}>" +
+               // $"using System.Linq;\n" +
+                //$"using System.Threading;\n" +
+                $"namespace {name_space}.Api.Controllers.V{controllerversion}\n" +
+                $"{{{GeneralClass.newlinepad(4)}" + "[ApiVersion({controllerversion})]" +
+                $"{GeneralClass.newlinepad(4)}public  class {controllername}  : TheBaseController<{controllername}>" +
                 $"{GeneralClass.newlinepad(4)}{{");
 
         }
