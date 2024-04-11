@@ -49,10 +49,10 @@ namespace CleanAppFilesGenerator
         // }
 
 
-        public static string GenerateCQRSHandler(Type type, string name_space, Func<string, string, string> producehandelerheader)
+        public static string GenerateCQRSHandler(Type type, string name_space,string apiVersion, Func<string, string, string,string> producehandelerheader)
         {
             var Output = new StringBuilder();
-            Output.Append(producehandelerheader(name_space, type.Name));
+            Output.Append(producehandelerheader(name_space, type.Name, apiVersion));
             Output.Append(GeneralClass.newlinepad(4) + GeneralClass.ProduceClosingBrace());
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
@@ -60,13 +60,13 @@ namespace CleanAppFilesGenerator
 
 
 
-        public static string ProduceCreateCommandHandlerHeader(string name_space, string entityName)
+        public static string ProduceCreateCommandHandlerHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                          $"using Microsoft.Extensions.Logging;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
                           // $"using {name_space}.Application.CQRS.Model.Commands;\n" +
-                          //$"using {name_space}.Contracts.ResponseDTO;\n" +
+                          //$"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                           $"using {name_space}.Domain.Errors;\n" +
                           //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                           $"namespace {name_space}.Application.CQRS\n{{" +
@@ -93,12 +93,11 @@ namespace CleanAppFilesGenerator
 
         }
 
-        public static string ProduceDeleteCommandHandlerHeader(string name_space, string entityName)
+        public static string ProduceDeleteCommandHandlerHeader(string name_space, string entityName,string apiVersion)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                              $"using Microsoft.Extensions.Logging;\n" +
-                              $"using {name_space}.Application.CQRS.Model.Commands;\n" +
-                              $"using {name_space}.Contracts.ResponseDTO;\n" +
+                              $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                               $"using {name_space}.Domain.Errors;\n" +
                           $"using LanguageExt;\nusing MediatR;\n" +
                            // $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
@@ -129,12 +128,12 @@ namespace CleanAppFilesGenerator
 
 
 
-        public static string ProduceGetAllQueryHandlerHeader(string name_space, string entityName)
+        public static string ProduceGetAllQueryHandlerHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using Microsoft.Extensions.Logging;\n" +
-                 $"using {name_space}.Application.CQRS.Model.Queries;\n" +
-                 $"using {name_space}.Contracts.ResponseDTO;\n" +
+                // $"using {name_space}.Application.CQRS.{entityName}.Queries;\n" +
+                 $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                  $"using {name_space}.Domain.Errors;\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                 //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
@@ -160,12 +159,12 @@ namespace CleanAppFilesGenerator
         }
 
 
-        public static string ProduceGetQueryHandlerHeader(string name_space, string entityName)
+        public static string ProduceGetQueryHandlerHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using Microsoft.Extensions.Logging;\n" +
                  // $"using {name_space}.Application.CQRS.Model.Queries;\n" +
-                 $"using {name_space}.Contracts.ResponseDTO;\n" +
+                 $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                  $"using {name_space}.Domain.Errors;\n" +
 
                $"using LanguageExt;\nusing MediatR;\n" +
@@ -192,13 +191,13 @@ namespace CleanAppFilesGenerator
         }
 
 
-        public static string ProduceGetByIdQueryHandlerHeader(string name_space, string entityName)
+        public static string ProduceGetByIdQueryHandlerHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using Microsoft.Extensions.Logging;\n" +
-                 $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+          //       $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                    $"using {name_space}.Domain.Errors;\n" +
-                $"using {name_space}.Contracts.ResponseDTO;\n" +
+                $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                $"namespace {name_space}.Application.CQRS\n{{" +
@@ -222,13 +221,13 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}}}");
         }
 
-        public static string ProduceGetByGuidQueryHandlerHeader(string name_space, string entityName)
+        public static string ProduceGetByGuidQueryHandlerHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using Microsoft.Extensions.Logging;\n" +
-                 $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+                // $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                  $"using {name_space}.Domain.Errors;\n" +
-                 $"using {name_space}.Contracts.ResponseDTO;\n" +
+                 $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
                 //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                 $"namespace {name_space}.Application.CQRS\n{{" +
@@ -253,7 +252,7 @@ namespace CleanAppFilesGenerator
         }
 
 
-        public static string ProduceUpdateCommandhandler(string name_space, string entityName)
+        public static string ProduceUpdateCommandhandler(string name_space, string entityName, string apiVersion)
         {
 
             return ($"using {name_space}.Domain.Interfaces;\n" +
@@ -261,7 +260,7 @@ namespace CleanAppFilesGenerator
                           $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                           $"using LanguageExt;\nusing MediatR;\nusing MediatR;\nusing AutoMapper;" +
                           $"using {name_space}.Domain.Errors;\n" +
-                          $"using {name_space}.Contracts.ResponseDTO;\n" +
+                          $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                           //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                           $"namespace {name_space}.Application.CQRS\n{{" +
                           $"{GeneralClass.newlinepad(4)}public  class Update{entityName}CommandHandler  :  IRequestHandler<Update{entityName}Command, Either<GeneralFailure, int>>" +
@@ -270,6 +269,7 @@ namespace CleanAppFilesGenerator
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                           $"{GeneralClass.newlinepad(8)}private readonly ILogger<Update{entityName}CommandHandler> _logger;" +
+                          $"{GeneralClass.newlinepad(8)}private readonly IMapper _mapper;" +
                           $"{GeneralClass.newlinepad(8)}public Update{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Update{entityName}CommandHandler> logger, IMapper mapper)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +

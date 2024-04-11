@@ -59,6 +59,7 @@
             tabPage11 = new TabPage();
             richTextBox11 = new RichTextBox();
             tabPage12 = new TabPage();
+            richTextBox13 = new RichTextBox();
             richTextBox12 = new RichTextBox();
             listBox1 = new ListBox();
             openFileDialog1 = new OpenFileDialog();
@@ -67,7 +68,7 @@
             checkBox1 = new CheckBox();
             label1 = new Label();
             label2 = new Label();
-            richTextBox13 = new RichTextBox();
+            label3 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -417,6 +418,14 @@
             tabPage12.Text = "UnitOfWorkImplementation";
             tabPage12.UseVisualStyleBackColor = true;
             // 
+            // richTextBox13
+            // 
+            richTextBox13.Location = new Point(6, 291);
+            richTextBox13.Name = "richTextBox13";
+            richTextBox13.Size = new Size(441, 189);
+            richTextBox13.TabIndex = 1;
+            richTextBox13.Text = "";
+            // 
             // richTextBox12
             // 
             richTextBox12.Location = new Point(3, 3);
@@ -429,10 +438,10 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(21, 232);
+            listBox1.Location = new Point(21, 277);
             listBox1.Margin = new Padding(3, 2, 3, 2);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(412, 319);
+            listBox1.Size = new Size(412, 274);
             listBox1.TabIndex = 8;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
@@ -451,12 +460,12 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "v1", "v2", "v3", "v4", "v5", "v6", "v8", "v9", "v10", "v11", "v12", "v13", "v14", "v15" });
-            comboBox1.Location = new Point(29, 195);
+            comboBox1.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "8", "9", "10", "11", "12", "13", "14", "15" });
+            comboBox1.Location = new Point(29, 208);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(220, 23);
             comboBox1.TabIndex = 10;
-            comboBox1.Text = "v1";
+            comboBox1.Text = "1";
             // 
             // checkBox1
             // 
@@ -489,19 +498,22 @@
             label2.Size = new Size(0, 21);
             label2.TabIndex = 13;
             // 
-            // richTextBox13
+            // label3
             // 
-            richTextBox13.Location = new Point(6, 291);
-            richTextBox13.Name = "richTextBox13";
-            richTextBox13.Size = new Size(441, 189);
-            richTextBox13.TabIndex = 1;
-            richTextBox13.Text = "";
+            label3.AutoSize = true;
+            label3.Location = new Point(29, 190);
+            label3.Name = "label3";
+            label3.Size = new Size(101, 15);
+            label3.TabIndex = 14;
+            label3.Text = "Controller Version";
+            label3.Click += label3_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1906, 598);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(checkBox1);
@@ -579,5 +591,6 @@
         private Label label1;
         private Label label2;
         private RichTextBox richTextBox13;
+        private Label label3;
     }
 }

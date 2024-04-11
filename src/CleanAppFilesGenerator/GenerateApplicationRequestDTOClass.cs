@@ -5,17 +5,17 @@ namespace CleanAppFilesGenerator
 {
     public class GenerateApplicationRequestDTOClass
     {
-        public static string GenerateRequest(Type type, string name_space , string controllerversion)
+        public static string GenerateRequest(Type type, string name_space , string apiVersion)
         {
             var Output = new StringBuilder();
-            Output.Append(GenerateRequestHeader(name_space, type, controllerversion));
+            Output.Append(GenerateRequestHeader(name_space, type, apiVersion));
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
         }
 
-        //private static string GenerateRequestHeader(string name_space, Type type)
+        //private static string GenerateRequestHeader(string name_space, Type type,string apiVersion)
         //{
-        //    return ($"namespace {name_space}.Application.Contracts.RequestDTO\n{{" +
+        //    return ($"namespace {name_space}.Application.Contracts.RequestDTO.V{apiVersion}\n{{" +
 
         //         $"{GeneralClass.newlinepad(4)}public  record Application{type.Name}GetRequestByGuidDTO({type.Name}GetRequestByGuidDTO Value);" +
         //         $"{GeneralClass.newlinepad(4)}public  record Application{type.Name}GetRequestByIdDTO({type.Name}GetRequestByIdDTO Value);" +
@@ -28,9 +28,9 @@ namespace CleanAppFilesGenerator
         //        $"");
 
         //}
-        private static string GenerateRequestHeader(string name_space, Type type, string controllerversion)
+        private static string GenerateRequestHeader(string name_space, Type type, string apiVersion)
         { 
-            return ($"namespace {name_space}.Application.Contracts.RequestDTO.V{controllerversion}\n{{" +
+            return ($"namespace {name_space}.Application.Contracts.RequestDTO.V{apiVersion}\n{{" +
 
                  $"{GeneralClass.newlinepad(4)}public  record Application{type.Name}GetRequestByGuidDTO({type.Name}GetRequestByGuidDTO Value);" +
                  $"{GeneralClass.newlinepad(4)}public  record Application{type.Name}GetRequestByIdDTO({type.Name}GetRequestByIdDTO Value);" +

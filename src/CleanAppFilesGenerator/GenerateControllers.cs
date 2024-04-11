@@ -9,13 +9,13 @@ namespace CleanAppFilesGenerator
 {
     public class GenerateControllers
     {
-        public static string Generate(Type type, string thenamespace, string controllerversion)
+        public static string Generate(Type type, string thenamespace, string apiVersion)
         {
 
             // var entityName = type.Name;
             var Output = new StringBuilder();
             string controllername = type.Name + "sController";
-            Output.Append(ProduceControllerHeader(thenamespace, type, controllerversion, controllername));
+            Output.Append(ProduceControllerHeader(thenamespace, type, apiVersion, controllername));
             Output.Append($"\n");
             Output.Append(ProduceControllerConstructor(controllername));
             Output.Append($"\n");
@@ -91,26 +91,20 @@ namespace CleanAppFilesGenerator
             return $"{GeneralClass.newlinepad(8)}public {controllername}(ILogger<{controllername}> logger, ISender sender) : base(logger, sender){{}}";
         }
 
-        private static string ProduceControllerHeader(string name_space, Type type, string controllerversion, string controllername)
+        private static string ProduceControllerHeader(string name_space, Type type, string apiVersion, string controllername)
         {
-            return ($"using {name_space}.Api.Extentions;\n" +
+            return ($"using {name_space}.Api.Extensions;\n" +
 
                 $"using {name_space}.Application.CQRS;\n" +
-                $"using Asp.Versioning;;\n" +
-                $"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
-                $"using {name_space}.Application.CQRS.{type.Name}.Queries;\n" +
-
-                $"using {name_space}.Contracts.RequestDTO.V{controllerversion};\n" +
-                  $"using {name_space}.Contracts.ResponseDTO.V{controllerversion};\n" +
-                $"using {name_space}.Api.Extensions;\n" +
-                //$"using {name_space}.Domain.Errors;\n" +
-                //$"using LanguageExt;\n" +
+                $"using Asp.Versioning;\n" +
+                //$"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
+                $"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
+                $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                 $"using MediatR;\n" +
+                $"using {name_space}.Api.Controllers;\n" +
                 $"using Microsoft.AspNetCore.Mvc;\n" +
-               // $"using System.Linq;\n" +
-                //$"using System.Threading;\n" +
-                $"namespace {name_space}.Api.Controllers.V{controllerversion}\n" +
-                $"{{{GeneralClass.newlinepad(4)}" + "[ApiVersion({controllerversion})]" +
+                $"namespace {name_space}.Api.Controllers.V{apiVersion}\n" +
+                $"{{{GeneralClass.newlinepad(4)} [ApiVersion({apiVersion})]" +
                 $"{GeneralClass.newlinepad(4)}public  class {controllername}  : TheBaseController<{controllername}>" +
                 $"{GeneralClass.newlinepad(4)}{{");
 

@@ -7,10 +7,10 @@ namespace CleanAppFilesGenerator
     public class GenerateCQRSQueryClass
     {
 
-        public static string GenerateCQRSQuery(Type type, string name_space)
+        public static string GenerateCQRSQuery(Type type, string name_space,string apiVersion)
         {
             var Output = new StringBuilder();
-            Output.Append(ProduceHeader(name_space, type.Name));
+            Output.Append(ProduceHeader(name_space, type.Name, apiVersion));
             Output.Append(ProduceGetQuery(name_space, type.Name));
             Output.Append(ProduceGetQueryByGuid(name_space, type.Name));
             Output.Append(ProduceGetQueryById(name_space, type.Name));
@@ -20,10 +20,10 @@ namespace CleanAppFilesGenerator
         }
 
 
-        public static string ProduceHeader(string name_space, string entityName)
+        public static string ProduceHeader(string name_space, string entityName,string apiVersion)
         {
-            return ($"using {name_space}.Contracts.RequestDTO;\n" +
-                $"using {name_space}.Contracts.ResponseDTO;\n" +
+            return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
+                $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
                //$"namespace {name_space}.Application.CQRS.{entityName}.Queries" +
                $"namespace {name_space}.Application.CQRS" +

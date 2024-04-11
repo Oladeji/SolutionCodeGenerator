@@ -29,16 +29,16 @@ namespace CleanAppFilesGenerator
         //    return Output.ToString();
         //}
 
-        public static string GenerateCQRSCommand(Type type, string name_space, Func<string, string, string> produceheader)
+        public static string GenerateCQRSCommand(Type type, string name_space,string apiVersion, Func<string, string, string,string> produceheader)
         {
             var Output = new StringBuilder();
-            Output.Append(produceheader(name_space, type.Name));
+            Output.Append(produceheader(name_space, type.Name,apiVersion));
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
         }
-        public static string ProduceCreateCommandHeader(string name_space, string entityName)
+        public static string ProduceCreateCommandHeader(string name_space, string entityName, string apiVersion)
         {
-            return ($"using {name_space}.Contracts.RequestDTO;\n" +
+            return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
                    $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
             // $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) :  IRequest<Either<GeneralFailure, Guid>>;");
             $"namespace {name_space}.Application.CQRS\n{{{GeneralClass.newlinepad(4)}" +
@@ -47,9 +47,9 @@ namespace CleanAppFilesGenerator
         }
 
 
-        public static string ProduceDeleteCommandHeader(string name_space, string entityName)
+        public static string ProduceDeleteCommandHeader(string name_space, string entityName, string apiVersion)
         {
-            return ($"using {name_space}.Contracts.RequestDTO;\n" +
+            return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
          $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
          //$"namespace {name_space}.Application.CQRS.{entityName}.Commands\n" +
          $"namespace {name_space}.Application.CQRS\n" +
@@ -59,9 +59,9 @@ namespace CleanAppFilesGenerator
 
 
 
-        public static string ProduceUpdateCommandHeader(string name_space, string entityName)
+        public static string ProduceUpdateCommandHeader(string name_space, string entityName, string apiVersion)
         {
-            return ($"using {name_space}.Contracts.RequestDTO;\n" +
+            return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
              $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
              //$"namespace {name_space}.Application.CQRS.{entityName}.Commands\n" +
              $"namespace {name_space}.Application.CQRS\n" +

@@ -3,7 +3,7 @@ namespace CleanAppFilesGenerator
 {
     internal class ApplicationMappingProfile
     {
-        public static string Generate(Type type, string name_space, int selectedIndex, int apiversion)
+        public static string Generate(Type type, string name_space, int selectedIndex, string apiVersion)
         {
 
 
@@ -11,8 +11,8 @@ namespace CleanAppFilesGenerator
             {
                 return (
                 $"using AutoMapper;\n" +
-                $"using {name_space}.Contracts.RequestDTO.V{apiversion};\n" +
-                $"using {name_space}.Contracts.RequestDTO.V{apiversion}.auto;\n" +
+                $"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
+                $"using {name_space}.Contracts.RequestDTO.V{apiVersion}.auto;\n" +
                 $"using {name_space}.Domain.Entities;\n" +
    
 
