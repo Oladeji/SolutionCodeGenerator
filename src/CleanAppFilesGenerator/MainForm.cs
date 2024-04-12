@@ -154,7 +154,7 @@ namespace CleanAppFilesGenerator
                 Type type = (Type)listBox1.SelectedItem;
 
                 CreateRequiredFolders(FolderLocation.Text, type);
-                
+
                 // richTextBox1.Text = GenerateEntityClass.GenerateBaseEntity(type, thenamespace);
                 //richTextBox1.SaveFile(FolderLocation.Text + "\\Entities\\" + "BaseEntity.cs", RichTextBoxStreamType.PlainText);
                 richTextBox1.Text = GenerateEntityClass.GenerateEntity(type, thenamespace);
@@ -327,7 +327,7 @@ namespace CleanAppFilesGenerator
                     richTextBox13.AppendText(GeneralClass.newlinepad(8) + "}");
                     richTextBox13.AppendText(GeneralClass.newlinepad(8) + "}");
                     richTextBox13.AppendText(GeneralClass.newlinepad(0) + "}");
-                    richTextBox13.SaveFile(FolderLocation.Text + "\\Mapping\\" + type.Name + "MappingProfile.cs", RichTextBoxStreamType.PlainText);
+                    richTextBox13.SaveFile(FolderLocation.Text + "\\Mapping\\MappingProfile.cs", RichTextBoxStreamType.PlainText);
 
                 }
             }
