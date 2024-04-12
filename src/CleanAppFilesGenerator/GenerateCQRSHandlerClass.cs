@@ -49,7 +49,7 @@ namespace CleanAppFilesGenerator
         // }
 
 
-        public static string GenerateCQRSHandler(Type type, string name_space,string apiVersion, Func<string, string, string,string> producehandelerheader)
+        public static string GenerateCQRSHandler(Type type, string name_space, string apiVersion, Func<string, string, string, string> producehandelerheader)
         {
             var Output = new StringBuilder();
             Output.Append(producehandelerheader(name_space, type.Name, apiVersion));
@@ -88,12 +88,12 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
                           $"{GeneralClass.newlinepad(12)}//Follow the format below , initial the entity variable by calling the entity Create method;" +
-                          $"{GeneralClass.newlinepad(8)}}}//var entity =null; Domain.Entities.{entityName}.Create(request.modelTypeCreateDTO.ModelTypeName, request.modelTypeCreateDTO.Value.GuidId);" +
+                          $"{GeneralClass.newlinepad(8)}}}//var entity =null; Domain.Entities.{entityName}.Create(request.{GeneralClass.FirstCharSubstringToLower(entityName)}CreateDTO.{entityName}Name, request.{GeneralClass.FirstCharSubstringToLower(entityName)}CreateDTO.Value.GuidId);" +
                           $"return ( await _unitOfWork.{entityName}Repository.AddAsync(entity, cancellationToken)). Map((x) =>  entity.GuidId);");
 
         }
 
-        public static string ProduceDeleteCommandHandlerHeader(string name_space, string entityName,string apiVersion)
+        public static string ProduceDeleteCommandHandlerHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                              $"using Microsoft.Extensions.Logging;\n" +
@@ -132,7 +132,7 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using Microsoft.Extensions.Logging;\n" +
-                // $"using {name_space}.Application.CQRS.{entityName}.Queries;\n" +
+                 // $"using {name_space}.Application.CQRS.{entityName}.Queries;\n" +
                  $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                  $"using {name_space}.Domain.Errors;\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
@@ -195,7 +195,7 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using Microsoft.Extensions.Logging;\n" +
-          //       $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+                   //       $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                    $"using {name_space}.Domain.Errors;\n" +
                 $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                $"using LanguageExt;\nusing MediatR;\n" +
@@ -225,7 +225,7 @@ namespace CleanAppFilesGenerator
         {
             return ($"using {name_space}.Domain.Interfaces;\n" +
                 $"using Microsoft.Extensions.Logging;\n" +
-                // $"using {name_space}.Application.CQRS.Model.Queries;\n" +
+                 // $"using {name_space}.Application.CQRS.Model.Queries;\n" +
                  $"using {name_space}.Domain.Errors;\n" +
                  $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                $"using LanguageExt;\nusing MediatR;\n" +

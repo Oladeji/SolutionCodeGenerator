@@ -39,7 +39,7 @@ namespace CleanAppFilesGenerator
         private static string ProduceControllerGetByJSONUsingBody(string thenamespace, Type type)
         {
             return
-               $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof(ModelTypeResponseDTO), StatusCodes.Status200OK)]" +
+               $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof({type.Name}ResponseDTO), StatusCodes.Status200OK)]" +
                $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody, Name = {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody)]" +
                $"{GeneralClass.newlinepad(8)}public Task<IActionResult> GetByJSONBody([FromBody] {type.Name}GetRequestDTO request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(16)}=> ( _sender.Send(new Get{type.Name}Query(request), cancellationToken)) .ToEitherActionResult();";
