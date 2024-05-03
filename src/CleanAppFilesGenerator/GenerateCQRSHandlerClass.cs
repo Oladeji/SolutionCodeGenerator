@@ -76,10 +76,12 @@ namespace CleanAppFilesGenerator
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                           $"{GeneralClass.newlinepad(8)}private readonly ILogger<Create{entityName}CommandHandler> _logger;" +
-                          $"{GeneralClass.newlinepad(8)}public Create{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Create{entityName}CommandHandler> logger)" +
+                          $"{GeneralClass.newlinepad(8)}public I{entityName}Repository _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository ;" +
+                          $"{GeneralClass.newlinepad(8)}public Create{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Create{entityName}CommandHandler> logger, I{entityName}Repository {GeneralClass.FirstCharSubstringToLower(entityName)}Repository )" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                           $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
+                          $"{GeneralClass.newlinepad(12)}_{GeneralClass.FirstCharSubstringToLower(entityName)}Repository = {GeneralClass.FirstCharSubstringToLower(entityName)}Repository  ?? throw new ArgumentNullException(nameof({GeneralClass.FirstCharSubstringToLower(entityName)}Repository ));" +
                           $"{GeneralClass.newlinepad(8)}}}" +
                           $"\n" +
 
@@ -89,7 +91,7 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
                           $"{GeneralClass.newlinepad(12)}//Follow the format below , initial the entity variable by calling the entity Create method;" +
                           $"{GeneralClass.newlinepad(8)}}}//var entity =null; Domain.Entities.{entityName}.Create(request.{GeneralClass.FirstCharSubstringToLower(entityName)}CreateDTO.{entityName}Name, request.{GeneralClass.FirstCharSubstringToLower(entityName)}CreateDTO.Value.GuidId);" +
-                          $"return ( await _unitOfWork.{entityName}Repository.AddAsync(entity, cancellationToken)). Map((x) =>  entity.GuidId);");
+                          $"return ( await  _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository.AddAsync(entity, cancellationToken)). Map((x) =>  entity.GuidId);");
 
         }
 
@@ -107,11 +109,13 @@ namespace CleanAppFilesGenerator
 
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
+                          $"{GeneralClass.newlinepad(8)}public I{entityName}Repository _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository ;" +
                           $"{GeneralClass.newlinepad(8)}private readonly ILogger<Delete{entityName}CommandHandler> _logger;" +
-                          $"{GeneralClass.newlinepad(8)}public Delete{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Delete{entityName}CommandHandler> logger)" +
+                          $"{GeneralClass.newlinepad(8)}public Delete{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Delete{entityName}CommandHandler> logger, I{entityName}Repository {GeneralClass.FirstCharSubstringToLower(entityName)}Repository )" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                           $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
+                          $"{GeneralClass.newlinepad(12)}_{GeneralClass.FirstCharSubstringToLower(entityName)}Repository = {GeneralClass.FirstCharSubstringToLower(entityName)}Repository  ?? throw new ArgumentNullException(nameof({GeneralClass.FirstCharSubstringToLower(entityName)}Repository ));" +
                           $"{GeneralClass.newlinepad(8)}}}" +
                           $"\n" +
 
@@ -119,7 +123,8 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> Handle(Delete{entityName}Command request, CancellationToken cancellationToken)" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}throw new NotImplementedException(\"Operation Not Allowed \");" +
-                          $"{GeneralClass.newlinepad(12)}//return  await _unitOfWork.{entityName}Repository.DeleteByGuidAsync(request.Delete{entityName}DTO.guid, cancellationToken);" +
+                          $"{GeneralClass.newlinepad(12)}//return  await _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository.DeleteByGuidAsync(request.Delete{entityName}DTO.guid, cancellationToken);" +
+                          $"{GeneralClass.newlinepad(12)}//Old return  await _unitOfWork.{entityName}Repository.DeleteByGuidAsync(request.Delete{entityName}DTO.guid, cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}}}");
 
 
@@ -144,10 +149,12 @@ namespace CleanAppFilesGenerator
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                $"{GeneralClass.newlinepad(8)}private readonly ILogger<GetAll{entityName}QueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public GetAll{entityName}QueryHandler(IUnitOfWork unitOfWork, ILogger<GetAll{entityName}QueryHandler> logger)" +
+                $"{GeneralClass.newlinepad(8)}public I{entityName}Repository _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository ;" +
+               $"{GeneralClass.newlinepad(8)}public GetAll{entityName}QueryHandler(IUnitOfWork unitOfWork, ILogger<GetAll{entityName}QueryHandler> logger, I{entityName}Repository {GeneralClass.FirstCharSubstringToLower(entityName)}Repository )" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
+               $"{GeneralClass.newlinepad(12)}_{GeneralClass.FirstCharSubstringToLower(entityName)}Repository = {GeneralClass.FirstCharSubstringToLower(entityName)}Repository  ?? throw new ArgumentNullException(nameof({GeneralClass.FirstCharSubstringToLower(entityName)}Repository ));" +
                $"{GeneralClass.newlinepad(8)}}}" +
                $"\n" +
 
@@ -176,10 +183,12 @@ namespace CleanAppFilesGenerator
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                $"{GeneralClass.newlinepad(8)}private readonly ILogger<Get{entityName}QueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public Get{entityName}QueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}QueryHandler> logger)" +
+                $"{GeneralClass.newlinepad(8)}public I{entityName}Repository _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository ;" +
+               $"{GeneralClass.newlinepad(8)}public Get{entityName}QueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}QueryHandler> logger, I{entityName}Repository {GeneralClass.FirstCharSubstringToLower(entityName)}Repository )" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
+               $"{GeneralClass.newlinepad(12)}_{GeneralClass.FirstCharSubstringToLower(entityName)}Repository = {GeneralClass.FirstCharSubstringToLower(entityName)}Repository  ?? throw new ArgumentNullException(nameof({GeneralClass.FirstCharSubstringToLower(entityName)}Repository ));" +
                $"{GeneralClass.newlinepad(8)}}}" +
                $"\n" +
 
@@ -207,10 +216,12 @@ namespace CleanAppFilesGenerator
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                $"{GeneralClass.newlinepad(8)}private readonly ILogger<Get{entityName}ByIdQueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByIdQueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}ByIdQueryHandler> logger)" +
+                $"{GeneralClass.newlinepad(8)}public I{entityName}Repository _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository ;" +
+               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByIdQueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}ByIdQueryHandler> logger, I{entityName}Repository {GeneralClass.FirstCharSubstringToLower(entityName)}Repository )" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
+               $"{GeneralClass.newlinepad(12)}_{GeneralClass.FirstCharSubstringToLower(entityName)}Repository = {GeneralClass.FirstCharSubstringToLower(entityName)}Repository  ?? throw new ArgumentNullException(nameof({GeneralClass.FirstCharSubstringToLower(entityName)}Repository ));" +
                $"{GeneralClass.newlinepad(8)}}}" +
                $"\n" +
 
@@ -237,10 +248,12 @@ namespace CleanAppFilesGenerator
                // constructor
                $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                $"{GeneralClass.newlinepad(8)}private readonly ILogger<Get{entityName}ByGuidQueryHandler> _logger;" +
-               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByGuidQueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}ByGuidQueryHandler> logger)" +
+                $"{GeneralClass.newlinepad(8)}public I{entityName}Repository _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository ;" +
+               $"{GeneralClass.newlinepad(8)}public Get{entityName}ByGuidQueryHandler(IUnitOfWork unitOfWork, ILogger<Get{entityName}ByGuidQueryHandler> logger, I{entityName}Repository {GeneralClass.FirstCharSubstringToLower(entityName)}Repository )" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
+               $"{GeneralClass.newlinepad(12)}_{GeneralClass.FirstCharSubstringToLower(entityName)}Repository = {GeneralClass.FirstCharSubstringToLower(entityName)}Repository  ?? throw new ArgumentNullException(nameof({GeneralClass.FirstCharSubstringToLower(entityName)}Repository ));" +
                $"{GeneralClass.newlinepad(8)}}}" +
                $"\n" +
 
@@ -257,7 +270,7 @@ namespace CleanAppFilesGenerator
 
             return ($"using {name_space}.Domain.Interfaces;\n" +
                          $"using Microsoft.Extensions.Logging;\n" +
-                          $"using {name_space}.Application.CQRS.Model.Commands;\n" +
+                          // $"using {name_space}.Application.CQRS.Model.Commands;\n" +
                           $"using LanguageExt;\nusing MediatR;\nusing MediatR;\nusing AutoMapper;" +
                           $"using {name_space}.Domain.Errors;\n" +
                           $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
@@ -269,12 +282,14 @@ namespace CleanAppFilesGenerator
                           // constructor
                           $"{GeneralClass.newlinepad(8)}private readonly IUnitOfWork _unitOfWork;" +
                           $"{GeneralClass.newlinepad(8)}private readonly ILogger<Update{entityName}CommandHandler> _logger;" +
+                           $"{GeneralClass.newlinepad(8)}public I{entityName}Repository _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository ;" +
                           $"{GeneralClass.newlinepad(8)}private readonly IMapper _mapper;" +
-                          $"{GeneralClass.newlinepad(8)}public Update{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Update{entityName}CommandHandler> logger, IMapper mapper)" +
+                          $"{GeneralClass.newlinepad(8)}public Update{entityName}CommandHandler(IUnitOfWork unitOfWork, ILogger<Update{entityName}CommandHandler> logger, IMapper mapper, I{entityName}Repository {GeneralClass.FirstCharSubstringToLower(entityName)}Repository )" +
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}_unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));" +
                           $"{GeneralClass.newlinepad(12)}_logger = logger ?? throw new ArgumentNullException(nameof(logger));" +
                           $"{GeneralClass.newlinepad(12)}_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));" +
+                          $"{GeneralClass.newlinepad(12)}_{GeneralClass.FirstCharSubstringToLower(entityName)}Repository = {GeneralClass.FirstCharSubstringToLower(entityName)}Repository  ?? throw new ArgumentNullException(nameof({GeneralClass.FirstCharSubstringToLower(entityName)}Repository ));" +
                           $"{GeneralClass.newlinepad(8)}}}" +
                           $"\n" +
 
@@ -283,7 +298,7 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(8)}{{" +
                           $"{GeneralClass.newlinepad(12)}throw new NotImplementedException(\"OPERATION NOT ALLOWED\");" +
                           $"{GeneralClass.newlinepad(12)}var entity = _mapper.Map<Domain.Entities.{entityName}>(request.Update{entityName}DTO);" +
-                          $"{GeneralClass.newlinepad(12)}return await _unitOfWork.{entityName}Repository.UpdateAsync(entity, cancellationToken);" +
+                          $"{GeneralClass.newlinepad(12)}return await _{GeneralClass.FirstCharSubstringToLower(entityName)}Repository.UpdateAsync(entity, cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}}}");
 
         }

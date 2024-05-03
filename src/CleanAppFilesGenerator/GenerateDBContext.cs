@@ -60,6 +60,7 @@ namespace CleanAppFilesGenerator
             return (
             $"{GeneralClass.newlinepad(8)}protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)" +
             $"{GeneralClass.newlinepad(8)}{{" +
+             $"{GeneralClass.newlinepad(8)}if (optionsBuilder.IsConfigured) return;" +
             $"{GeneralClass.newlinepad(12)}var constr = GetConnectionstringName.GetConnectionStrName(Environment.MachineName);" +
             $"{GeneralClass.newlinepad(12)}var conn = _configuration.GetConnectionString(constr);" +
             $"{GeneralClass.newlinepad(12)}optionsBuilder.UseMySql(conn!, GeneralUtils.GetMySqlVersion());" +
