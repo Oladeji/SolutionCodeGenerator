@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
+﻿using System.Reflection;
+
 
 namespace CleanAppFilesGenerator
 {
@@ -259,6 +249,11 @@ namespace CleanAppFilesGenerator
                 richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
 
+                richTextBox14.Text = GenerateIntegrationTests.Generate(type, thenamespace, apiVersion);
+                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
+                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
+
+
                 //Use this login to generate a file that runs acros all the types in the dll
 
 
@@ -358,10 +353,11 @@ namespace CleanAppFilesGenerator
             HelperClass.EnsureFolderIsCreated(basePath, "CQRS");
             HelperClass.EnsureFolderIsCreated(basePath, "Mapping");
             HelperClass.EnsureFolderIsCreated(basePath, "Controllers");
+            HelperClass.EnsureFolderIsCreated(basePath, "IntegrationTests");
             HelperClass.EnsureFolderIsCreated(basePath, "ContractRequestDTO");
             HelperClass.EnsureFolderIsCreated(basePath, "ContractResponseDTO");
             HelperClass.EnsureFolderIsCreated(basePath, "APIEndPoints");
-            HelperClass.EnsureFolderIsCreated(basePath, "DBContext");
+            //HelperClass.EnsureFolderIsCreated(basePath, "DBContext");
             //  HelperClass.EnsureFolderIsCreated(basePath + "\\ApplicationCQRS", type.Name);
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Commands");
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Handlers");
