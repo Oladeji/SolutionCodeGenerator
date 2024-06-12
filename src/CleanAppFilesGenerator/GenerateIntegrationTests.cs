@@ -8,7 +8,6 @@ namespace CleanAppFilesGenerator
         public static string Generate(Type type, string thenamespace, string apiVersion)
         {
 
-            // var entityName = type.Name;
             var Output = new StringBuilder();
             string controllername = type.Name + "sControllerTest";
             Output.Append(ProduceTestHeader(thenamespace, type, apiVersion, controllername));
@@ -212,5 +211,4 @@ namespace CleanAppFilesGenerator
         }
 
     }
-
 }

@@ -187,6 +187,13 @@ namespace CleanAppFilesGenerator
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
 
+                richTextBox14.Text = GenerateApplicationTests.GenerateCreateHandlerTest(type, thenamespace, apiVersion);
+                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + "Create" + type.Name + "CommandHandlerTest.cs", RichTextBoxStreamType.PlainText);
+                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + "Create" + type.Name + "CommandHandlerTest.cs", RichTextBoxStreamType.PlainText);
+
+
+
+
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceDeleteCommandHandlerHeader);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Delete" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Delete" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
@@ -207,6 +214,10 @@ namespace CleanAppFilesGenerator
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetByIdQueryHandlerHeader);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
+
+                richTextBox15.Text = GenerateApplicationTests.GenerateGetByIdHandlerTest(type, thenamespace, apiVersion);
+                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
 
 
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetByGuidQueryHandlerHeader);
@@ -249,9 +260,9 @@ namespace CleanAppFilesGenerator
                 richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
 
-                richTextBox14.Text = GenerateIntegrationTests.Generate(type, thenamespace, apiVersion);
-                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
-                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
+                //richTextBox14.Text = GenerateIntegrationTests.Generate(type, thenamespace, apiVersion);
+                //richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
+                //richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
 
 
                 //Use this login to generate a file that runs acros all the types in the dll
@@ -354,6 +365,8 @@ namespace CleanAppFilesGenerator
             HelperClass.EnsureFolderIsCreated(basePath, "Mapping");
             HelperClass.EnsureFolderIsCreated(basePath, "Controllers");
             HelperClass.EnsureFolderIsCreated(basePath, "IntegrationTests");
+            HelperClass.EnsureFolderIsCreated(basePath, "ApplicationTests");
+
             HelperClass.EnsureFolderIsCreated(basePath, "ContractRequestDTO");
             HelperClass.EnsureFolderIsCreated(basePath, "ContractResponseDTO");
             HelperClass.EnsureFolderIsCreated(basePath, "APIEndPoints");
