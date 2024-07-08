@@ -73,10 +73,10 @@ namespace CleanAppFilesGenerator
             return ($"using Microsoft.Extensions.Logging;\n" +
             $"using FluentAssertions;\n" +
             $"using NSubstitute;\n" +
-            $"using RegistrationManager.Application.CQRS;\n" +
-            $"using RegistrationManager.Contracts.RequestDTO.V1;\n" +
-            $"using RegistrationManager.Domain.Errors;\n" +
-            $"using RegistrationManager.Domain.Interfaces;\n" +
+            $"using {name_space}.Application.CQRS;\n" +
+            $"using {name_space}.Contracts.RequestDTO.V1;\n" +
+            $"using {name_space}.Domain.Errors;\n" +
+            $"using {name_space}.Domain.Interfaces;\n" +
 
             $"namespace {name_space}.Application.Tests.CQRS.{type.Name}\n{{" +
             $"{GeneralClass.newlinepad(4)}public  class {className}" +

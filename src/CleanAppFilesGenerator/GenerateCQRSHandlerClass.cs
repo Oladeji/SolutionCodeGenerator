@@ -162,6 +162,11 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, IEnumerable<{entityName}ResponseDTO>>> Handle(GetAll{entityName}Query request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
+
+               $"{GeneralClass.newlinepad(12)}//List<string> includes = null;// empty list  null;//new List<string>() {"Models"};" +
+               $"{GeneralClass.newlinepad(12)}//return (await _unitOfWork.{entityName}Repository" +
+               $"{GeneralClass.newlinepad(16)}//.GetAllAsync(s => true, null, null, cancellationToken))" +
+               $"{GeneralClass.newlinepad(16)}// .Map(task => task.Select(result => new {entityName}ResponseDTO(result.GuidId, result.ProcessFlowGroupName, result.DefaultTestingMode, result.Description, null)));;" +
                $"{GeneralClass.newlinepad(8)}}}");
         }
 
@@ -196,6 +201,10 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, {entityName}ResponseDTO>> Handle(Get{entityName}Query request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
+               $"{GeneralClass.newlinepad(12)}//List<string> includes = null;// empty list  null;//new List<string>() {"Models"};" +
+               $"{GeneralClass.newlinepad(12)}//return (await _unitOfWork.{entityName}Repository" +
+               $"{GeneralClass.newlinepad(16)}// .GetMatch(s => s.GuidId == request.Request{entityName}DTO.GuidId, null, cancellationToken))" +
+               $"{GeneralClass.newlinepad(16)}//.Map((result => new {entityName}ResponseDTO(result.GuidId, result.ProcessFlowGroupName, result.DefaultTestingMode, result.Description, null)));" +
                $"{GeneralClass.newlinepad(8)}}}");
         }
 
@@ -229,6 +238,11 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, {entityName}ResponseDTO>> Handle(Get{entityName}ByIdQuery request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
+                              $"{GeneralClass.newlinepad(12)}//List<string> includes = null;// empty list  null;//new List<string>() {"Models"};" +
+               $"{GeneralClass.newlinepad(12)}//return (await _unitOfWork.{entityName}Repository" +
+               $"{GeneralClass.newlinepad(16)}//.GetMatch(s => s.entityName == request.Request{entityName}DTO.entityName, null, cancellationToken))" +
+               $"{GeneralClass.newlinepad(16)}//.Map((result => new {entityName}ResponseDTO(result.GuidId, result.ProcessFlowGroupName, result.DefaultTestingMode, result.Description, null)));" +
+
                $"{GeneralClass.newlinepad(8)}}}");
         }
 
@@ -261,6 +275,11 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, {entityName}ResponseDTO>> Handle(Get{entityName}ByGuidQuery request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(8)}{{" +
                $"{GeneralClass.newlinepad(12)}throw new NotImplementedException();" +
+               $"{GeneralClass.newlinepad(12)}//List<string> includes = null;// empty list  null;//new List<string>() {"Models"};" +
+               $"{GeneralClass.newlinepad(12)}//return (await _unitOfWork.{entityName}Repository" +
+               $"{GeneralClass.newlinepad(16)}//.GetMatch(s => s.GuidId == request.Request{entityName}DTO.GuidId, null, cancellationToken))" +
+               $"{GeneralClass.newlinepad(16)}//.Map((result => new {entityName}ResponseDTO(result.GuidId, result.ProcessFlowGroupName, result.DefaultTestingMode, result.Description, null)));" +
+
                $"{GeneralClass.newlinepad(8)}}}");
         }
 

@@ -187,9 +187,9 @@ namespace CleanAppFilesGenerator
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
 
-                richTextBox14.Text = GenerateApplicationTests.GenerateCreateHandlerTest(type, thenamespace, apiVersion);
-                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + "Create" + type.Name + "CommandHandlerTest.cs", RichTextBoxStreamType.PlainText);
-                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + "Create" + type.Name + "CommandHandlerTest.cs", RichTextBoxStreamType.PlainText);
+                richTextBox15.Text = GenerateApplicationTests.GenerateCreateHandlerTest(type, thenamespace, apiVersion);
+                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + type.Name + "\\" + "Create" + type.Name + "CommandHandlerTest.cs", RichTextBoxStreamType.PlainText);
+                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + type.Name + "\\" + "Create" + type.Name + "CommandHandlerTest.cs", RichTextBoxStreamType.PlainText);
 
 
 
@@ -216,8 +216,8 @@ namespace CleanAppFilesGenerator
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
 
                 richTextBox15.Text = GenerateApplicationTests.GenerateGetByIdHandlerTest(type, thenamespace, apiVersion);
-                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
-                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + type.Name + "\\" + "Get" + type.Name + "ByIdQueryHandlerTest.cs", RichTextBoxStreamType.PlainText);
+                richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + type.Name + "\\" + "Get" + type.Name + "ByIdQueryHandlerTest.cs", RichTextBoxStreamType.PlainText);
 
 
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetByGuidQueryHandlerHeader);
@@ -260,9 +260,9 @@ namespace CleanAppFilesGenerator
                 richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
 
-                //richTextBox14.Text = GenerateIntegrationTests.Generate(type, thenamespace, apiVersion);
-                //richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
-                //richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
+                richTextBox14.Text = GenerateIntegrationTests.Generate(type, thenamespace, apiVersion);
+                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
+                richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
 
 
                 //Use this login to generate a file that runs acros all the types in the dll
@@ -375,6 +375,7 @@ namespace CleanAppFilesGenerator
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Commands");
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Handlers");
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Queries");
+            HelperClass.EnsureFolderIsCreated(basePath, "\\ApplicationTests\\" + type.Name);
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)

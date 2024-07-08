@@ -47,6 +47,7 @@ namespace CleanAppFilesGenerator
         private static string ProduceControllerGetById(string thenamespace, Type type)
         {
             return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof({type.Name}ResponseDTO), StatusCodes.Status200OK)]" +
+                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status404NotFound)]" +
             $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.GetById, Name = {thenamespace}APIEndPoints.{type.Name}.GetById)]" +
             $"{GeneralClass.newlinepad(8)}public Task<IActionResult> GetById([FromRoute] string NameOrGuid, CancellationToken cancellationToken)" +
             $"{GeneralClass.newlinepad(8)}{{" +
@@ -66,14 +67,20 @@ namespace CleanAppFilesGenerator
         }
         private static string ProduceControllerUpdate(string thenamespace, Type type)
         {
-            return $"{GeneralClass.newlinepad(8)}[HttpPut(template: {thenamespace}APIEndPoints.{type.Name}.Update, Name = {thenamespace}APIEndPoints.{type.Name}.Update)]" +
+            return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status204NoContent)]" +
+                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status400BadRequest)]" +
+                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status409Conflict)]" +
+                $"{GeneralClass.newlinepad(8)}[HttpPut(template: {thenamespace}APIEndPoints.{type.Name}.Update, Name = {thenamespace}APIEndPoints.{type.Name}.Update)]" +
                $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Update({type.Name}UpdateRequestDTO request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(12)}=> (_sender.Send(new Update{type.Name}Command(request), cancellationToken)) .ToActionResultCreated($\"{{{thenamespace}APIEndPoints.{type.Name}.Create}}\", request);";
         }
 
         private static string ProduceControllerDelete(string thenamespace, Type type)
         {
-            return $"\n{GeneralClass.newlinepad(8)}[HttpDelete(template: {thenamespace}APIEndPoints.{type.Name}.Delete, Name = {thenamespace}APIEndPoints.{type.Name}.Delete)]" +
+            return $"\n{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status200OK)]" +
+                   $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status400BadRequest)]" +
+                   $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status404NotFound)]" +
+                    $"{GeneralClass.newlinepad(8)}[HttpDelete(template: {thenamespace}APIEndPoints.{type.Name}.Delete, Name = {thenamespace}APIEndPoints.{type.Name}.Delete)]" +
                    $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Delete([FromRoute] Guid request, CancellationToken cancellationToken)" +
                    $"{GeneralClass.newlinepad(12)}=>_sender.Send(new Delete{type.Name}Command(new {type.Name}DeleteRequestDTO(request)), cancellationToken).ToActionResult();";
 
@@ -81,7 +88,10 @@ namespace CleanAppFilesGenerator
 
         private static string ProduceControllerCreate(string thenamespace, Type type)
         {
-            return $"{GeneralClass.newlinepad(8)}[HttpPost(template: {thenamespace}APIEndPoints.{type.Name}.Create, Name = {thenamespace}APIEndPoints.{type.Name}.Create)]" +
+            return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status201Created)]" +
+                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status400BadRequest)]" +
+                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status409Conflict)]" +
+                 $"{GeneralClass.newlinepad(8)}[HttpPost(template: {thenamespace}APIEndPoints.{type.Name}.Create, Name = {thenamespace}APIEndPoints.{type.Name}.Create)]" +
                  $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Create({type.Name}CreateRequestDTO request, CancellationToken cancellationToken)" +
                  $"{GeneralClass.newlinepad(12)} => (_sender.Send(new Create{type.Name}Command(request), cancellationToken)).ToActionResultCreated($\"{{{thenamespace}APIEndPoints.{type.Name}.Create}}\", request);";
         }
