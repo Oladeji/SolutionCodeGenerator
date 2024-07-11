@@ -40,8 +40,8 @@ namespace CleanAppFilesGenerator
         {
             return
                $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof({type.Name}ResponseDTO), StatusCodes.Status200OK)]" +
-               $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody, Name = {thenamespace}APIEndPoints.{type.Name}.GetByJSONBody)]" +
-               $"{GeneralClass.newlinepad(8)}public Task<IActionResult> GetByJSONBody([FromBody] {type.Name}GetRequestDTO request, CancellationToken cancellationToken)" +
+               $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.QueryString, Name = {thenamespace}APIEndPoints.{type.Name}.QueryString)]" +
+               $"{GeneralClass.newlinepad(8)}public Task<IActionResult> QueryString([FromBody] {type.Name}GetRequestDTO request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(16)}=> ( _sender.Send(new Get{type.Name}Query(request), cancellationToken)) .ToEitherActionResult();";
         }
         private static string ProduceControllerGetById(string thenamespace, Type type)
