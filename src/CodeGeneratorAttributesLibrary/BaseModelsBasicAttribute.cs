@@ -39,7 +39,9 @@
     public class BaseModelBasicAttribute : System.Attribute
     {
 
-        public BaseModelBasicAttribute(int maxSize, int minSize, bool isKey, bool isForeignKey = false, bool isPrincipalKey = false, bool isRequired = false, bool isUnique = false, bool hasDefaultStringValue = false, string defaultStringValue = "")
+        public BaseModelBasicAttribute(int maxSize, int minSize, bool isKey, bool isForeignKey = false, bool isPrincipalKey = false, bool isRequired = false,
+            bool isAutoIncrement = false,
+            bool isUnique = false, bool hasDefaultStringValue = false, string defaultStringValue = "")
         {
             MaxSize = maxSize;
             MinSize = minSize;
@@ -50,13 +52,15 @@
             IsPrincipalKey = isPrincipalKey;
             DefaultStringValue = defaultStringValue;
             HasDefaultStringValue = hasDefaultStringValue;
+            IsAutoIncrement = isAutoIncrement;
         }
 
-        public BaseModelBasicAttribute(bool isKey, bool isForeignKey = false, bool isPrincipalKey = false)
+        public BaseModelBasicAttribute(bool isKey, bool isForeignKey = false, bool isAutoIncrement = false, bool isPrincipalKey = false)
         {
             IsKey = isKey;
             IsForeignKey = isForeignKey;
             IsPrincipalKey = isPrincipalKey;
+            IsAutoIncrement = isAutoIncrement;
         }
 
 
@@ -69,10 +73,10 @@
 
         public bool IsForeignKey { get; set; }
         //private bool IsReadOnly { get; set; }
-        public string DefaultStringValue { get; set; }
+        public string DefaultStringValue { get; set; } = "";
         public bool HasDefaultStringValue { get; set; }
 
-        //private bool IsAutoIncrement { get; set; }
+        public bool IsAutoIncrement { get; set; }
         //private bool IsIndexed { get; set; }
 
         public bool IsRequired { get; set; }

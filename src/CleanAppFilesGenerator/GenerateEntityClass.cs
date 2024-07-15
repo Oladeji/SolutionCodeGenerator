@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeGeneratorAttributesLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -63,12 +64,27 @@ namespace CleanAppFilesGenerator
 
                 if (!prop.PropertyType.BaseType.Name.Contains("BaseEntity"))
                 {
-
+                    //Find out if this property has an attribute of BaseModelAttributes and if the attribure is an auto incremeneted atrribute
+                    //if so the comment it out
+                    string IsAutoIncrement = "";
+                    var attributes = prop.GetCustomAttributes();
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is BaseModelBasicAttribute)
+                        {
+                            var attr = attribute as BaseModelBasicAttribute;
+                            if (attr.IsAutoIncrement)
+                            {
+                                IsAutoIncrement = "//";
+                            }
+                        }
+                    }
 
 
                     sb.Append(GeneralClass.PrepareParameter(prop));
-                    sb2.Append($"{GeneralClass.newlinepad(12)}{GeneralClass.PrepareAssignment(prop.Name)} ,");
+                    sb2.Append($"{GeneralClass.newlinepad(12)} {IsAutoIncrement}{GeneralClass.PrepareAssignment(prop.Name)} ,");
                     sb.Append(", ");
+                    IsAutoIncrement = "";
 
                 }
                 else

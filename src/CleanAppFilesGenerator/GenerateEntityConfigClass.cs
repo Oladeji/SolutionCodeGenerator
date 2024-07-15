@@ -1,10 +1,8 @@
 ﻿
 using CodeGeneratorAttributesLibrary;
-using System;
 using System.Reflection;
 using System.Text;
-using System.Windows.Forms;
-using System.Xml.Linq;
+
 
 namespace CleanAppFilesGenerator
 {
@@ -38,7 +36,12 @@ namespace CleanAppFilesGenerator
             {
                 Output.Append(GeneralClass.newlinepad(12) + haskey);
             }
+            var hasidentity = GenerateEntityConfigurationHasIdentityColumn(type);
 
+            if (hasidentity != "")
+            {
+                Output.Append(GeneralClass.newlinepad(12) + hasidentity);
+            }
 
 
             var maxlenght = GenerateEntityConfigurationMaxAndMinLength(type, defaultStringlength, defaultDecimalMax, defaultDecimalMin, tabspace);
@@ -108,6 +111,39 @@ namespace CleanAppFilesGenerator
                 keys = $"entity.HasKey(e => new {{ {keys.Substring(0, keys.Length - 1)} }});";
             return keys;
         }
+
+        public static string GenerateEntityConfigurationHasIdentityColumn(Type type)
+        {
+            string Autokeys = "";
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                if (property != null)
+                {
+
+                    var attributes = property.GetCustomAttributes();
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is BaseModelBasicAttribute)
+                        {
+                            var attr = attribute as BaseModelBasicAttribute;
+                            if (attr.IsAutoIncrement)
+                            {
+                                Autokeys = Autokeys + $"{property.Name},";
+                            }
+                        }
+                    }
+                }
+            }
+            //  entity.Property(e => e.ModelVersionDocumentId).UseMySqlIdentityColumn().ValueGeneratedOnAdd();
+            if (Autokeys.Length > 0)
+                // Autokeys = $"entity.HasKey(e => new {{ {Autokeys.Substring(0, Autokeys.Length - 1)} }});";
+                Autokeys = $"entity.Property(e => e.{Autokeys.Substring(0, Autokeys.Length - 1)}).UseMySqlIdentityColumn().ValueGeneratedOnAdd(); ";
+            return Autokeys;
+        }
+
+
+
         public static string GenerateEntityConfigurationHardForeignKey(Type type, string tabspace)
         {
             string keys = "";
@@ -277,65 +313,6 @@ namespace CleanAppFilesGenerator
                 keys = $"entity.HasIndex(e => new {{ {keys.Substring(0, keys.Length - 1)} }}).IsUnique();";
             return keys;
         }
-        public static string GenerateEntityConfigurationMaxLenghtForStringToDelete(Type type, int defaultStringlength, int tabspace)
-        {
-            string keys = "";
-            PropertyInfo[] properties = type.GetProperties();
-            foreach (var property in properties)
-            {
-                if (property != null)
-                {
-                    var attributes = property.GetCustomAttributes();
-                    if (attributes != null)
-                    {
-                        if (attributes.ToList().Count() > 0)
-                        {
-                            foreach (var attribute in attributes)
-                            {
-                                if (attribute is BaseModelBasicAttribute)
-                                {
-                                    var attr = attribute as BaseModelBasicAttribute;
-                                    if (attr.MaxSize > 0)
-                                    {
-                                        if (keys.Length > 0)
-
-                                            keys = keys + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({attr.MaxSize}); ";
-                                        else
-                                            keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({attr.MaxSize}); ";
-                                    }
-
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            if (GeneralClass.getProperDefaultDataType(property).Equals("string"))
-                            {
-                                if (keys.Length > 0)
-                                {
-                                    int x = 1;
-                                    if (property.Name.Contains("Description")) x = 5;
-                                    if (property.Name.Contains("VersionDescription"))
-                                    {
-                                        x = 5;
-                                    }
-
-
-                                    keys = keys + GeneralClass.newlinepad(tabspace) + $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength * 5}); ";
-                                }
-                                else
-                                    keys = $"entity.Property(e => e.{property.Name}).HasMaxLength({defaultStringlength}); ";
-                            }
-
-
-                        }
-                    }
-
-                }
-            }
-            return keys;
-        }
         public static string GenerateEntityConfigurationMaxAndMinLength(Type type, int defaultStringlength, int defaultDecimalMax, int defaultDecimalMin, int tabspace)
         {
             string constraints = "";
@@ -355,7 +332,7 @@ namespace CleanAppFilesGenerator
                                 if (attribute is BaseModelBasicAttribute)
                                 {
                                     var attr = attribute as BaseModelBasicAttribute;
-                                   
+
                                     if (attr.MaxSize > 0)
                                     {
 
@@ -367,7 +344,7 @@ namespace CleanAppFilesGenerator
 
                                         else if (
                                              defaultDataType.Equals("decimal") || defaultDataType.Equals("double"))
-                                           
+
                                         {
                                             constraints = GenerateDecimalContraint(tabspace, constraints, property.Name, attr.MaxSize, attr.MinSize);
                                         }
@@ -389,7 +366,7 @@ namespace CleanAppFilesGenerator
 
                             }
 
-                            else if ( defaultDataType.Equals("decimal") || defaultDataType.Equals("double"))
+                            else if (defaultDataType.Equals("decimal") || defaultDataType.Equals("double"))
 
                                 constraints = GenerateDecimalContraint(tabspace, constraints, property.Name, defaultDecimalMax, defaultDecimalMin);
 
