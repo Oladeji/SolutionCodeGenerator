@@ -69,6 +69,7 @@ namespace CleanAppFilesGenerator
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression,List<string> includes= null , CancellationToken cancellationToken= default);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken=default);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> DeleteByGuidAsync(Guid guid, CancellationToken cancellationToken = default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> DeleteByQueryAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);" +
                           $"{GeneralClass.newlinepad(4)}}}" +
                           $"\n}}");
 
