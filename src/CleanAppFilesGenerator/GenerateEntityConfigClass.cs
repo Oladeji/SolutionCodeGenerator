@@ -14,7 +14,7 @@ namespace CleanAppFilesGenerator
             var Output = new StringBuilder();
             Output.Append(GenerateHeader(thenamespace));
             Output.Append('{');
-            Output.Append(GeneralClass.newlinepad(4) + $"public class {type.Name}Config : IEntityTypeConfiguration<{type.Name}>");
+            Output.Append(GeneralClass.newlinepad(4) + $"public sealed class {type.Name}Config : IEntityTypeConfiguration<{type.Name}>");
             Output.Append(GeneralClass.newlinepad(4) + "{");
             Output.Append(GenerateEntityClass(type, tabspace, defaultStringlength));
             Output.Append(GeneralClass.newlinepad(4) + "}");

@@ -32,7 +32,7 @@ namespace CleanAppFilesGenerator
 
         public static string ProduceEntityHeader(string name_space, Type type, string baseEntity = " : BaseEntity")
         {
-            return ($"using {name_space}.DomainBase;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public partial class {type.Name} {baseEntity}");
+            return ($"using {name_space}.DomainBase;\nnamespace {name_space}.Domain.Entities\n{{{GeneralClass.newlinepad(4)}public sealed partial class {type.Name} {baseEntity}");
         }
         public static string ProducePrivateContructor(Type type)
         {

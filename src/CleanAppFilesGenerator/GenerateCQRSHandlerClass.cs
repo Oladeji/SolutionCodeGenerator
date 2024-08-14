@@ -70,7 +70,7 @@ namespace CleanAppFilesGenerator
                           $"using {name_space}.Domain.Errors;\n" +
                           //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                           $"namespace {name_space}.Application.CQRS\n{{" +
-                          $"{GeneralClass.newlinepad(4)}public  class Create{entityName}CommandHandler  :  IRequestHandler<Create{entityName}Command, Either<GeneralFailure, Guid>>" +
+                          $"{GeneralClass.newlinepad(4)}public sealed class Create{entityName}CommandHandler  :  IRequestHandler<Create{entityName}Command, Either<GeneralFailure, Guid>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
 
                           // constructor
@@ -104,7 +104,7 @@ namespace CleanAppFilesGenerator
                           $"using LanguageExt;\nusing MediatR;\n" +
                            // $"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                            $"namespace {name_space}.Application.CQRS\n{{" +
-                          $"{GeneralClass.newlinepad(4)}public  class Delete{entityName}CommandHandler  :  IRequestHandler<Delete{entityName}Command, Either<GeneralFailure, int>>" +
+                          $"{GeneralClass.newlinepad(4)}public sealed class Delete{entityName}CommandHandler  :  IRequestHandler<Delete{entityName}Command, Either<GeneralFailure, int>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
 
                           // constructor
@@ -143,7 +143,7 @@ namespace CleanAppFilesGenerator
                $"using LanguageExt;\nusing MediatR;\n" +
                 //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                 $"namespace {name_space}.Application.CQRS\n{{" +
-               $"{GeneralClass.newlinepad(4)}public  class GetAll{entityName}QueryHandler  :  IRequestHandler<GetAll{entityName}Query, Either<GeneralFailure, IEnumerable<{entityName}ResponseDTO>>>" +
+               $"{GeneralClass.newlinepad(4)}public sealed class GetAll{entityName}QueryHandler  :  IRequestHandler<GetAll{entityName}Query, Either<GeneralFailure, IEnumerable<{entityName}ResponseDTO>>>" +
                $"{GeneralClass.newlinepad(4)}{{" +
 
                // constructor
@@ -182,7 +182,7 @@ namespace CleanAppFilesGenerator
                $"using LanguageExt;\nusing MediatR;\n" +
                //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                $"namespace {name_space}.Application.CQRS\n{{" +
-               $"{GeneralClass.newlinepad(4)}public  class Get{entityName}QueryHandler  :  IRequestHandler<Get{entityName}Query, Either<GeneralFailure, {entityName}ResponseDTO>>" +
+               $"{GeneralClass.newlinepad(4)}public sealed class Get{entityName}QueryHandler  :  IRequestHandler<Get{entityName}Query, Either<GeneralFailure, {entityName}ResponseDTO>>" +
                $"{GeneralClass.newlinepad(4)}{{" +
 
                // constructor
@@ -219,7 +219,7 @@ namespace CleanAppFilesGenerator
                $"using LanguageExt;\nusing MediatR;\n" +
                //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                $"namespace {name_space}.Application.CQRS\n{{" +
-               $"{GeneralClass.newlinepad(4)}public  class Get{entityName}ByIdQueryHandler  :  IRequestHandler<Get{entityName}ByIdQuery, Either<GeneralFailure, {entityName}ResponseDTO>>" +
+               $"{GeneralClass.newlinepad(4)}public sealed class Get{entityName}ByIdQueryHandler  :  IRequestHandler<Get{entityName}ByIdQuery, Either<GeneralFailure, {entityName}ResponseDTO>>" +
                $"{GeneralClass.newlinepad(4)}{{" +
 
                // constructor
@@ -256,7 +256,7 @@ namespace CleanAppFilesGenerator
                $"using LanguageExt;\nusing MediatR;\n" +
                 //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                 $"namespace {name_space}.Application.CQRS\n{{" +
-               $"{GeneralClass.newlinepad(4)}public  class Get{entityName}ByGuidQueryHandler  :  IRequestHandler<Get{entityName}ByGuidQuery, Either<GeneralFailure, {entityName}ResponseDTO>>" +
+               $"{GeneralClass.newlinepad(4)}public sealed class Get{entityName}ByGuidQueryHandler  :  IRequestHandler<Get{entityName}ByGuidQuery, Either<GeneralFailure, {entityName}ResponseDTO>>" +
                $"{GeneralClass.newlinepad(4)}{{" +
 
                // constructor
@@ -295,7 +295,7 @@ namespace CleanAppFilesGenerator
                           $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                           //$"namespace {name_space}.Application.CQRS.{entityName}.Handlers\n{{" +
                           $"namespace {name_space}.Application.CQRS\n{{" +
-                          $"{GeneralClass.newlinepad(4)}public  class Update{entityName}CommandHandler  :  IRequestHandler<Update{entityName}Command, Either<GeneralFailure, int>>" +
+                          $"{GeneralClass.newlinepad(4)}public sealed class Update{entityName}CommandHandler  :  IRequestHandler<Update{entityName}Command, Either<GeneralFailure, int>>" +
                           $"{GeneralClass.newlinepad(4)}{{" +
 
                           // constructor
