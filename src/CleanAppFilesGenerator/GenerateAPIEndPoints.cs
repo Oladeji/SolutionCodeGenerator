@@ -43,7 +43,7 @@ namespace CleanAppFilesGenerator
             $"{GeneralClass.newlinepad(12)}public const string Create = $\"{{APIBase}}/{{Controller}}\";" +
             $"{GeneralClass.newlinepad(12)}public const string Delete = $\"{{APIBase}}/{{Controller}}/{{{{request}}}}\";" +
             $"{GeneralClass.newlinepad(12)}public const string GetById = $\"{{APIBase}}/{{Controller}}/{{{{NameOrGuid}}}}\";" +
-            $"{GeneralClass.newlinepad(12)}public const string QueryString = $\"{{APIBase}}/{{Controller}}/QueryString?\";" +
+            $"{GeneralClass.newlinepad(12)}public const string QueryString = $\"{{APIBase}}/{{Controller}}/QueryString\";" +
             $"{GeneralClass.newlinepad(12)}public const string Get = $\"{{APIBase}}/{{Controller}}\";" +
             $"{GeneralClass.newlinepad(12)}public const string Update = $\"{{APIBase}}/{{Controller}}\";" +
             $"{GeneralClass.newlinepad(8)}}}");
