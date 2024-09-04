@@ -11,12 +11,20 @@ namespace CleanAppFilesGenerator
 
                 $"using {name_space}.Domain.Errors;\n" +
                 $"using Microsoft.EntityFrameworkCore;\n" +
+                $"using System.Data;\n" +
+                $"using Microsoft.EntityFrameworkCore.Storage;\n" +
                 $"using {name_space}.Domain.Interfaces;\n\n" +
+
                 $"namespace {name_space}.Infrastructure.Persistence.Repositories\n{{" +
                 $"{GeneralClass.newlinepad(4)}public class UnitOfWork : IUnitOfWork" +
                 $"{GeneralClass.newlinepad(4)}{{" +
                 $"{GeneralClass.newlinepad(8)}public readonly {name_space}Context _ctx;" +
                 $"{GeneralClass.newlinepad(8)}public UnitOfWork({name_space}Context ctx) {{ _ctx = ctx;  }}\n" +
+                $"{GeneralClass.newlinepad(8)}public IDbTransaction BeginTransaction(IsolationLevel? isolationLevel = IsolationLevel.ReadCommitted)" +
+               $"{GeneralClass.newlinepad(8)}{{" +
+               $"{GeneralClass.newlinepad(12)}var transaction = _ctx.Database.BeginTransaction();" +
+                $"{GeneralClass.newlinepad(12)}return transaction.GetDbTransaction();" +
+                $"{GeneralClass.newlinepad(8)}}}" +
                 $"{GeneralClass.newlinepad(8)}public async Task<Either<GeneralFailure, int>> CommitAllChanges(CancellationToken cancellationToken)" +
                 $"{GeneralClass.newlinepad(8)}{{" +
                 $"{GeneralClass.newlinepad(8)}// I am not even using this for now each repo has savechanges" +
