@@ -1,15 +1,7 @@
 ﻿using CodeGeneratorAttributesLibrary;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.DirectoryServices.ActiveDirectory;
-using System.Linq;
-using System.Numerics;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+
 
 namespace CleanAppFilesGenerator
 {
@@ -18,7 +10,6 @@ namespace CleanAppFilesGenerator
         public static string GenerateEntity(Type type, string name_space)
         {
             string baseEntity = " : BaseEntity";
-            // var entityName = type.Name;
             var Output = new StringBuilder();
             Output.Append(ProduceEntityHeader(name_space, type, baseEntity));
             Output.Append($"{GeneralClass.newlinepad(4)}{{");
@@ -39,9 +30,6 @@ namespace CleanAppFilesGenerator
             return ($"private {type.Name}(){{}}");
 
         }
-
-
-
 
         public static string ProduceEntityCreateFunction(Type type)
         {
@@ -73,6 +61,8 @@ namespace CleanAppFilesGenerator
                         if (attribute is BaseModelBasicAttribute)
                         {
                             var attr = attribute as BaseModelBasicAttribute;
+
+
                             if (attr.IsAutoIncrement)
                             {
                                 IsAutoIncrement = "//";
@@ -95,12 +85,10 @@ namespace CleanAppFilesGenerator
             sb.Remove(sb.Length - 2, 2);
             sb.Append(")");
             sb.Append($"{GeneralClass.newlinepad(4)}{{");
-
             sb.Append($"{GeneralClass.newlinepad(4)}if (guidId == Guid.Empty)");
             sb.Append($"{GeneralClass.newlinepad(4)}{{");
             sb.Append($"{GeneralClass.newlinepad(8)}throw new ArgumentException($\"{type.Name} Guid value cannot be empty {{nameof(guidId)}}\");");
             sb.Append($"{GeneralClass.newlinepad(4)}}}");
-
             sb.Append($"{GeneralClass.newlinepad(8)}return  new(){GeneralClass.newlinepad(8)}{{");
             sb.Append(sb2.ToString());
             sb.Append($"{GeneralClass.newlinepad(8)}}};");
@@ -138,24 +126,35 @@ namespace CleanAppFilesGenerator
                     // var name = prop.GetAttributeFrom<DisplayAttribute>(nameof(prop.PlayerDescription)).Name;
 
 
-                    sb.Append(GeneralClass.PrepareProperty(prop, classInheritsFromBaseEntityClass));
+                    sb.Append(GeneralClass.PrepareProperty(type.Name, prop, classInheritsFromBaseEntityClass));
                 }
             }
 
             return sb.ToString();
         }
 
-        public static string GenerateBaseEntity(Type type, string name_space)
-        {
-            string baseEntity = "";
-            // var entityName = "BaseEntity"; // find the base entity name
-            var Output = new StringBuilder();
-            Output.Append(ProduceEntityHeader(name_space, type, baseEntity));
-            Output.Append(GeneralClass.newlinepad(12) + "public Guid GuidId { get; set; } = default;");
-            Output.Append(GeneralClass.newlinepad(8) + GeneralClass.ProduceClosingBrace());
-            Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
-            return Output.ToString();
-        }
+        //public static string GenerateBaseEntity(Type type, string name_space)
+        //{
+        //    string baseEntity = "";
+
+        //    var Output = new StringBuilder();
+        //    Output.Append(ProduceEntityHeader(name_space, type, baseEntity));
+        //    if (type.Name == "BatchZBackUp")
+        //    {
+        //        var result = ClassPatternsToSkip.Any(pattern => type.Name.Contains(pattern));
+        //        Console.WriteLine(result);
+        //    }
+        //    if (!ClassPatternsToSkip.Any(pattern => type.Name.Contains(pattern)))
+        //    {
+        //        Output.Append(GeneralClass.newlinepad(12) + "public Guid GuidId { get; set; } = default;");
+        //    }
+
+
+
+        //    Output.Append(GeneralClass.newlinepad(8) + GeneralClass.ProduceClosingBrace());
+        //    Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
+        //    return Output.ToString();
+        //}
 
 
     }

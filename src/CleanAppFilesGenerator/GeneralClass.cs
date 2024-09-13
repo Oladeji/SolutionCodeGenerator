@@ -10,7 +10,7 @@ namespace CleanAppFilesGenerator
 {
     public class GeneralClass
     {
-
+        //public static string[] ClassPatternsToSkip = { "ZBackUp" };
         public static string newlinepad(int space)
         {
             return "\n" + "".PadRight(space);
@@ -85,7 +85,7 @@ namespace CleanAppFilesGenerator
 
             return $"{attr}{GeneralClass.newlinepad(8)}public {propTypeName}{isnullAblResultSymbol} {prop.Name}    {getProperDefaultInit(propTypeName)}";
         }
-        public static string PrepareProperty(PropertyInfo prop, bool classInheritsFromBaseEntityClass)
+        public static string PrepareProperty(string typeName, PropertyInfo prop, bool classInheritsFromBaseEntityClass)
         {
 
 
@@ -93,6 +93,8 @@ namespace CleanAppFilesGenerator
 
             var isnullAblResultSymbol = GeneralClass.IsNullable(prop) ? "?" : "";
             string result = $"public {propTypeName}{isnullAblResultSymbol} {prop.Name}    {getProperDefaultInit(propTypeName)}";
+
+
             if (result.Contains("public Guid GuidId    { get; init; }"))
             {
                 // This has been added to the base entity so that it can be used to identify the entity
@@ -132,31 +134,6 @@ namespace CleanAppFilesGenerator
                 "string" => "{ get; init; }  = string.Empty; ",
                 "String" => "{ get; init; }  = string.Empty; ",
 
-
-                //"binary2" => "VarBinary",
-                //"boolean" => "bit",
-                //"byte" => "Byte",
-                //"Datetime" => "Datetime",
-                //"Date" => "Datetime",
-                //"DateTime" => "Datetime",
-                //"DateTime2" => "Datetime",
-                //"DateTimeOffset" => "Datetime",
-
-                //"Decimal" => "decimal",
-                //"Double" => "Double",
-                //"Guid" => "Guid",
-                //"Int" => "int",
-                //"Int16" => "int",
-                //"Int32" => "int",
-                //"Int64" => "int",
-                //"Object" => "Object",
-
-                //"SByte" => "SByte",
-                //"Single" => "Single",
-
-                //"VarNumeric" => "VarNumeric",
-
-                //"Xml" => "Xml",
                 _ => "{ get; init; } ",
             };
             return result;

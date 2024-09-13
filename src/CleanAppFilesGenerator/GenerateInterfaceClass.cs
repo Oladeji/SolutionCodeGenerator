@@ -62,14 +62,20 @@ namespace CleanAppFilesGenerator
                           $"namespace {name_space}.Domain.Interfaces\n{{\n" +
                           $"{GeneralClass.newlinepad(4)}public interface IGenericRepository<T> where T : BaseEntity\n" +
                           $"{GeneralClass.newlinepad(4)}{{" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> AddAsync(T entity, CancellationToken cancellationToken);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> AddRangeAsync(List<T> entity, CancellationToken cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> UpdateAsync(T entity, CancellationToken cancellationToken);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> DeleteAsync(T entity, CancellationToken cancellationToken);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, List<T>>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression= null,List<string> includes = null,Func<IQueryable<T>,IOrderedQueryable<T>> orderBy= null,CancellationToken cancellationToken =default);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression,List<string> includes= null , CancellationToken cancellationToken= default);" +
-                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken=default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, List<T>>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression = null, List<string> includes = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, CancellationToken cancellationToken = default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetMatch(System.Linq.Expressions.Expression<Func<T, bool>> expression, List<string> includes = null, CancellationToken cancellationToken = default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, T>> GetByGuidAsync(Guid guid, CancellationToken cancellationToken = default);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> DeleteByGuidAsync(Guid guid, CancellationToken cancellationToken = default);" +
                           $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> DeleteByQueryAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> ExecuteQueryAsync(string query, Dictionary<string, object>? parameters, CancellationToken cancellationToken);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> GetMaxValueAsync(System.Linq.Expressions.Expression<Func<T, int>> selector, CancellationToken cancellationToken = default);" +
+                          $"{GeneralClass.newlinepad(8)}Task<Either<GeneralFailure, int>> AddAsync(T entity, CancellationToken cancellationToken);" +
+
+
+
                           $"{GeneralClass.newlinepad(4)}}}" +
                           $"\n}}");
 
