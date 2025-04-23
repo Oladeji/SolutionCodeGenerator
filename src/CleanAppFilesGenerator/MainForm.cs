@@ -169,23 +169,52 @@ namespace CleanAppFilesGenerator
                     richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
                     richTextBox3.SaveFile(FolderLocation.Text + "\\InfrastructureAuto\\" + type.Name + "\\" + type.Name + "Config.cs", RichTextBoxStreamType.PlainText);
                 }
-                //Commands folder
+                //Commands folder CQRS
                 richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, apiVersion, GenerateCQRSCommandClass.ProduceCreateCommandHeader);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Commands\\" + "Create" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Commands\\" + "Create" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+
+
+                //Commands folder CQRS_NO_MEDIATR
+                richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, apiVersion, GenerateCQRSCommandClass.ProduceCreateCommandHeader_NoMeadiatr);
+                richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Commands\\" + "Create" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+                richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Commands\\" + "Create" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+
+
+
 
                 richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, apiVersion, GenerateCQRSCommandClass.ProduceDeleteCommandHeader);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Commands\\" + "Delete" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Commands\\" + "Delete" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
 
+                richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, apiVersion, GenerateCQRSCommandClass.ProduceDeleteCommandHeader_NoMeadiatr);
+                richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Commands\\" + "Delete" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+                richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Commands\\" + "Delete" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+
+
+
+
                 richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, apiVersion, GenerateCQRSCommandClass.ProduceUpdateCommandHeader);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Commands\\" + "Update" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
                 richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Commands\\" + "Update" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+
+                richTextBox4.Text = GenerateCQRSCommandClass.GenerateCQRSCommand(type, thenamespace, apiVersion, GenerateCQRSCommandClass.ProduceUpdateCommandHeader_NoMeadiatr);
+                richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Commands\\" + "Update" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+                richTextBox4.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Commands\\" + "Update" + type.Name + "Command.cs", RichTextBoxStreamType.PlainText);
+
+
+
 
                 //Handlers folder
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceCreateCommandHandlerHeader);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+
+                richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceCreateCommandHandlerHeader_NoMeadiatr);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Create" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+
+
 
                 richTextBox15.Text = GenerateApplicationTests.GenerateCreateHandlerTest(type, thenamespace, apiVersion);
                 richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + type.Name + "\\" + "Create" + type.Name + "CommandHandlerTest.cs", RichTextBoxStreamType.PlainText);
@@ -199,21 +228,58 @@ namespace CleanAppFilesGenerator
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Delete" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
 
 
+                richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceDeleteCommandHandlerHeader_NoMeadiatr);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Delete" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Delete" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+
+
+
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceUpdateCommandhandler);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Update" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Update" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+
+                richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceUpdateCommandhandler_NoMeadiatr);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Update" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Update" + type.Name + "CommandHandler.cs", RichTextBoxStreamType.PlainText);
+
+
+
 
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetQueryHandlerHeader);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
 
+                richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetQueryHandlerHeader_NoMeadiatr);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
+
+
+
+
+
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetAllQueryHandlerHeader);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "GetAll" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "GetAll" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
 
+
+                richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetAllQueryHandlerHeader_NoMeadiatr);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "GetAll" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "GetAll" + type.Name + "QueryHandler.cs", RichTextBoxStreamType.PlainText);
+
+
+
+
+
                 richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetByIdQueryHandlerHeader);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
+
+                richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetByIdQueryHandlerHeader_NoMeadiatr);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByIdQueryHandler.cs", RichTextBoxStreamType.PlainText);
+
+
+
 
                 richTextBox15.Text = GenerateApplicationTests.GenerateGetByIdHandlerTest(type, thenamespace, apiVersion);
                 richTextBox15.SaveFile(FolderLocation.Text + "\\ApplicationTests\\" + type.Name + "\\" + "Get" + type.Name + "ByIdQueryHandlerTest.cs", RichTextBoxStreamType.PlainText);
@@ -224,12 +290,18 @@ namespace CleanAppFilesGenerator
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByGuidQueryHandler.cs", RichTextBoxStreamType.PlainText);
                 richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByGuidQueryHandler.cs", RichTextBoxStreamType.PlainText);
 
+
+                richTextBox5.Text = GenerateCQRSHandlerClass.GenerateCQRSHandler(type, thenamespace, apiVersion, GenerateCQRSHandlerClass.ProduceGetByGuidQueryHandlerHeader_NoMeadiatr);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByGuidQueryHandler.cs", RichTextBoxStreamType.PlainText);
+                richTextBox5.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Handlers\\" + "Get" + type.Name + "ByGuidQueryHandler.cs", RichTextBoxStreamType.PlainText);
                 //Queries
                 richTextBox6.Text = GenerateCQRSQueryClass.GenerateCQRSQuery(type, thenamespace, apiVersion);
                 richTextBox6.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Queries\\" + "Get" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
                 richTextBox6.SaveFile(FolderLocation.Text + "\\CQRS\\" + type.Name + "\\Queries\\" + "Get" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
-
-
+              
+                richTextBox6.Text = GenerateCQRSQueryClass.GenerateCQRSQuery_NoMeadiatr(type, thenamespace, apiVersion);
+                richTextBox6.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Queries\\" + "Get" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
+                richTextBox6.SaveFile(FolderLocation.Text + "\\CQRS_NO_MEDIATR\\" + type.Name + "\\Queries\\" + "Get" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
                 //richTextBox6.Text = GenerateCQRSQueryClass.GenerateCQRSQuey(type, thenamespace, GenerateCQRSQueryClass.ProduceGetAllQueryHeader);
                 //richTextBox6.SaveFile(FolderLocation.Text + "\\ApplicationCQRS\\" + type.Name + "\\Queries\\" + "GetAll" + type.Name + "Query.cs", RichTextBoxStreamType.PlainText);
 
@@ -256,9 +328,13 @@ namespace CleanAppFilesGenerator
 
 
                 richTextBox9.Text = GenerateControllers.Generate(type, thenamespace, apiVersion);
-                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
-                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs.withMeadiatr", RichTextBoxStreamType.PlainText);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs.withMeadiatr", RichTextBoxStreamType.PlainText);
 
+
+                richTextBox9.Text = GenerateControllers.Generate_NoMeadiatr(type, thenamespace, apiVersion);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
                 richTextBox14.Text = GenerateIntegrationTests.Generate(type, thenamespace, apiVersion);
                 richTextBox14.SaveFile(FolderLocation.Text + "\\IntegrationTests\\" + type.Name + "sControllerTest.cs", RichTextBoxStreamType.PlainText);
@@ -361,7 +437,7 @@ namespace CleanAppFilesGenerator
             HelperClass.EnsureFolderIsCreated(basePath, "CQRS");
             //HelperClass.EnsureFolderIsCreated(basePath, "ApplicationRequestDTO");
             //HelperClass.EnsureFolderIsCreated(basePath, "ApplicationResponseDTO");
-            HelperClass.EnsureFolderIsCreated(basePath, "CQRS");
+            HelperClass.EnsureFolderIsCreated(basePath, "CQRS_NO_MEDIATR");
             HelperClass.EnsureFolderIsCreated(basePath, "Mapping");
             HelperClass.EnsureFolderIsCreated(basePath, "Controllers");
             HelperClass.EnsureFolderIsCreated(basePath, "IntegrationTests");
@@ -375,6 +451,13 @@ namespace CleanAppFilesGenerator
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Commands");
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Handlers");
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Queries");
+
+
+            HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS_NO_MEDIATR\\" + type.Name, "Commands");
+            HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS_NO_MEDIATR\\" + type.Name, "Handlers");
+            HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS_NO_MEDIATR\\" + type.Name, "Queries");
+
+
             HelperClass.EnsureFolderIsCreated(basePath, "\\ApplicationTests\\" + type.Name);
         }
 

@@ -45,8 +45,6 @@ namespace CleanAppFilesGenerator
             $"public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) :  IRequest<Either<GeneralFailure, Guid>>;");
 
         }
-
-
         public static string ProduceDeleteCommandHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
@@ -57,8 +55,6 @@ namespace CleanAppFilesGenerator
 
         }
 
-
-
         public static string ProduceUpdateCommandHeader(string name_space, string entityName, string apiVersion)
         {
             return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
@@ -66,6 +62,37 @@ namespace CleanAppFilesGenerator
              //$"namespace {name_space}.Application.CQRS.{entityName}.Commands\n" +
              $"namespace {name_space}.Application.CQRS\n" +
              $"{{{GeneralClass.newlinepad(4)}public  record Update{entityName}Command({entityName}UpdateRequestDTO  Update{entityName}DTO) :  IRequest<Either<GeneralFailure, int>>;");
+
+        }
+        public static string ProduceCreateCommandHeader_NoMeadiatr(string name_space, string entityName, string apiVersion)
+        {
+            return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
+                   $"using {name_space}.Domain.Errors;\nusing LanguageExt;\n" +
+            // $"namespace {name_space}.Application.CQRS.{entityName}.Commands\n{{{GeneralClass.newlinepad(4)}public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) :  IRequest<Either<GeneralFailure, Guid>>;");
+            $"namespace {name_space}.Application.CQRS\n{{{GeneralClass.newlinepad(4)}" +
+            $"public  record Create{entityName}Command({entityName}CreateRequestDTO  Create{entityName}DTO) ;");
+
+        }
+        public static string ProduceDeleteCommandHeader_NoMeadiatr(string name_space, string entityName, string apiVersion)
+        {
+            return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
+         $"using {name_space}.Domain.Errors;\nusing LanguageExt;\n" +
+         //$"namespace {name_space}.Application.CQRS.{entityName}.Commands\n" +
+         $"namespace {name_space}.Application.CQRS\n" +
+         $"{{{GeneralClass.newlinepad(4)}public  record Delete{entityName}Command({entityName}DeleteRequestDTO  Delete{entityName}DTO) ;");
+
+        }
+
+
+ 
+
+        public static string ProduceUpdateCommandHeader_NoMeadiatr(string name_space, string entityName, string apiVersion)
+        {
+            return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
+             $"using {name_space}.Domain.Errors;\nusing LanguageExt;\n" +
+             //$"namespace {name_space}.Application.CQRS.{entityName}.Commands\n" +
+             $"namespace {name_space}.Application.CQRS\n" +
+             $"{{{GeneralClass.newlinepad(4)}public  record Update{entityName}Command({entityName}UpdateRequestDTO  Update{entityName}DTO) ;");
 
         }
     }
