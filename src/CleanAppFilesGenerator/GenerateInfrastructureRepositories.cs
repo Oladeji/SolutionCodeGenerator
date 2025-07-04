@@ -25,9 +25,9 @@ namespace CleanAppFilesGenerator
         public static string GenerateInfrastructureHeader(string name_space, string entityName)
         {
             return ($"using {name_space}.Domain.Interfaces;\nusing {name_space}.Domain.Entities;\nusing Microsoft.Extensions.Logging;\nnamespace {name_space}.Infrastructure.Persistence.Repositories\n" +
-                $"\n{{{GeneralClass.newlinepad(4)}public sealed class  {entityName}Repository:GenericRepository<{entityName}>, I{entityName}Repository{GeneralClass.newlinepad(4)}{{" +
+                $"\n{{{GeneralClass.newlinepad(4)}public sealed class  {entityName}Repository:GenericRepository<{entityName},{name_space}Context>, I{entityName}Repository{GeneralClass.newlinepad(4)}{{" +
                // $"{GeneralClass.newlinepad(8)}public   {entityName}Repository( {name_space}Context ctx): base(ctx){GeneralClass.newlinepad(8)}{{}}");
-               $"{GeneralClass.newlinepad(8)}public   {entityName}Repository( {name_space}Context ctx, ILogger<GenericRepository<{entityName}>> logger): base(ctx, logger){GeneralClass.newlinepad(8)}{{}}");
+               $"{GeneralClass.newlinepad(8)}public   {entityName}Repository( {name_space}Context ctx, ILogger<GenericRepository<{entityName},,{name_space}Context>> logger): base(ctx, logger){GeneralClass.newlinepad(8)}{{}}");
 
         }
 
