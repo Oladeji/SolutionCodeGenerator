@@ -46,10 +46,14 @@ namespace CleanAppFilesGenerator
         public static string ProduceHeader(string name_space, string entityName,string apiVersion)
         {
             return ($"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
-                $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
-               $"using {name_space}.Domain.Errors;\nusing LanguageExt;\nusing MediatR;\n" +
-               //$"namespace {name_space}.Application.CQRS.{entityName}.Queries" +
-               $"namespace {name_space}.Application.CQRS" +
+                    $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
+                    $"using {name_space}.Domain.Interfaces;\n" +
+                    $"using DomainErrors;\n" +
+                    $"using Domain.Interfaces;\n" +
+                    $"using LanguageExt;\n" +
+                    $"using Microsoft.Extensions.Logging;\n" +
+                    $"using CQRSHelper;\n" +
+                    $"namespace {name_space}.Application.CQRS" +
                $"{{");
 
         }

@@ -13,7 +13,7 @@ namespace CleanAppFilesGenerator
                 $"using Microsoft.EntityFrameworkCore;\n" +
                 $"using System.Data;\n" +
                 $"using Microsoft.EntityFrameworkCore.Storage;\n" +
-                $"using {name_space}.Domain.Interfaces;\n\n" +
+                $"using Domain.Interfaces;\n\n" +
 
                 $"namespace {name_space}.Infrastructure.Persistence.Repositories\n{{" +
                 $"{GeneralClass.newlinepad(4)}public class UnitOfWork : IUnitOfWork" +

@@ -210,16 +210,16 @@ namespace CleanAppFilesGenerator
         
         private static string ProduceControllerHeader(string name_space, Type type, string apiVersion, string controllername)
         {
-            return ($"using {name_space}.Api.Extensions;\n" +
+            return ($"using {name_space}.Application.CQRS;\n" +
 
-                $"using {name_space}.Application.CQRS;\n" +
-                $"using Asp.Versioning;\n" +
-                //$"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
+                
                 $"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
                 $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
-                $"using MediatR;\n" +
-                $"using {name_space}.Api.Controllers;\n" +
+           
+                $"using Asp.Versioning;\n" +
                 $"using Microsoft.AspNetCore.Mvc;\n" +
+                $"using CQRSHelper;\n" +
+                $"using GlobalConstants;\n" +
                 $"namespace {name_space}.Api.Controllers.V{apiVersion}\n" +
                 $"{{{GeneralClass.newlinepad(4)} [ApiVersion({apiVersion})]" +
                 $"{GeneralClass.newlinepad(4)}public  class {controllername}  : TheBaseController<{controllername}>" +
@@ -239,11 +239,9 @@ namespace CleanAppFilesGenerator
 
                 $"using {name_space}.Application.CQRS;\n" +
                 $"using Asp.Versioning;\n" +
-                //$"using {name_space}.Application.CQRS.{type.Name}.Commands;\n" +
                 $"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
                 $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
                 $"using GlobalConstants;\n" +
-               
                 $"using Microsoft.AspNetCore.Mvc;\n" +
                 $"namespace {name_space}.Api.Controllers.V{apiVersion}\n" +
                 $"{{{GeneralClass.newlinepad(4)} [ApiVersion({apiVersion})]" +

@@ -26,7 +26,7 @@ namespace CleanAppFilesGenerator
 
         public static string ProduceInterfaceHeader(string name_space, string entityName)
         {
-            return ($"using {name_space}.Domain.Entities;\nnamespace {name_space}.Domain.Interfaces\n{{{GeneralClass.newlinepad(4)}public  interface I{entityName}Repository:IGenericRepository< {entityName}>{GeneralClass.newlinepad(4)}{{");
+            return ($"using {name_space}.Domain.Entities;\nusing Domain.Interfaces;\nnamespace {name_space}.Domain.Interfaces\n{{{GeneralClass.newlinepad(4)}public  interface I{entityName}Repository:IGenericRepository< {entityName}>{GeneralClass.newlinepad(4)}{{");
         }
 
 
@@ -57,7 +57,7 @@ namespace CleanAppFilesGenerator
         public static string GenerateIGenericRepository(string name_space)
         {
             return ($"using LanguageExt;\n" +
-                    $"using {name_space}.DomainBase;\n" +
+                    $"using DomainBase;\n" +
                           $"using {name_space}.Domain.Errors;\n" +
                           $"namespace {name_space}.Domain.Interfaces\n{{\n" +
                           $"{GeneralClass.newlinepad(4)}public interface IGenericRepository<T> where T : BaseEntity\n" +

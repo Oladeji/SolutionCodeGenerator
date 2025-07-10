@@ -328,8 +328,8 @@ namespace CleanAppFilesGenerator
 
 
                 richTextBox9.Text = GenerateControllers.Generate(type, thenamespace, apiVersion);
-                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs.withMeadiatr", RichTextBoxStreamType.PlainText);
-                richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs.withMeadiatr", RichTextBoxStreamType.PlainText);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\ControllersWithMediatr\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\ControllersWithMediatr\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
 
                 richTextBox9.Text = GenerateControllers.Generate_NoMeadiatr(type, thenamespace, apiVersion);
@@ -440,6 +440,7 @@ namespace CleanAppFilesGenerator
             HelperClass.EnsureFolderIsCreated(basePath, "CQRS_NO_MEDIATR");
             HelperClass.EnsureFolderIsCreated(basePath, "Mapping");
             HelperClass.EnsureFolderIsCreated(basePath, "Controllers");
+            HelperClass.EnsureFolderIsCreated(basePath, "ControllersWithMediatr");
             HelperClass.EnsureFolderIsCreated(basePath, "IntegrationTests");
             HelperClass.EnsureFolderIsCreated(basePath, "ApplicationTests");
 
