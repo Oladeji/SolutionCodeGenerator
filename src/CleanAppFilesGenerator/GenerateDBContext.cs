@@ -21,8 +21,8 @@ namespace CleanAppFilesGenerator
             {
                 return (
                 $"using {name_space}.Domain.Entities;\n" +
-                $"using {name_space}.Domain.Utils;\n" +
-                $"using {name_space}.Infrastructure.Utils;\n" +
+                //  $"using {name_space}.Domain.Utils;\n" +
+                $"using GlobalConstants;\n" +
                 $"using Microsoft.EntityFrameworkCore;\n" +
                 $"using Microsoft.Extensions.Configuration;\n" +
 
@@ -31,6 +31,7 @@ namespace CleanAppFilesGenerator
                 $"{GeneralClass.newlinepad(4)}public class {name_space}Context : {dbContext}" +
                 $"{GeneralClass.newlinepad(4)}{{" +
                 $"{GeneralClass.newlinepad(8)}private readonly IConfiguration _configuration;" +
+                $"{GeneralClass.newlinepad(8)}private readonly ConnectionStringProvider _connectionStringProvider;" +
                 $"{GenerateOnConfiguring()}" +
                 $"{GenerateOnConstructor(name_space)}" +
                 $"{GenerateOnModelCreating(name_space)}" +
@@ -52,6 +53,7 @@ namespace CleanAppFilesGenerator
             $"{GeneralClass.newlinepad(8)}public {name_space}Context(DbContextOptions<{name_space}Context> options, IConfiguration configuration) : base(options)" +
             $"{GeneralClass.newlinepad(8)}{{" +
             $"{GeneralClass.newlinepad(12)}_configuration = configuration;" +
+            $"{GeneralClass.newlinepad(12)} ConnectionStringProvider _connectionStringProvider;" +
             $"{GeneralClass.newlinepad(8)}}}");
         }
 
@@ -61,7 +63,8 @@ namespace CleanAppFilesGenerator
             $"{GeneralClass.newlinepad(8)}protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)" +
             $"{GeneralClass.newlinepad(8)}{{" +
              $"{GeneralClass.newlinepad(8)}if (optionsBuilder.IsConfigured) return;" +
-            $"{GeneralClass.newlinepad(12)}var constr = GetConnectionstringName.GetConnectionStrName(Environment.MachineName);" +
+            $"{GeneralClass.newlinepad(12)} var constr = _connectionStringProvider.ConnectionString;" +
+             $"{GeneralClass.newlinepad(12)}// var constr = GetConnectionstringName.GetConnectionStrName(Environment.MachineName);" +
             $"{GeneralClass.newlinepad(12)}var conn = _configuration.GetConnectionString(constr);" +
             $"{GeneralClass.newlinepad(12)}optionsBuilder.UseMySql(conn!, GeneralUtils.GetMySqlVersion());" +
             $"{GeneralClass.newlinepad(8)}}}");

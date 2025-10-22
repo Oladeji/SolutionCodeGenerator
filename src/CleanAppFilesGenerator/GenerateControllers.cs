@@ -34,10 +34,161 @@ namespace CleanAppFilesGenerator
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
         }
+        public static string GenerateMinimal(Type type, string thenamespace, string apiVersion)
+        {
+            var Output = new StringBuilder();
+            string controllername = type.Name + "sEndPoints";
+            Output.Append(ProduceControllerHeaderMinimal(thenamespace, type, apiVersion, controllername));
+            Output.Append($"\n");
+          //  Output.Append(ProduceControllerConstructor(controllername));
+            Output.Append($"public static void Map{controllername}(this IEndpointRouteBuilder routes)\n");
+            Output.Append($"{{{GeneralClass.newlinepad(8)}");
+            Output.Append($"\n");
+            Output.Append(ProduceControllerGetMinimal(thenamespace, type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerGetByIdMinimal(thenamespace, type));
+            Output.Append($"\n");
+           // Output.Append(ProduceControllerGetByQueryStringMinimal(thenamespace, type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerCreateMinimal(thenamespace, type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerUpdateMinimal(thenamespace, type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerDeleteMinimal(thenamespace, type));
+            Output.Append($"\n");
+            Output.Append(GeneralClass.newlinepad(8) + GeneralClass.ProduceClosingBrace());
+
+
+            Output.Append(ProduceControllerGetMinimalImplementation( type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerGetByIdMinimalImplementation( type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerGetByQueryStringMinimalImplementation(thenamespace, type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerCreateMinimalImplementation(thenamespace, type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerUpdateMinimalImplementation( type));
+            Output.Append($"\n");
+            Output.Append(ProduceControllerDeleteMinimalImplementation(type));
+            Output.Append($"\n");
+
+
+            Output.Append(GeneralClass.newlinepad(4) + GeneralClass.ProduceClosingBrace());
+            Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
+            return Output.ToString();
+        }
+
+        private static string ProduceControllerGetMinimalImplementation(Type type)
+        {
+            return
+             $"{GeneralClass.newlinepad(12)}private static async Task<IResult> GetAll{type.Name}s([FromServices] ISender sender," +
+             $"{GeneralClass.newlinepad(18)}CancellationToken cancellationToken) " +
+             $"{GeneralClass.newlinepad(18)}=> await sender.Send(new GetAll{type.Name}Query(), cancellationToken).ToIResult(); ";
+
+        }
+        
+
+        private static string ProduceControllerGetByIdMinimalImplementation(Type type)
+        {
+
+            return
+                 $"{GeneralClass.newlinepad(12)}private static async Task<IResult> GetById([FromServices] ISender sender," +
+                 $" {GeneralClass.newlinepad(18)}string NameOrGuid," +
+                 $"{GeneralClass.newlinepad(18)}CancellationToken cancellationToken) " +
+                 $"{GeneralClass.newlinepad(12)}{{ " +
+
+
+                  $"{GeneralClass.newlinepad(16)}if (Guid.TryParse(NameOrGuid, out Guid guid))" +
+                  $"{GeneralClass.newlinepad(18)}return await sender.Send(new Get{type.Name}ByGuidQuery(new {type.Name}GetRequestByGuidDTO(guid)), cancellationToken).ToIResult();" +
+             
+                  $"{GeneralClass.newlinepad(18)}return await sender.Send(new Get{type.Name}ByIdQuery(new {type.Name}GetRequestByIdDTO(NameOrGuid)), cancellationToken).ToIResult();" +
+
+
+
+                 $"{GeneralClass.newlinepad(12)}}}";
+
+
+
+
+            //return
+            // $"{GeneralClass.newlinepad(12)}private static async Task<IResult> Get{type.Name}ByGuidQuery([FromServices] ISender sender," +
+            // $" {GeneralClass.newlinepad(18)} Guid NameOrGuid," +
+            // $"{GeneralClass.newlinepad(18)}CancellationToken cancellationToken) " +
+            // $"{GeneralClass.newlinepad(16)}{{ " +
+            // $"{GeneralClass.newlinepad(16)}var result = await sender.Send(new Get{type.Name}ByGuidQuery(new {type.Name}GetRequestByGuidDTO(NameOrGuid)),), cancellationToken);" +
+            // $"{GeneralClass.newlinepad(16)}return result.Match(" +
+            // $"{GeneralClass.newlinepad(20)}Left: failure => Results.NotFound(failure.ErrorDescription)," +
+            // $"{GeneralClass.newlinepad(20)}Right: data => Results.Ok(data));" +
+            // $"{GeneralClass.newlinepad(16)}}}";
+        }
+
+        private static string ProduceControllerGetByQueryStringMinimalImplementation(string thenamespace, Type type)
+        {
+            return "";
+        }
+
+        private static string ProduceControllerDeleteMinimalImplementation( Type type)
+        {
+           return
+             $"{GeneralClass.newlinepad(12)}private static async Task<IResult> Delete{type.Name}([FromServices] ISender sender," +
+             $"{GeneralClass.newlinepad(18)}[FromRoute] Guid request," +
+             $"{GeneralClass.newlinepad(18)}// HttpContext httpContext," +
+             $"{GeneralClass.newlinepad(18)}// IHttpClientFactory httpClientFactory," +
+             $"{GeneralClass.newlinepad(18)}// [FromServices] IAuthUserInfoProvider userInfoProvider," +
+             $"{GeneralClass.newlinepad(18)}// [FromServices] ILoggerFactory loggerFactory," +
+             $"{GeneralClass.newlinepad(18)}// IConfiguration configuration," +
+             $"{GeneralClass.newlinepad(18)}CancellationToken cancellationToken) " +
+             $"{GeneralClass.newlinepad(16)}{{ " +
+             $"{GeneralClass.newlinepad(16)}var deleteResult = await sender.Send(new Delete{type.Name}Command(new {type.Name}DeleteRequestDTO(request)), cancellationToken);" +
+
+             $"{GeneralClass.newlinepad(20)}return deleteResult.Match(" +
+             $"{GeneralClass.newlinepad(22)}Left: failure => Results.Problem(failure.ErrorDescription, statusCode: 400)," +
+             $"{GeneralClass.newlinepad(22)}Right: _ => Results.Ok());" +
+
+             $"{GeneralClass.newlinepad(16)}}}";
+        }
+
+        private static string ProduceControllerUpdateMinimalImplementation( Type type)
+        {
+            return
+             $"{GeneralClass.newlinepad(12)}private static async Task<IResult> Update{type.Name}([FromServices] ISender sender," +
+             $"{GeneralClass.newlinepad(18)}[FromBody] {type.Name}UpdateRequestDTO request," +
+             $"{GeneralClass.newlinepad(18)}CancellationToken cancellationToken) " +
+             $"{GeneralClass.newlinepad(16)}{{ " +
+             $"{GeneralClass.newlinepad(16)}var versionResult = await sender.Send(new Update{type.Name}Command(request), cancellationToken); " +
+
+
+             $"{GeneralClass.newlinepad(20)}return versionResult.Match(" +
+             $"{GeneralClass.newlinepad(22)}Left: failure => Results.Problem(failure.ErrorDescription, statusCode: 400)," +
+             $"{GeneralClass.newlinepad(22)}Right: _ => Results.Ok());" +
+             $"{GeneralClass.newlinepad(16)}}}";
+        }
+
+        private static string ProduceControllerCreateMinimalImplementation(string thenamespace, Type type)
+        {
+            return
+             $"{GeneralClass.newlinepad(12)}private static async Task<IResult> Create{type.Name}([FromServices] ISender sender," +
+             $"{GeneralClass.newlinepad(18)}[FromBody] {type.Name}CreateRequestDTO request," +
+             $"{GeneralClass.newlinepad(18)}CancellationToken cancellationToken) " +
+             $"{GeneralClass.newlinepad(16)}{{ " +
+             $"{GeneralClass.newlinepad(16)}var result =await  sender.Send(new Create{type.Name}Command(request), cancellationToken); " +
+
+             $"{GeneralClass.newlinepad(20)}return result.Match(" +
+             $"{GeneralClass.newlinepad(22)}success => Results.Created($\"{{{thenamespace}APIEndPoints.{type.Name}.Create}}\", success)," +
+             $"{GeneralClass.newlinepad(22)}failure => Results.Problem(" +
+             $"{GeneralClass.newlinepad(24)}statusCode: StatusCodes.Status400BadRequest," +
+             $"{GeneralClass.newlinepad(24)}title: failure.ToString()," +
+             $"{GeneralClass.newlinepad(24)} detail: failure.ToString()" +
+             $"{GeneralClass.newlinepad(22)} )" +
+             $"{GeneralClass.newlinepad(20)} );" +
+             $"{GeneralClass.newlinepad(16)}}}";
+        }
+
+
         public static string Generate(Type type, string thenamespace, string apiVersion)
         {
 
-            // var entityName = type.Name;
+            
             var Output = new StringBuilder();
             string controllername = type.Name + "sController";
             Output.Append(ProduceControllerHeader(thenamespace, type, apiVersion, controllername));
@@ -60,7 +211,15 @@ namespace CleanAppFilesGenerator
             Output.Append(GeneralClass.newlinepad(0) + GeneralClass.ProduceClosingBrace());
             return Output.ToString();
         }
-        // throw new NotImplementedException();
+  
+        //_NoMeadiatr
+        private static string ProduceControllerGet(string thenamespace, Type type)
+        {
+            return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof(IEnumerable<{type.Name}ResponseDTO>), StatusCodes.Status200OK)]" +
+               $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.Get, Name = {thenamespace}APIEndPoints.{type.Name}.Get)]" +
+               $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Get(CancellationToken cToken) => _sender.Send(new GetAll{type.Name}Query(), cToken).ToActionResult();";
+
+        }
         private static string ProduceControllerGetByJSONUsingBody(string thenamespace, Type type)
         {
             return
@@ -77,7 +236,6 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public Task<IActionResult> QueryString([FromBody] {type.Name}GetRequestDTO request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(16)}=> ( _get{type.Name}QueryHandler.Handle(new Get{type.Name}Query(request), cancellationToken)) .ToEitherActionResult();";
         }
-
         private static string ProduceControllerGetById_NoMeadiatr(string thenamespace, Type type)
         {
             return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof({type.Name}ResponseDTO), StatusCodes.Status200OK)]" +
@@ -104,14 +262,6 @@ namespace CleanAppFilesGenerator
             $"{GeneralClass.newlinepad(16)}(_sender.Send(new Get{type.Name}ByIdQuery(new {type.Name}GetRequestByIdDTO(NameOrGuid)), cancellationToken)).ToEitherActionResult();" +
             $"{GeneralClass.newlinepad(8)}}}";
         }
-        //_NoMeadiatr
-        private static string ProduceControllerGet(string thenamespace, Type type)
-        {
-            return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof(IEnumerable<{type.Name}ResponseDTO>), StatusCodes.Status200OK)]" +
-               $"{GeneralClass.newlinepad(8)}[HttpGet(template: {thenamespace}APIEndPoints.{type.Name}.Get, Name = {thenamespace}APIEndPoints.{type.Name}.Get)]" +
-               $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Get(CancellationToken cToken) => _sender.Send(new GetAll{type.Name}Query(), cToken).ToActionResult();";
-
-        }
         private static string ProduceControllerGet_NoMeadiatr(string thenamespace, Type type)
         {
             return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(typeof(IEnumerable<{type.Name}ResponseDTO>), StatusCodes.Status200OK)]" +
@@ -119,7 +269,6 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Get(CancellationToken cToken) => _getAll{type.Name}QueryHandler.Handle(new GetAll{type.Name}Query(), cToken).ToActionResult();";
 
         }
-
         private static string ProduceControllerUpdate_NoMeadiatr(string thenamespace, Type type)
         {
             return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status204NoContent)]" +
@@ -129,7 +278,6 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Update({type.Name}UpdateRequestDTO request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(12)}=> (_update{type.Name}CommandHandler.Handle(new Update{type.Name}Command(request), cancellationToken)) .ToActionResultCreated($\"{{{thenamespace}APIEndPoints.{type.Name}.Create}}\", request);";
         }
-
         private static string ProduceControllerUpdate(string thenamespace, Type type)
         {
             return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status204NoContent)]" +
@@ -139,8 +287,6 @@ namespace CleanAppFilesGenerator
                $"{GeneralClass.newlinepad(8)}public Task<IActionResult> Update({type.Name}UpdateRequestDTO request, CancellationToken cancellationToken)" +
                $"{GeneralClass.newlinepad(12)}=> (_sender.Send(new Update{type.Name}Command(request), cancellationToken)) .ToActionResultCreated($\"{{{thenamespace}APIEndPoints.{type.Name}.Create}}\", request);";
         }
-
-
         private static string ProduceControllerDelete_NoMeadiatr(string thenamespace, Type type)
         {
             return $"\n{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status200OK)]" +
@@ -151,7 +297,6 @@ namespace CleanAppFilesGenerator
                    $"{GeneralClass.newlinepad(12)}=>_delete{type.Name}CommandHandler.Handle(new Delete{type.Name}Command(new {type.Name}DeleteRequestDTO(request)), cancellationToken).ToActionResult();";
 
         }
-
         private static string ProduceControllerDelete(string thenamespace, Type type)
         {
             return $"\n{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status200OK)]" +
@@ -162,7 +307,65 @@ namespace CleanAppFilesGenerator
                    $"{GeneralClass.newlinepad(12)}=>_sender.Send(new Delete{type.Name}Command(new {type.Name}DeleteRequestDTO(request)), cancellationToken).ToActionResult();";
 
         }
+        private static string ProduceControllerGetByQueryStringMinimal(string thenamespace, Type type)
+        {
 
+            return $"{GeneralClass.newlinepad(12)}routes.MapGet( {thenamespace}APIEndPoints.{type.Name}.QueryString, QueryString{type.Name})" +
+            $"{GeneralClass.newlinepad(16)}.Produces<IEnumerable<{type.Name}ResponseDTO>>(StatusCodes.Status200OK)" +
+            $"{GeneralClass.newlinepad(16)}.RequireAuthorization()" +
+            $"{GeneralClass.newlinepad(16)}.WithName({thenamespace}APIEndPoints.{type.Name}.QueryString + \"QueryString\"{type.Name});";
+        }
+        private static string ProduceControllerGetMinimal(string thenamespace, Type type)
+        {
+            return $"{GeneralClass.newlinepad(12)}routes.MapGet( {thenamespace}APIEndPoints.{type.Name}.Get, GetAll{type.Name}s)" +
+               $"{GeneralClass.newlinepad(16)}.Produces<IEnumerable<{type.Name}ResponseDTO>>(StatusCodes.Status200OK)" +
+               $"{GeneralClass.newlinepad(16)}.RequireAuthorization()" +
+               $"{GeneralClass.newlinepad(16)}.WithName({thenamespace}APIEndPoints.{type.Name}.Get + \"GetAll{type.Name}\");";
+
+        }
+        private static string ProduceControllerGetByIdMinimal(string thenamespace, Type type)
+        {
+
+            return $"{GeneralClass.newlinepad(12)}routes.MapGet( {thenamespace}APIEndPoints.{type.Name}.GetById, GetById)" +
+             $"{GeneralClass.newlinepad(16)}.Produces<{type.Name}ResponseDTO>(StatusCodes.Status200OK)" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status404NotFound)" +
+             $"{GeneralClass.newlinepad(16)}.RequireAuthorization()" +
+             $"{GeneralClass.newlinepad(16)}.WithName({thenamespace}APIEndPoints.{type.Name}.GetById + \"GetById{type.Name}\");";
+
+        }
+
+        private static string ProduceControllerUpdateMinimal(string thenamespace, Type type)
+        {
+
+            return $"{GeneralClass.newlinepad(12)}routes.MapPut( {thenamespace}APIEndPoints.{type.Name}.Update, Update{type.Name})" +
+
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status204NoContent)" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status400BadRequest)" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status409Conflict)" +
+             $"{GeneralClass.newlinepad(16)}.RequireAuthorization()" +
+             $"{GeneralClass.newlinepad(16)}.WithName({thenamespace}APIEndPoints.{type.Name}.Update + \"Update{type.Name}\");";
+
+        }
+        private static string ProduceControllerDeleteMinimal(string thenamespace, Type type)
+        {
+            return $"{GeneralClass.newlinepad(12)}routes.MapDelete( {thenamespace}APIEndPoints.{type.Name}.Delete, Delete{type.Name})" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status200OK)" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status400BadRequest)" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status404NotFound)" +
+             $"{GeneralClass.newlinepad(16)}.RequireAuthorization()" +
+             $"{GeneralClass.newlinepad(16)}.WithName({thenamespace}APIEndPoints.{type.Name}.Delete + \"Delete{type.Name}\");";
+
+        }
+        private static string ProduceControllerCreateMinimal(string thenamespace, Type type)
+        {
+
+            return $"{GeneralClass.newlinepad(12)}routes.MapPost( {thenamespace}APIEndPoints.{type.Name}.Create, Create{type.Name})" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status201Created)" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status400BadRequest)" +
+             $"{GeneralClass.newlinepad(16)}.Produces(StatusCodes.Status409Conflict)" +
+             $"{GeneralClass.newlinepad(16)}.RequireAuthorization()" +
+             $"{GeneralClass.newlinepad(16)}.WithName({thenamespace}APIEndPoints.{type.Name}.Create + \"Create{type.Name}\");";
+        }
         private static string ProduceControllerCreate(string thenamespace, Type type)
         {
             return $"{GeneralClass.newlinepad(8)}[ProducesResponseType(StatusCodes.Status201Created)]" +
@@ -185,9 +388,6 @@ namespace CleanAppFilesGenerator
         {
             return $"{GeneralClass.newlinepad(8)}public {controllername}(ILogger<{controllername}> logger, ISender sender) : base(logger, sender){{}}";
         }
-
-       
-
         private static string ProduceControllerConstructor_NoMeadiatr(string controllername, Type type)
         {
             return $"{GeneralClass.newlinepad(8)}public {controllername}(ILogger<{controllername}> logger ,  IGetAll{type.Name}QueryHandler getAll{type.Name}QueryHandler," +
@@ -206,8 +406,29 @@ namespace CleanAppFilesGenerator
                  $"{GeneralClass.newlinepad(12)}_delete{type.Name}CommandHandler =delete{type.Name}CommandHandler ;\n" +
                 $"}}";
         }
+        private static string ProduceControllerHeaderMinimal(string name_space, Type type, string apiVersion, string controllername)
+        {
+            return (
+                 $"using CQRSHelper;\n" +
+                 $"using GlobalConstants;\n" +
+                 $"using HttpQuery;\n" +
+                 $"using Microsoft.AspNetCore.Http;\n" +
+                 $"using Microsoft.AspNetCore.Mvc;\n" +
+                 $"using {name_space}.Api;\n" +
+                 $"using {name_space}.Application.CQRS;\n" +
+                 $"using {name_space}.Contracts.RequestDTO.V{apiVersion};\n" +
+                 $"using {name_space}.Contracts.ResponseDTO.V{apiVersion};\n" +
+                 $"using System.Net.Http;\n" +
 
-        
+               
+               // $"namespace {name_space}.Api.Controllers.V{apiVersion}\n" +
+                $"namespace {name_space}.Api\n" +
+                $"{{{GeneralClass.newlinepad(4)}" +
+                //$" [ApiVersion({apiVersion})]" +
+                $"{GeneralClass.newlinepad(4)}public static  class {controllername}Endpoints " +
+                $"{GeneralClass.newlinepad(4)}{{");
+
+        }
         private static string ProduceControllerHeader(string name_space, Type type, string apiVersion, string controllername)
         {
             return ($"using {name_space}.Application.CQRS;\n" +
@@ -226,13 +447,6 @@ namespace CleanAppFilesGenerator
                 $"{GeneralClass.newlinepad(4)}{{");
 
         }
-
-       
-       
-        
-       
-       
-       
         private static string ProduceControllerHeader_NoMeadiatr(string name_space, Type type, string apiVersion, string controllername)
         {
             return ($"using {name_space}.Api.Extensions;\n" +

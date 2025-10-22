@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Windows.Forms;
 
 
 namespace CleanAppFilesGenerator
@@ -332,6 +333,12 @@ namespace CleanAppFilesGenerator
                 richTextBox9.SaveFile(FolderLocation.Text + "\\ControllersWithMediatr\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
 
 
+                richTextBox9.Text = GenerateControllers.GenerateMinimal(type, thenamespace, apiVersion);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\ControllersMinimal\\" + type.Name + "sEndPoints.cs", RichTextBoxStreamType.PlainText);
+                richTextBox9.SaveFile(FolderLocation.Text + "\\ControllersMinimal\\" + type.Name + "sEndPoints.cs", RichTextBoxStreamType.PlainText);
+
+
+
                 richTextBox9.Text = GenerateControllers.Generate_NoMeadiatr(type, thenamespace, apiVersion);
                 richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
                 richTextBox9.SaveFile(FolderLocation.Text + "\\Controllers\\" + type.Name + "sController.cs", RichTextBoxStreamType.PlainText);
@@ -363,7 +370,7 @@ namespace CleanAppFilesGenerator
 
                     //Mapping Profile
                     richTextBox13.Text = ApplicationMappingProfile.Generate(type, thenamespace, listBox1.SelectedIndex, apiVersion);
-
+                    richTextBox16.AppendText(RegisterEndpoints.Generate(type, thenamespace, listBox1.SelectedIndex, apiVersion));
 
 
                 }
@@ -375,7 +382,7 @@ namespace CleanAppFilesGenerator
                     richTextBox11.AppendText(GenerateDBContext.Generate(type, thenamespace, listBox1.SelectedIndex, identityDbContextName));
                     //Mapping Profile
                     richTextBox13.AppendText(ApplicationMappingProfile.Generate(type, thenamespace, listBox1.SelectedIndex, apiVersion));
-
+                    richTextBox16.AppendText(RegisterEndpoints.Generate(type, thenamespace, listBox1.SelectedIndex, apiVersion));
 
                 }
                 if (listBox1.SelectedIndex == MaxNoOfItems - 1)
@@ -410,6 +417,12 @@ namespace CleanAppFilesGenerator
                     richTextBox13.AppendText(GeneralClass.newlinepad(8) + "}");
                     richTextBox13.AppendText(GeneralClass.newlinepad(0) + "}");
                     richTextBox13.SaveFile(FolderLocation.Text + "\\Mapping\\MappingProfile.cs", RichTextBoxStreamType.PlainText);
+                    
+                    richTextBox16.AppendText(RegisterEndpoints.Generate(type, thenamespace, listBox1.SelectedIndex, apiVersion));
+                    richTextBox16.AppendText(GeneralClass.newlinepad(8) + "}");
+                    richTextBox16.AppendText(GeneralClass.newlinepad(4) + "}");
+                    richTextBox16.AppendText(GeneralClass.newlinepad(0) + "}");
+                    richTextBox16.SaveFile(FolderLocation.Text + "\\MinimalApiRegisteredEndPoints\\" + type.Name + "EndpointRegistration.cs", RichTextBoxStreamType.PlainText);
 
                 }
             }
@@ -441,12 +454,17 @@ namespace CleanAppFilesGenerator
             HelperClass.EnsureFolderIsCreated(basePath, "Mapping");
             HelperClass.EnsureFolderIsCreated(basePath, "Controllers");
             HelperClass.EnsureFolderIsCreated(basePath, "ControllersWithMediatr");
+            HelperClass.EnsureFolderIsCreated(basePath, "ControllersMinimal");
+            
             HelperClass.EnsureFolderIsCreated(basePath, "IntegrationTests");
             HelperClass.EnsureFolderIsCreated(basePath, "ApplicationTests");
 
             HelperClass.EnsureFolderIsCreated(basePath, "ContractRequestDTO");
             HelperClass.EnsureFolderIsCreated(basePath, "ContractResponseDTO");
             HelperClass.EnsureFolderIsCreated(basePath, "APIEndPoints");
+            HelperClass.EnsureFolderIsCreated(basePath, "MinimalApiRegisteredEndPoints");
+            
+
             //HelperClass.EnsureFolderIsCreated(basePath, "DBContext");
             //  HelperClass.EnsureFolderIsCreated(basePath + "\\ApplicationCQRS", type.Name);
             HelperClass.EnsureFolderIsCreated(basePath + "\\CQRS\\" + type.Name, "Commands");

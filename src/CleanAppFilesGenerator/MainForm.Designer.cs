@@ -63,6 +63,8 @@
             richTextBox12 = new RichTextBox();
             tabPage13 = new TabPage();
             richTextBox14 = new RichTextBox();
+            tabPage14 = new TabPage();
+            richTextBox15 = new RichTextBox();
             listBox1 = new ListBox();
             openFileDialog1 = new OpenFileDialog();
             Library_Name_Space = new TextBox();
@@ -71,8 +73,8 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            tabPage14 = new TabPage();
-            richTextBox15 = new RichTextBox();
+            tabPage15 = new TabPage();
+            richTextBox16 = new RichTextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -88,6 +90,7 @@
             tabPage12.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage14.SuspendLayout();
+            tabPage15.SuspendLayout();
             SuspendLayout();
             // 
             // splitter1
@@ -171,6 +174,7 @@
             tabControl1.Controls.Add(tabPage12);
             tabControl1.Controls.Add(tabPage13);
             tabControl1.Controls.Add(tabPage14);
+            tabControl1.Controls.Add(tabPage15);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(488, 0);
             tabControl1.Margin = new Padding(3, 2, 3, 2);
@@ -463,10 +467,29 @@
             richTextBox14.TabIndex = 1;
             richTextBox14.Text = "";
             // 
+            // tabPage14
+            // 
+            tabPage14.Controls.Add(richTextBox15);
+            tabPage14.Location = new Point(4, 27);
+            tabPage14.Name = "tabPage14";
+            tabPage14.Padding = new Padding(3);
+            tabPage14.Size = new Size(1410, 567);
+            tabPage14.TabIndex = 13;
+            tabPage14.Text = "Generate Application Tests";
+            tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox15
+            // 
+            richTextBox15.Dock = DockStyle.Fill;
+            richTextBox15.Location = new Point(3, 3);
+            richTextBox15.Name = "richTextBox15";
+            richTextBox15.Size = new Size(1404, 561);
+            richTextBox15.TabIndex = 2;
+            richTextBox15.Text = "";
+            // 
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
             listBox1.Location = new Point(21, 277);
             listBox1.Margin = new Padding(3, 2, 3, 2);
             listBox1.Name = "listBox1";
@@ -537,25 +560,24 @@
             label3.Text = "Controller Version";
             label3.Click += label3_Click;
             // 
-            // tabPage14
+            // tabPage15
             // 
-            tabPage14.Controls.Add(richTextBox15);
-            tabPage14.Location = new Point(4, 27);
-            tabPage14.Name = "tabPage14";
-            tabPage14.Padding = new Padding(3);
-            tabPage14.Size = new Size(1410, 567);
-            tabPage14.TabIndex = 13;
-            tabPage14.Text = "Generate Application Tests";
-            tabPage14.UseVisualStyleBackColor = true;
+            tabPage15.Controls.Add(richTextBox16);
+            tabPage15.Location = new Point(4, 27);
+            tabPage15.Name = "tabPage15";
+            tabPage15.Padding = new Padding(3);
+            tabPage15.Size = new Size(1410, 567);
+            tabPage15.TabIndex = 14;
+            tabPage15.Text = "Drop other Rich text boxes";
+            tabPage15.UseVisualStyleBackColor = true;
             // 
-            // richTextBox15
+            // richTextBox16
             // 
-            richTextBox15.Dock = DockStyle.Fill;
-            richTextBox15.Location = new Point(3, 3);
-            richTextBox15.Name = "richTextBox15";
-            richTextBox15.Size = new Size(1404, 561);
-            richTextBox15.TabIndex = 2;
-            richTextBox15.Text = "";
+            richTextBox16.Location = new Point(56, 19);
+            richTextBox16.Name = "richTextBox16";
+            richTextBox16.Size = new Size(266, 111);
+            richTextBox16.TabIndex = 0;
+            richTextBox16.Text = "";
             // 
             // MainForm
             // 
@@ -596,6 +618,7 @@
             tabPage12.ResumeLayout(false);
             tabPage13.ResumeLayout(false);
             tabPage14.ResumeLayout(false);
+            tabPage15.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -647,5 +670,7 @@
         private RichTextBox richTextBox14;
         private TabPage tabPage14;
         private RichTextBox richTextBox15;
+        private TabPage tabPage15;
+        private RichTextBox richTextBox16;
     }
 }

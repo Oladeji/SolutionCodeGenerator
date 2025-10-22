@@ -51,4 +51,48 @@ namespace CleanAppFilesGenerator
         }
 
     }
+
+
+    internal class RegisterEndpoints
+    {
+        public static string Generate(Type type, string name_space, int selectedIndex, string apiVersion)
+        {
+
+
+            if (selectedIndex == 0)
+            {
+                return (
+            
+                
+                $"namespace {name_space}.Api\n" +
+                $"{{" +
+                $"{GeneralClass.newlinepad(4)}public static class {name_space}EndpointRegistration " +
+                $"{GeneralClass.newlinepad(4)}{{" +
+                $"{GeneralClass.newlinepad(8)}public  static void Register{name_space}Endpoints(this WebApplication app)" +
+                $"{GeneralClass.newlinepad(8)}{{" +
+                $"{GenerateSpecificEndPoint(type.Name)}");
+
+            }
+            else
+            {
+
+                return $"{GenerateSpecificEndPoint(type.Name)}";
+            }
+
+        }
+        public static string GenerateSpecificEndPoint(string typeName)
+        {
+
+            return (
+           
+            $"{GeneralClass.newlinepad(12)} app.Map{typeName}sEndPoints();" +
+         
+            $"{GeneralClass.newlinepad(8)}");
+
+
+
+
+        }
+
+    }
 }
